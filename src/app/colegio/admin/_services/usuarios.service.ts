@@ -26,15 +26,26 @@ console.log(error)
 return Promise.reject(error.message || error)
 }
 
-UsersTable():Promise<any> {
-let url = `${this.basePath}/api/users`
+  UsersTable():Promise<any> {
+  let url = `${this.basePath}/api/users`
 
-  return this.http.get(url)
-                  .toPromise()
-                    .then(response => {
-                      console.log(response.json())
-                      return response.json()
-                    })
-                    .catch(this.handleError)                  
-}
+    return this.http.get(url)
+                    .toPromise()
+                      .then(response => {
+                        //console.log(response.json())
+                        return response.json()
+                      })
+                      .catch(this.handleError)                  
+  }
+  User(id:number):Promise<any> {
+    let url = `${this.basePath}/api/users/${id}`
+  
+      return this.http.get(url)
+                      .toPromise()
+                        .then(response => {
+                          //console.log(response.json())
+                          return response.json()
+                        })
+                        .catch(this.handleError)                  
+    }
 }

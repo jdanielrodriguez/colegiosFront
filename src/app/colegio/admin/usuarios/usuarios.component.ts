@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from "@angular/router";
+
+import { UsuariosService } from "../_services/usuarios.service";
 import { NotificationsService } from 'angular2-notifications';
 
 @Component({
@@ -7,13 +10,33 @@ import { NotificationsService } from 'angular2-notifications';
   styleUrls: ['./usuarios.component.css']
 })
 export class UsuariosComponent implements OnInit {
-
-  constructor(private _service: NotificationsService) { }
+  userTable:any
+  selectedUser:any
+  constructor(
+    private _service: NotificationsService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private userService: UsuariosService
+  ) { }
   
     ngOnInit() {
-      
+      this.userService.UsersTable()
+      .then(response => {
+        this.userTable = response
+      }).catch(error => {
+        console.clear     
+        this.createError(error) 
+      })
     }
-  
+    cargarUser(id:number){
+      this.userService.User(id)
+                        .then(response => {
+                          this.selectedUser = response
+                        }).catch(error => {
+                          console.clear     
+                          this.createError(error) 
+                        })
+    }
   public options = {
                position: ["bottom", "right"],
                timeOut: 4000,
@@ -27,6 +50,10 @@ export class UsuariosComponent implements OnInit {
   
       create() {
                   this._service.success('¡Éxito!','Su solicitud fue completada.')
+  
+      }
+      createError(error) {
+                  this._service.error('¡Error!',error)
   
       }
       arrow = 'fa-chevron-down'
