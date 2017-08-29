@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { EstudianteComponent } from "./estudiante.component";
 
 const routes: Routes = [
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },    
   { path: '', component: EstudianteComponent, children: [
     { path: 'dashboard', component: EstudianteComponent },
     { path: 'charts', component: EstudianteComponent },

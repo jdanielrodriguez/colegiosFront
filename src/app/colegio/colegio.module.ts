@@ -7,6 +7,7 @@ import { NavComponent } from './nav.component';
 import { StudentGuard } from "./../_guards/student.guard";
 import { TutorGuard } from "./../_guards/tutor.guard";
 import { TeacherGuard } from "./../_guards/teacher.guard";
+import { AdminGuard } from "./../_guards/admin.guard";
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { TeacherGuard } from "./../_guards/teacher.guard";
   providers: [
     StudentGuard,
     TutorGuard,
-    TeacherGuard
+    TeacherGuard,
+    AdminGuard
   ]
 })
 export class ColegioModule { }

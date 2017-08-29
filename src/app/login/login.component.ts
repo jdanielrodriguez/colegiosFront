@@ -67,14 +67,16 @@ closeResult: string;
 
         if(response.student){
           type = 'estudiante'
-        }
+        }else
 
         if(response.teacher){
           type = 'maestro'
-        }
+        }else
 
         if(response.tutor){
           type = 'tutor'
+        }else{
+          type = 'admin'
         }
 
         localStorage.setItem('currentType', type);

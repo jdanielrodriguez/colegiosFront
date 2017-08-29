@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
 @Injectable()
-export class TeacherGuard implements CanActivate {
+export class AdminGuard implements CanActivate {
+ 
   constructor(private router: Router) { }
   
       canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
@@ -15,12 +16,14 @@ export class TeacherGuard implements CanActivate {
         }
         
         if (localStorage.getItem('currentType')=='maestro') {
+          this.router.navigate(['colegio/maestro']);
+        }
+
+        if (localStorage.getItem('currentType')=='admin') {
           return true;
         }
         
-        if (localStorage.getItem('currentType')=='admin') {
-          this.router.navigate(['colegio/admin']);
-        }  
+          
             // not logged in so redirect to login page with the return url
             
          
