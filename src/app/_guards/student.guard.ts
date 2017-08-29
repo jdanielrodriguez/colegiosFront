@@ -18,6 +18,10 @@ export class StudentGuard implements CanActivate {
         if (localStorage.getItem('currentType')=='maestro') {
           this.router.navigate(['colegio/maestro']);
         }
+
+        if (localStorage.getItem('currentType')=='admin') {
+          this.router.navigate(['colegio/admin']);
+        }
         
           
             // not logged in so redirect to login page with the return url
