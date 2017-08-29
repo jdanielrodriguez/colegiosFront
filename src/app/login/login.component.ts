@@ -57,29 +57,30 @@ closeResult: string;
       .then(response => {
         this.auth = response
         
-        //console.log(response.username)
-        // let type:string = null;
-        // localStorage.setItem('currentUser', response.username);
-        // localStorage.setItem('currentEmail', response.email);
-        // localStorage.setItem('currentFirstName', response.email);
-        // localStorage.setItem('currentLastName', response.email);
-        // localStorage.setItem('currentId', response.email);
+        console.log(response.username)
+        let type:string = null;
+        localStorage.setItem('currentUser', response.username);
+        localStorage.setItem('currentEmail', response.email);
+        localStorage.setItem('currentFirstName', response.firstname);
+        localStorage.setItem('currentLastName', response.lastname);
+        localStorage.setItem('currentId', response.id);
 
-        // if(response.student){
-        //   type = 'student'
-        // }
+        if(response.student){
+          type = 'estudiante'
+        }
 
-        // if(response.teacher){
-        //   type = 'teacher'
-        // }
+        if(response.teacher){
+          type = 'maestro'
+        }
 
-        // if(response.tutor){
-        //   type = 'tutor'
-        // }
+        if(response.tutor){
+          type = 'tutor'
+        }
 
-        // localStorage.setItem('currentType', type);
-        // console.log(type)
-        // this.router.navigate([''])
+        localStorage.setItem('currentType', type);
+        console.log(type)
+        console.clear
+        this.router.navigate([`colegio/${type}`])
       }).catch(error => {
         console.clear
         this.create(error)
