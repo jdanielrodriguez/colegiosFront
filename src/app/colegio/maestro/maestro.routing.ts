@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { MaestroComponent } from "./maestro.component";
 
 const routes: Routes = [
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },    
   { path: '', component: MaestroComponent, children: [
     { path: 'dashboard', component: MaestroComponent },
     { path: 'charts', component: MaestroComponent },
