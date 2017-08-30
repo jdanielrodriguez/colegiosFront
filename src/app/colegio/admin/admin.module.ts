@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from "@angular/forms";
 import { DataTablesModule } from 'angular-datatables';
 
 import { AdminRoutingModule } from './admin.routing';
@@ -21,6 +22,7 @@ import { UsuariosService } from "./_services/usuarios.service";
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     DataTablesModule, 
     ChartsModule,
     SimpleNotificationsModule.forRoot(),     

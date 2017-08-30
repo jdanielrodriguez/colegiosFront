@@ -26,7 +26,7 @@ console.log(error)
 return Promise.reject(error.message || error)
 }
 
-  UsersTable():Promise<any> {
+  getUsers():Promise<any> {
   let url = `${this.basePath}/api/users`
 
     return this.http.get(url)
@@ -37,7 +37,95 @@ return Promise.reject(error.message || error)
                       })
                       .catch(this.handleError)                  
   }
-  User(id:number):Promise<any> {
+  createUser(form):Promise<any> {
+    let url = `${this.basePath}/api/users`
+  
+      return this.http.post(url,form)
+                      .toPromise()
+                        .then(response => {
+                          //console.log(response.json())
+                          return response.json()
+                        })
+                        .catch(this.handleError)                  
+    }
+  getUsersTypes():Promise<any> {
+    let url = `${this.basePath}/api/userstypes`
+  
+      return this.http.get(url)
+                      .toPromise()
+                        .then(response => {
+                          //console.log(response.json())
+                          return response.json()
+                        })
+                        .catch(this.handleError)                  
+    }
+  getTutors():Promise<any> {
+    let url = `${this.basePath}/api/tutors`
+  
+      return this.http.get(url)
+                      .toPromise()
+                        .then(response => {
+                          //console.log(response.json())
+                          return response.json()
+                        })
+                        .catch(this.handleError)                  
+    }
+  getTeachers():Promise<any> {
+    let url = `${this.basePath}/api/teachers`
+  
+      return this.http.get(url)
+                      .toPromise()
+                        .then(response => {
+                          //console.log(response.json())
+                          return response.json()
+                        })
+                        .catch(this.handleError)                  
+    }
+  getStudents():Promise<any> {
+    let url = `${this.basePath}/api/students`
+  
+      return this.http.get(url)
+                      .toPromise()
+                        .then(response => {
+                          //console.log(response.json())
+                          return response.json()
+                        })
+                        .catch(this.handleError)                  
+    }
+  getTutor(id:string):Promise<any> {
+    let url = `${this.basePath}/api/tutors/${id}`
+  
+      return this.http.get(url)
+                      .toPromise()
+                        .then(response => {
+                          //console.log(response.json())
+                          return response.json()
+                        })
+                        .catch(this.handleError)                  
+    }
+  getTeacher(id:string):Promise<any> {
+    let url = `${this.basePath}/api/teachers/${id}`
+  
+      return this.http.get(url)
+                      .toPromise()
+                        .then(response => {
+                          //console.log(response.json())
+                          return response.json()
+                        })
+                        .catch(this.handleError)                  
+    }
+  getStudent(id:string):Promise<any> {
+    let url = `${this.basePath}/api/students/${id}`
+  
+      return this.http.get(url)
+                      .toPromise()
+                        .then(response => {
+                          //console.log(response.json())
+                          return response.json()
+                        })
+                        .catch(this.handleError)                  
+    }  
+  getUser(id:number):Promise<any> {
     let url = `${this.basePath}/api/users/${id}`
   
       return this.http.get(url)
