@@ -24,14 +24,8 @@ export class UsuariosComponent implements OnInit {
   ) { }
   
     ngOnInit() {
-      this.userService.getUsers()
-                        .then(response => {
-                          this.userTable = response
-                        }).catch(error => {
-                          console.clear     
-                          this.createError(error) 
-                        })
-      this.userService.getUsersTypes()
+      this.cargarUsers()
+      this.userService.getTypes()
                         .then(response => {
                           this.userTypesCombo = response
                         }).catch(error => {
@@ -39,74 +33,170 @@ export class UsuariosComponent implements OnInit {
                           this.createError(error) 
                         })
     }
-    cargarUser(id:number){
-      this.userService.getUser(id)
+    cargarUsers(){
+      this.userService.getAll()
                         .then(response => {
-                          this.selectedUser = response
+                          this.userTable = response
+                          $("#editModal .close").click();
+                          $("#insertModal .close").click();
+                          console.clear 
+                        }).catch(error => {
+                          console.clear     
+                          this.createError(error) 
+                        })
+    }
+    cargarUser(id:number){
+      this.userService.getSingle(id)
+                        .then(response => {
+                          this.selectedUser = response;
+                          this.cargarForanea(response.type+'');
+                          switch (response.type+'') {
+                            case '1':{
+                              this.selectedUser.foreign=response.student
+                              break;
+                          }
+                            case '2':{
+                              this.selectedUser.foreign=response.teacher
+                              break;
+                          }
+                            case '3':{
+                              this.selectedUser.foreign=response.tutor
+                              break;
+                          }
+                            default:{
+                              break;}
+                          }
+                          if(this.selectedUser.foreign){
+                            this.getForeign(this.selectedUser.foreign+'',response.type+'')
+                          }
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 
                         })
     }
     updateUser(formValue:any){
-      // this.userService.User(formValue)
-      //                   .then(response => {
-      //                     this.selectedUser = response
-      //                   }).catch(error => {
-      //                     console.clear     
-      //                     this.createError(error) 
-      //                   })
+      
       let tutor:any = null
       let teacher:any = null
       let student:any = null
-
       switch (formValue.type) {
         case '1':{
-          student=1
+          student=this.selectedUser.foreign*1
           break;
         }
         case '2':{
-          teacher=1
+          teacher=this.selectedUser.foreign*1
           break;
         }
         case '3':{
-          tutor=1
+          tutor=this.selectedUser.foreign*1
+          break;
+        }
+        case 1:{
+          student=this.selectedUser.foreign*1
+          break;
+        }
+        case 2:{
+          teacher=this.selectedUser.foreign*1
+          break;
+        }
+        case 3:{
+          tutor=this.selectedUser.foreign*1
           break;
         }
         default:{
           break;
         }
       }
-
+      
+      
       let data = {
         id: formValue.id,
         username: formValue.username,
         email: formValue.email,
-        firstname: formValue.firstname,
-        lastname: formValue.lastname,
+        firstname: formValue.firstname?formValue.firstname:'',
+        lastname: formValue.lastname?formValue.lastname:'',
         type: formValue.type,
         student: student,
         teacher: teacher,
         tutor: tutor
       }
-      console.log(data)
+      //console.log(data)
+      this.userService.update(data)
+                        .then(response => {
+                          this.cargarUsers()
+                          console.clear 
+                          this.create('Usuario Actualizado exitosamente')
+                        }).catch(error => {
+                          console.clear     
+                          this.createError(error) 
+                        })
+      
+    }
+    deleteUser(id:string){
+      this.userService.delete(id)
+                        .then(response => {
+                          this.cargarUsers()
+                          console.clear 
+                          this.create('Usuario Eliminado exitosamente')
+                        }).catch(error => {
+                          console.clear     
+                          this.createError(error) 
+                        })
+      
     }
     insertUser(formValue:any){
       let tutor:any = null
       let teacher:any = null
       let student:any = null
-
+      
       switch (formValue.type) {
         case '1':{
-          student=1
+          if(formValue.foreign=='null'){
+            formValue.foreign=null
+          }else{
+            student=formValue.foreign*1
+          }
           break;
         }
         case '2':{
-          teacher=1
+          if(formValue.foreign=='null'){
+            formValue.foreign=null
+          }else{
+            teacher=formValue.foreign*1
+          }
           break;
         }
         case '3':{
-          tutor=1
+          if(formValue.foreign=='null'){
+            formValue.foreign=null
+          }else{
+            tutor=formValue.foreign*1
+          }
+          break;
+        }
+        case 1:{
+          if(formValue.foreign=='null'){
+            formValue.foreign=null
+          }else{
+            student=formValue.foreign*1
+          }
+          break;
+        }
+        case 2:{
+          if(formValue.foreign=='null'){
+            formValue.foreign=null
+          }else{
+            teacher=formValue.foreign*1
+          }
+          break;
+        }
+        case 3:{
+          if(formValue.foreign=='null'){
+            formValue.foreign=null
+          }else{
+            tutor=formValue.foreign*1
+          }
           break;
         }
         default:{
@@ -126,13 +216,18 @@ export class UsuariosComponent implements OnInit {
         tutor: tutor
       }
       console.log(data)
-      this.userService.createUser(formValue)
+      this.userService.create(data)
                         .then(response => {
-                          this.create()
+                          this.cargarUsers()
+                          console.clear 
+                          this.create('Usuario Ingresado')
+                          
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 
                         })
+      
+      
     }
     generar(longitud)
     {
@@ -179,7 +274,7 @@ export class UsuariosComponent implements OnInit {
                         })
     }
     getForeign(id:string,type:string){
-      console.log(`${id} ${type}`)
+      //console.log(`${id} ${type}`)
       switch (type) {
         case '1':{
           this.comboStudent(id)
@@ -194,7 +289,8 @@ export class UsuariosComponent implements OnInit {
           break;
         }
         default:{
-          console.log(`${id} tipo`)
+          console.log(`${id} id
+          ${type} tipo`)
           break;
         }
       }
@@ -253,15 +349,26 @@ export class UsuariosComponent implements OnInit {
           };
           break;
         }
+        case '4':{
+          this.foreignData = {
+            title:'',
+            type: type
+          };
+          break;
+        }
         default:{
-          console.log(`${type} tipo`)
+          this.foreignData = {
+            title:'',
+            type: type
+          };
+          console.log(`combo foraneo no encontrado ${type} tipo`)
           break;
         }
       }
     }
   public options = {
                position: ["bottom", "right"],
-               timeOut: 4000,
+               timeOut: 2000,
                lastOnBottom: false,
                animate: "fromLeft",  
                showProgressBar: false,
@@ -270,8 +377,8 @@ export class UsuariosComponent implements OnInit {
                maxLength: 200
            };
   
-    create() {
-                this._service.success('¡Éxito!','Su solicitud fue completada.')
+    create(success) {
+                this._service.success('¡Éxito!',success)
 
     }
     createError(error) {

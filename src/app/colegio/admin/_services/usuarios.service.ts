@@ -26,7 +26,7 @@ console.log(error)
 return Promise.reject(error.message || error)
 }
 
-  getUsers():Promise<any> {
+  getAll():Promise<any> {
   let url = `${this.basePath}/api/users`
 
     return this.http.get(url)
@@ -37,7 +37,7 @@ return Promise.reject(error.message || error)
                       })
                       .catch(this.handleError)                  
   }
-  createUser(form):Promise<any> {
+  create(form):Promise<any> {
     let url = `${this.basePath}/api/users`
   
       return this.http.post(url,form)
@@ -48,7 +48,29 @@ return Promise.reject(error.message || error)
                         })
                         .catch(this.handleError)                  
     }
-  getUsersTypes():Promise<any> {
+  delete(id):Promise<any> {
+    let url = `${this.basePath}/api/users/${id}`
+  
+      return this.http.delete(url)
+                      .toPromise()
+                        .then(response => {
+                          //console.log(response.json())
+                          return response.json()
+                        })
+                        .catch(this.handleError)                  
+    }
+  update(form):Promise<any> {
+    let url = `${this.basePath}/api/users/${form.id}`
+  
+      return this.http.put(url,form)
+                      .toPromise()
+                        .then(response => {
+                          //console.log(response.json())
+                          return response.json()
+                        })
+                        .catch(this.handleError)                  
+    }
+  getTypes():Promise<any> {
     let url = `${this.basePath}/api/userstypes`
   
       return this.http.get(url)
@@ -125,7 +147,7 @@ return Promise.reject(error.message || error)
                         })
                         .catch(this.handleError)                  
     }  
-  getUser(id:number):Promise<any> {
+  getSingle(id:number):Promise<any> {
     let url = `${this.basePath}/api/users/${id}`
   
       return this.http.get(url)
