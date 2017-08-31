@@ -19,6 +19,13 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
 import { ChartsModule } from 'ng2-charts';
 
 import { UsuariosService } from "./_services/usuarios.service";
+import { CyclesService } from "./_services/cycles.service";
+import { StudyingDaysService } from "./_services/studying-days.service";
+import { GradesService } from "./_services/grades.service";
+import { StudentsService } from "./_services/students.service";
+import { SubjectsService } from "./_services/subjects.service";
+import { TeachersService } from "./_services/teachers.service";
+import { TutorsService } from "./_services/tutors.service";
 @NgModule({
   imports: [
     CommonModule,
@@ -41,7 +48,14 @@ import { UsuariosService } from "./_services/usuarios.service";
     TutoresComponent
   ],
   providers: [
-    UsuariosService
+    UsuariosService,
+    CyclesService,
+    StudyingDaysService,
+    GradesService,
+    StudentsService,
+    SubjectsService,
+    TeachersService,
+    TutorsService
   ]
 })
 export class AdminModule { }
