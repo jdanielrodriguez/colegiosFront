@@ -14,9 +14,12 @@ import { GradosComponent } from './grados/grados.component';
 import { CursosComponent } from './cursos/cursos.component';
 import { EstudiantesComponent } from './estudiantes/estudiantes.component';
 import { TutoresComponent } from './tutores/tutores.component';
+import { AsignarEstudiantesTutoresComponent } from './asignar-estudiantes-tutores/asignar-estudiantes-tutores.component';
+
 
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { ChartsModule } from 'ng2-charts';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 import { UsuariosService } from "./_services/usuarios.service";
 import { CyclesService } from "./_services/cycles.service";
@@ -26,13 +29,16 @@ import { StudentsService } from "./_services/students.service";
 import { SubjectsService } from "./_services/subjects.service";
 import { TeachersService } from "./_services/teachers.service";
 import { TutorsService } from "./_services/tutors.service";
+import { EstudiantesTutoresService } from "./_services/_asignaciones/estudiantes-tutores.service";
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     DataTablesModule, 
     ChartsModule,
-    SimpleNotificationsModule.forRoot(),     
+    SimpleNotificationsModule.forRoot(),  
+    Ng2SearchPipeModule,   
     AdminRoutingModule
   ],
   declarations: [
@@ -45,7 +51,8 @@ import { TutorsService } from "./_services/tutors.service";
     GradosComponent, 
     CursosComponent, 
     EstudiantesComponent, 
-    TutoresComponent
+    TutoresComponent, 
+    AsignarEstudiantesTutoresComponent, 
   ],
   providers: [
     UsuariosService,
@@ -55,7 +62,8 @@ import { TutorsService } from "./_services/tutors.service";
     StudentsService,
     SubjectsService,
     TeachersService,
-    TutorsService
+    TutorsService,
+    EstudiantesTutoresService
   ]
 })
 export class AdminModule { }

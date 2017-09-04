@@ -11,6 +11,9 @@ import { MaestrosComponent } from "./maestros/maestros.component";
 import { TutoresComponent } from "./tutores/tutores.component";
 import { UsuariosComponent } from "./usuarios/usuarios.component";
 
+import { AsignarEstudiantesTutoresComponent } from "./asignar-estudiantes-tutores/asignar-estudiantes-tutores.component";
+
+
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },  
   { path: '', component: AdminComponent, children: [
@@ -23,6 +26,7 @@ const routes: Routes = [
     { path: 'maestros', component: MaestrosComponent },
     { path: 'tutores', component: TutoresComponent },
     { path: 'usuarios', component: UsuariosComponent },
+    { path: 'estudiantes-tutores', component: AsignarEstudiantesTutoresComponent },
   ]},
 { path: 'frutas', component: AdminComponent },
 ];
