@@ -68,14 +68,9 @@
                 <h4 class="modal-title">Ingreso de datos</h4>
             </div>
             <div class="modal-body">
-                <input type="text" [(ngModel)]="term">
-                <div *ngFor = "let item of items |filter:term" >
-                  <p>
-                    {{item.name}}
-                  </p>
-                </div> 
+                
                 <form id="insert-form"  #InsertForm="ngForm" (ngSubmit)="insert(InsertForm.value)">
-                    <div class="form-group col-xs-12 m-b-15">
+                    <!-- <div class="form-group col-xs-12 m-b-15">
                         <label for="description">Descripcion</label>
                         <input type="text" class="form-control" id="description" name="description" required
                                 ngModel #description="ngModel" placeholder="description">
@@ -85,8 +80,24 @@
                                   La descripcion es invalido
                               </small>
                           </div>
-                    </div> 
-                    
+                    </div>  -->
+                    <div class="form-group col-xs-6 m-b-15">
+                        <label for="description">Estudiantes</label>
+                        <input type="text" class="form-control"  [(ngModel)]="search" [ngModelOptions]="{standalone: true}">
+                        <ul class="listaDrag">
+                          <li draggable [dragData]="item" *ngFor = "let item of students |filter:search" >
+                              {{item.firstname}}
+                            
+                          </li> 
+                        </ul>
+                        
+                    </div>
+                      <ul droppable class="listaDrag form-group col-xs-6 m-b-15" (onDrop)="onItemDrop($event)">
+                        <p>Drop items here</p>
+                          <ul>
+                            <li *ngFor="let item of droppedItems" class="list-group-item">{{item.firstname}}</li>
+                          </ul>
+                      </ul>  
                     
                     <div class="form-group col-xs-12 text-right m-b-15">
                         <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close" ></i> Cancel</button>
