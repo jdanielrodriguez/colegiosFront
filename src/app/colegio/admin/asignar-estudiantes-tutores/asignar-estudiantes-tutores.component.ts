@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
 
 import { EstudiantesTutoresService } from "../_services/_asignaciones/estudiantes-tutores.service";
+import { StudentsService } from "../_services/students.service";
 import { NotificationsService } from 'angular2-notifications';
 @Component({
   selector: 'app-asignar-estudiantes-tutores',
@@ -11,16 +12,32 @@ import { NotificationsService } from 'angular2-notifications';
 export class AsignarEstudiantesTutoresComponent implements OnInit {
   Table:any
   selectedData:any
-  items:any[] = [{ name: "archie" }, { name: "jake" }, { name: "richard" }];
+  droppedItems:any=[]
   constructor(
     private _service: NotificationsService,
     private route: ActivatedRoute,
     private router: Router,
-    private mainService: EstudiantesTutoresService
+    private mainService: EstudiantesTutoresService,
+    private studentService: StudentsService
   ) { }
-  
+  students:any[]
     ngOnInit() {
       this.cargarAll()
+      this.studentService.getAll()
+                        .then(response => {
+                          this.students = response
+                          
+                          console.clear 
+                        }).catch(error => {
+                          console.clear     
+                          this.createError(error) 
+                        })
+    }
+    onItemDrop(e: any) {
+        // Get the dropped data here 
+        this.droppedItems.push(e.dragData);
+        console.log(this.droppedItems)
+        this.students.splice(0,1,e.dragData)
     }
     cargarAll(){
       this.mainService.getAll()
