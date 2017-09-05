@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 
 import { EstudiantesTutoresService } from "../_services/_asignaciones/estudiantes-tutores.service";
 import { StudentsService } from "../_services/students.service";
+import { TutorsService } from "../_services/tutors.service";
 import { NotificationsService } from 'angular2-notifications';
 @Component({
   selector: 'app-asignar-estudiantes-tutores',
@@ -11,21 +12,34 @@ import { NotificationsService } from 'angular2-notifications';
 })
 export class AsignarEstudiantesTutoresComponent implements OnInit {
   Table:any
-  selectedData:any
+  selectedData:any[]
+  droppedItemsId:any=[]
+  childs:any[]
   droppedItems:any=[]
+  parentCombo:any
+  selectedParent:any
   constructor(
     private _service: NotificationsService,
     private route: ActivatedRoute,
     private router: Router,
     private mainService: EstudiantesTutoresService,
-    private studentService: StudentsService
+    private ChildsService: StudentsService,
+    private ParentsService: TutorsService
   ) { }
-  students:any[]
     ngOnInit() {
       this.cargarAll()
-      this.studentService.getAll()
+      this.ChildsService.getFreeStudents()
                         .then(response => {
-                          this.students = response
+                          this.childs = response
+                          
+                          console.clear 
+                        }).catch(error => {
+                          console.clear     
+                          this.createError(error) 
+                        })
+      this.ParentsService.getAll()
+                        .then(response => {
+                          this.parentCombo = response
                           
                           console.clear 
                         }).catch(error => {
@@ -35,10 +49,28 @@ export class AsignarEstudiantesTutoresComponent implements OnInit {
     }
     onItemDrop(e: any) {
         // Get the dropped data here 
-        this.droppedItems.push(e.dragData);
-        console.log(this.droppedItems)
-        this.students.splice(0,1,e.dragData)
+        if(!this.selectedParent){
+          this.createError("Debe seleccionar un tutor")
+        }else{
+          this.droppedItemsId.push({"id":e.dragData.id});
+          this.selectedData.push(e.dragData);
+          this.childs.splice(this.childs.findIndex(dat=>{
+            return dat.id==e.dragData.id
+          }),1)
+        }
+        
     }
+
+    onItemRemove(e: any) {
+        // Get the dropped data here 
+        this.childs.push(e.dragData);
+        this.selectedData.splice(this.selectedData.findIndex(dat=>{
+          return dat.id==e.dragData.id
+        }),1)
+
+        
+    }
+    
     cargarAll(){
       this.mainService.getAll()
                         .then(response => {
@@ -52,9 +84,16 @@ export class AsignarEstudiantesTutoresComponent implements OnInit {
                         })
     }
     cargarSingle(id:number){
-      this.mainService.getSingle(id)
+      this.selectedParent=id
+      this.mainService.getStudents(id)
                         .then(response => {
-                          this.selectedData = response;
+                          this.selectedData = response
+                          this.selectedData.forEach((item,index)=>{
+                            this.droppedItemsId.push({"id":item.id});
+                          })
+                          console.clear 
+                          console.log(response);
+                                                    
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 
@@ -74,12 +113,24 @@ export class AsignarEstudiantesTutoresComponent implements OnInit {
                         })
       
     }
-    delete(id:string){
+    delete2(id:string){
       this.mainService.delete(id)
                         .then(response => {
                           this.cargarAll()
                           console.clear 
-                          this.create('Ciclo Eliminado exitosamente')
+                          this.create('Estudiantes Desasignados')
+                        }).catch(error => {
+                          console.clear     
+                          this.createError(error) 
+                        })
+      
+    }
+    delete(formValue){
+      this.mainService.deleteAll(formValue)
+                        .then(response => {
+                          this.cargarAll()
+                          console.clear 
+                          this.create('Estudiantes Desasignados')
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 
@@ -88,18 +139,31 @@ export class AsignarEstudiantesTutoresComponent implements OnInit {
     }
     insert(formValue:any){
       
+      formValue = {
+        "tutor":this.selectedParent,
+        "students": this.droppedItemsId
+      }
+
+      let formValueDel = {
+        "tutor":this.selectedParent,
+        "students": this.childs
+      }
+      
+    if(this.selectedParent){      
       this.mainService.create(formValue)
                         .then(response => {
                           this.cargarAll()
                           console.clear 
-                          this.create('Ciclo Ingresado')
-                          
+                          this.create('Estudiantes Asignados')
+                          this.delete(formValueDel)
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 
                         })
       
-      
+                      }else{
+                        this.createError("Debe seleccionar un Tutor") 
+                      }
     }
     
   public options = {

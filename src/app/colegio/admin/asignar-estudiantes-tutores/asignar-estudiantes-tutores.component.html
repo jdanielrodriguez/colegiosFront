@@ -70,32 +70,25 @@
             <div class="modal-body">
                 
                 <form id="insert-form"  #InsertForm="ngForm" (ngSubmit)="insert(InsertForm.value)">
-                    <!-- <div class="form-group col-xs-12 m-b-15">
-                        <label for="description">Descripcion</label>
-                        <input type="text" class="form-control" id="description" name="description" required
-                                ngModel #description="ngModel" placeholder="description">
-                          <div *ngIf="description.invalid && (description.dirty || description.touched)"
-                                class="alert alert-danger" role="alert">
-                              <small *ngIf="description.errors.required">
-                                  La descripcion es invalido
-                              </small>
-                          </div>
-                    </div>  -->
-                    <div class="form-group col-xs-6 m-b-15">
+                    
+                    <div class="form-group col-xs-6 m-b-15" >
                         <label for="description">Estudiantes</label>
                         <input type="text" class="form-control"  [(ngModel)]="search" [ngModelOptions]="{standalone: true}">
-                        <ul class="listaDrag">
-                          <li draggable [dragData]="item" *ngFor = "let item of students |filter:search" >
-                              {{item.firstname}}
+                        <ul droppable (onDrop)="onItemRemove($event)" class="listaDrag">
+                          <li draggable [dragData]="Data" *ngFor = "let Data of childs |filter:search" >
+                            {{((Data.firstname!=null)?Data.firstname+' ':'')+((Data.lastname!=null)?Data.lastname:'')}}
                             
                           </li> 
                         </ul>
                         
                     </div>
-                      <ul droppable class="listaDrag form-group col-xs-6 m-b-15" (onDrop)="onItemDrop($event)">
-                        <p>Drop items here</p>
-                          <ul>
-                            <li *ngFor="let item of droppedItems" class="list-group-item">{{item.firstname}}</li>
+                      <ul  class="listaDrag form-group col-xs-6 m-b-15" >
+                        <label for="tutor">Tutor</label>
+                        <select name="tutor" class="form-control" id="tutor" required ngModel #tutor="ngModel" (change)="cargarSingle(tutor.value)">
+                          <option *ngFor="let Data of parentCombo" value="{{Data.id}}">{{((Data.firstname!=null)?Data.firstname+' ':'')+((Data.lastname!=null)?Data.lastname:'')}}</option>
+                        </select>
+                          <ul droppable (onDrop)="onItemDrop($event)"  class="listaDrag">
+                            <li draggable [dragData]="item" *ngFor="let item of selectedData">{{item.firstname}}</li>
                           </ul>
                       </ul>  
                     
