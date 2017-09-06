@@ -12,6 +12,7 @@ import { TutoresComponent } from "./tutores/tutores.component";
 import { UsuariosComponent } from "./usuarios/usuarios.component";
 
 import { AsignarEstudiantesTutoresComponent } from "./asignar-estudiantes-tutores/asignar-estudiantes-tutores.component";
+import { AsignarGradosJornadaComponent } from "./asignar-grados-jornada/asignar-grados-jornada.component";
 
 
 const routes: Routes = [
@@ -27,6 +28,7 @@ const routes: Routes = [
     { path: 'tutores', component: TutoresComponent },
     { path: 'usuarios', component: UsuariosComponent },
     { path: 'estudiantes-tutores', component: AsignarEstudiantesTutoresComponent },
+    { path: 'grados-jornadas', component: AsignarGradosJornadaComponent },
   ]},
 { path: 'frutas', component: AdminComponent },
 ];
