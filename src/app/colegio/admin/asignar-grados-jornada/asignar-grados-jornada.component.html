@@ -37,7 +37,7 @@
                           </thead>
                           <tbody>
                               <tr *ngFor="let data of Table">
-                                  <td>{{((data.firstname!=null)?data.firstname+' ':'')+((data.lastname!=null)?data.lastname:'')}}</td>
+                                  <td>{{((data.name!=null)?data.name+' ':'')+((data.lastname!=null)?data.lastname:'')}}</td>
                                   <td>{{((data.address!=null)?data.address:'')}}</td>
                                   <td>{{((data.phone!=null)?data.phone:'')}}</td>
                                   <td>{{((data.cellphone!=null)?data.cellphone:'')}}</td>
@@ -74,29 +74,34 @@
                   
                   <form id="insert-form"  #InsertForm="ngForm" (ngSubmit)="insert(InsertForm.value)">
                       
-                      <div class="form-group col-xs-6 m-b-15" >
-                          <label for="description">Estudiantes</label>
-                          <input type="text" class="form-control" placeholder="Busqueda de Estudiantes" [(ngModel)]="search" [ngModelOptions]="{standalone: true}">
-                          <div droppable (onDrop)="onItemRemove($event)" class="listaDrag">
-                            
-                            <li draggable [dragData]="Data" *ngFor = "let Data of childs |filter:search" class="alert alert-success" >
-                              {{((Data.firstname!=null)?Data.firstname+' ':'')+((Data.lastname!=null)?Data.lastname:'')}}
-                              
-                            </li> 
-                          </div>
-                          
-                      </div>
-                        <div  class="form-group col-xs-6 m-b-15" >
-                          <label for="tutor">Tutor</label>
-                          <select name="tutor" class="form-control" id="tutor" [(ngModel)]="selectedParent" required ngModel #tutor="ngModel" (change)="cargarSingle(tutor.value)">
-                            <option *ngFor="let Data of parentCombo" value="{{Data.id}}">{{((Data.firstname!=null)?Data.firstname+' ':'')+((Data.lastname!=null)?Data.lastname:'')}}</option>
+                      
+                      <div  class="form-group col-xs-6 m-b-15" >
+                          <label for="cycles">Ciclos</label>
+                          <select name="cycles" class="form-control" id="cycles"  required ngModel #cycles="ngModel">
+                            <option *ngFor="let Data of childs" value="{{Data.id}}">{{((Data.description!=null)?Data.description:'')}}</option>
                           </select>
-                            <div droppable (onDrop)="onItemDrop($event)"  class="listaDrag " >
-                              <li draggable [dragData]="item" *ngFor="let item of selectedData" class="alert alert-info">
-                                {{((item.firstname!=null)?item.firstname+' ':'')+((item.lastname!=null)?item.lastname:'')}}
-                              </li>
-                            </div>
-                          </div>  
+                            
+                        </div>  
+                        <div  class="form-group col-xs-6 m-b-15" >
+                          <label for="studying_day">Jornadas</label>
+                          <select name="studying_day" class="form-control" id="studying_day"  required ngModel #studyingday="ngModel" >
+                            <option *ngFor="let Data of parentCombo" value="{{Data.id}}">{{((Data.description!=null)?Data.description:'')}}</option>
+                          </select>
+                            
+                        </div>  
+                      <div  class="form-group col-xs-6 m-b-15" >
+                          <label for="begin">Inicio</label>
+                          <datepicker  [viewFormat]="'DD/MM/YYYY'" [modelFormat]="'YYYY-MM-DD'"  [id]="'begin'" [label]="'Inicio'" ></datepicker>
+                           
+                            
+                        </div>  
+                        <div  class="form-group col-xs-6 m-b-15" >
+                          <label for="studying_day">Jornadas</label>
+                          <select name="studying_day" class="form-control" id="studying_day"  required ngModel #studyingday="ngModel" >
+                            <option *ngFor="let Data of parentCombo" value="{{Data.id}}">{{((Data.description!=null)?Data.description:'')}}</option>
+                          </select>
+                            
+                        </div>  
                       
                       <div class="form-group col-xs-12 text-right m-b-15">
                           <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close" ></i> Cancel</button>

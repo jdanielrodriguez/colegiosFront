@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
 
 import { EstudiantesTutoresService } from "../_services/_asignaciones/estudiantes-tutores.service";
-import { StudentsService } from "../_services/students.service";
-import { TutorsService } from "../_services/tutors.service";
+import { CyclesService } from "../_services/cycles.service";
+import { StudyingDaysService } from "../_services/studying-days.service";
 import { NotificationsService } from 'angular2-notifications';
 @Component({
   selector: 'app-asignar-grados-jornada',
@@ -24,12 +24,12 @@ export class AsignarGradosJornadaComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private mainService: EstudiantesTutoresService,
-    private ChildsService: StudentsService,
-    private ParentsService: TutorsService
+    private ChildsService: CyclesService,
+    private ParentsService: StudyingDaysService
   ) { }
     ngOnInit() {
       this.cargarAll()
-      this.ChildsService.getFreeStudents()
+      this.ChildsService.getAll()
                         .then(response => {
                           this.childs = response
                           this.childs.forEach((item,index)=>{
@@ -50,40 +50,10 @@ export class AsignarGradosJornadaComponent implements OnInit {
                           this.createError(error) 
                         })
     }
-    onItemDrop(e: any) {
-        // Get the dropped data here 
-        if(!this.selectedParent){
-          this.createError("Debe seleccionar un tutor")
-        }else{
-          this.droppedItemsId.push({"id":e.dragData.id});
-          this.selectedData.push(e.dragData);
-          this.childs.splice(this.childs.findIndex(dat=>{
-            return dat.id==e.dragData.id
-          }),1)
-          this.childsId.splice(this.childsId.findIndex(dat=>{
-            return dat.id==e.dragData.id
-          }),1)
-        }
-    }
-
-    onItemRemove(e: any) {
-        // Get the dropped data here 
-          
-          this.childsId.push({"id":e.dragData.id});
-          this.childs.push(e.dragData);
-          this.selectedData.splice(this.selectedData.findIndex(dat=>{
-            return dat.id==e.dragData.id
-          }),1)
-          this.droppedItemsId.splice(this.droppedItemsId.findIndex(dat=>{
-            return dat.id==e.dragData.id
-          }),1)
-        
-
-        
-    }
+    
     
     cargarAll(){
-      this.ParentsService.getBussy()
+      this.ParentsService.getAll()
                         .then(response => {
                           this.Table = response
                           $("#editModal .close").click();
@@ -149,29 +119,20 @@ export class AsignarGradosJornadaComponent implements OnInit {
     }
     insert(formValue:any){
       
-      formValue = {
-        "tutor":this.selectedParent,
-        "students": this.droppedItemsId
-      }
-
-      let formValueDel = {
-        "tutor":this.selectedParent,
-        "students": this.childsId
-      }
+          console.log(formValue);
           
-    if(this.selectedParent){      
-      this.mainService.create(formValue)
-                        .then(response => {
-                          this.create('Estudiantes Asignados')
-                        }).catch(error => {
-                          console.clear     
-                          this.createError(error) 
-                        })
+    // if(this.selectedParent){      
+    //   this.mainService.create(formValue)
+    //                     .then(response => {
+    //                       this.create('Estudiantes Asignados')
+    //                     }).catch(error => {
+    //                       console.clear     
+    //                       this.createError(error) 
+    //                     })
       
-                      }else{
-                        this.createError("Debe seleccionar un Tutor") 
-                      }
-    this.delete(formValueDel)
+    //                   }else{
+    //                     this.createError("Debe seleccionar un Tutor") 
+    //                   }
     }
     
   public options = {
