@@ -15,6 +15,7 @@ export class AsignarEstudiantesTutoresComponent implements OnInit {
   selectedData:any[]
   droppedItemsId:any=[]
   childs:any[]
+  childsId:any=[]
   droppedItems:any=[]
   parentCombo:any
   selectedParent:any
@@ -31,7 +32,9 @@ export class AsignarEstudiantesTutoresComponent implements OnInit {
       this.ChildsService.getFreeStudents()
                         .then(response => {
                           this.childs = response
-                          
+                          this.childs.forEach((item,index)=>{
+                            this.childsId.push({"id":item.id});
+                          })
                           console.clear 
                         }).catch(error => {
                           console.clear     
@@ -57,22 +60,30 @@ export class AsignarEstudiantesTutoresComponent implements OnInit {
           this.childs.splice(this.childs.findIndex(dat=>{
             return dat.id==e.dragData.id
           }),1)
+          this.childsId.splice(this.childsId.findIndex(dat=>{
+            return dat.id==e.dragData.id
+          }),1)
         }
-        
     }
 
     onItemRemove(e: any) {
         // Get the dropped data here 
-        this.childs.push(e.dragData);
-        this.selectedData.splice(this.selectedData.findIndex(dat=>{
-          return dat.id==e.dragData.id
-        }),1)
+          
+          this.childsId.push({"id":e.dragData.id});
+          this.childs.push(e.dragData);
+          this.selectedData.splice(this.selectedData.findIndex(dat=>{
+            return dat.id==e.dragData.id
+          }),1)
+          this.droppedItemsId.splice(this.droppedItemsId.findIndex(dat=>{
+            return dat.id==e.dragData.id
+          }),1)
+        
 
         
     }
     
     cargarAll(){
-      this.mainService.getAll()
+      this.ParentsService.getBussy()
                         .then(response => {
                           this.Table = response
                           $("#editModal .close").click();
@@ -92,7 +103,6 @@ export class AsignarEstudiantesTutoresComponent implements OnInit {
                             this.droppedItemsId.push({"id":item.id});
                           })
                           console.clear 
-                          console.log(response);
                                                     
                         }).catch(error => {
                           console.clear     
@@ -146,16 +156,13 @@ export class AsignarEstudiantesTutoresComponent implements OnInit {
 
       let formValueDel = {
         "tutor":this.selectedParent,
-        "students": this.childs
+        "students": this.childsId
       }
-      
+          
     if(this.selectedParent){      
       this.mainService.create(formValue)
                         .then(response => {
-                          this.cargarAll()
-                          console.clear 
                           this.create('Estudiantes Asignados')
-                          this.delete(formValueDel)
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 
@@ -164,6 +171,7 @@ export class AsignarEstudiantesTutoresComponent implements OnInit {
                       }else{
                         this.createError("Debe seleccionar un Tutor") 
                       }
+    this.delete(formValueDel)
     }
     
   public options = {

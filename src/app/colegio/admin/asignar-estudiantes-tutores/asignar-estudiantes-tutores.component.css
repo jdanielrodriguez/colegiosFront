@@ -1,4 +1,8 @@
 .listaDrag{
-  height: 200px !important;
+  height: 400px !important;
   overflow-y: auto !important;
+}
+
+li{
+  list-style:none;
 }
