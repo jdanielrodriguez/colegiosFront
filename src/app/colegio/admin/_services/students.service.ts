@@ -82,7 +82,7 @@ return Promise.reject(error.message || error)
                         .catch(this.handleError)                  
     }
   getFreeStudents():Promise<any>{
-    let url = `${this.basePath}/api/freestudents`
+    let url = `${this.basePath}/api/free/students`
       
       return this.http.get(url)
                       .toPromise()
