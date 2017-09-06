@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from "@angular/http";
 
-import { path } from "../../../config.module";
+import { path } from "../../../../config.module";
 
 import "rxjs/add/operator/toPromise"; 
 
 @Injectable()
-export class StudentsService {
+export class AsignarGradosJornadaService {
 
   headers = new Headers({'Access-Control-Allow-Origin':'*',
   'cache-control':'no-cache',
@@ -26,7 +26,21 @@ return Promise.reject(error.message || error)
 }
 
   getAll():Promise<any> {
-  let url = `${this.basePath}/api/students`
+  let url = `${this.basePath}/api/studentstutor`
+
+    return this.http.get(url)
+                    .toPromise()
+                      .then(response => {
+                        //console.log(response.json())
+                        return response.json()
+                      })
+                      .catch(this.handleError)                  
+  }
+
+ 
+
+  getStudents(id:number):Promise<any> {
+  let url = `${this.basePath}/api/tutors/${id}/students`
 
     return this.http.get(url)
                     .toPromise()
@@ -37,7 +51,18 @@ return Promise.reject(error.message || error)
                       .catch(this.handleError)                  
   }
   create(form):Promise<any> {
-    let url = `${this.basePath}/api/students`
+    let url = `${this.basePath}/api/studentstutor/signedup`
+  
+      return this.http.post(url,form)
+                      .toPromise()
+                        .then(response => {
+                          //console.log(response.json())
+                          return response.json()
+                        })
+                        .catch(this.handleError)                  
+    }
+  deleteAll(form):Promise<any> {
+    let url = `${this.basePath}/api/studentstutor/signeddown`
   
       return this.http.post(url,form)
                       .toPromise()
@@ -48,7 +73,7 @@ return Promise.reject(error.message || error)
                         .catch(this.handleError)                  
     }
   delete(id):Promise<any> {
-    let url = `${this.basePath}/api/students/${id}`
+    let url = `${this.basePath}/api/studentstutor/${id}`
   
       return this.http.delete(url)
                       .toPromise()
@@ -59,7 +84,7 @@ return Promise.reject(error.message || error)
                         .catch(this.handleError)                  
     }
   update(form):Promise<any> {
-    let url = `${this.basePath}/api/students/${form.id}`
+    let url = `${this.basePath}/api/studentstutor/${form.id}`
   
       return this.http.put(url,form)
                       .toPromise()
@@ -71,7 +96,7 @@ return Promise.reject(error.message || error)
     }
    
   getSingle(id:number):Promise<any> {
-    let url = `${this.basePath}/api/students/${id}`
+    let url = `${this.basePath}/api/studentstutor/${id}`
   
       return this.http.get(url)
                       .toPromise()
@@ -81,16 +106,4 @@ return Promise.reject(error.message || error)
                         })
                         .catch(this.handleError)                  
     }
-  getFreeStudents():Promise<any>{
-    let url = `${this.basePath}/api/free/students`
-      
-      return this.http.get(url)
-                      .toPromise()
-                        .then(response => {
-                          //console.log(response.json())
-                          return response.json()
-                        })
-                        .catch(this.handleError) 
-
-  }
 }

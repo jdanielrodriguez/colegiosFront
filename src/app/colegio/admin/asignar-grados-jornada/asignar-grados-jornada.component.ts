@@ -6,11 +6,11 @@ import { StudentsService } from "../_services/students.service";
 import { TutorsService } from "../_services/tutors.service";
 import { NotificationsService } from 'angular2-notifications';
 @Component({
-  selector: 'app-asignar-estudiantes-tutores',
-  templateUrl: './asignar-estudiantes-tutores.component.html',
-  styleUrls: ['./asignar-estudiantes-tutores.component.css']
+  selector: 'app-asignar-grados-jornada',
+  templateUrl: './asignar-grados-jornada.component.html',
+  styleUrls: ['./asignar-grados-jornada.component.css']
 })
-export class AsignarEstudiantesTutoresComponent implements OnInit {
+export class AsignarGradosJornadaComponent implements OnInit {
   Table:any
   selectedData:any[]
   droppedItemsId:any=[]

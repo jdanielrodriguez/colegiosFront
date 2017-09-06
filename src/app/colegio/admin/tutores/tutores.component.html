@@ -32,7 +32,6 @@
                                 <th>Direccion</th>
                                 <th>Telefono</th>
                                 <th>Celular</th>
-                                <th>Calificacion</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -42,7 +41,6 @@
                                 <td>{{((data.address!=null)?data.address:'')}}</td>
                                 <td>{{((data.phone!=null)?data.phone:'')}}</td>
                                 <td>{{((data.cellphone!=null)?data.cellphone:'')}}</td>
-                                <td>{{((data.qualification!=null)?data.qualification:'')}}</td>
                                 <td>
 
                                   <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editModal" (click)="cargarSingle(data.id)" style="cursor:pointer;"><i class="fa fa-edit"></i> Editar</button>
@@ -120,13 +118,13 @@
                           </div>
                     </div>
                     <div class="form-group col-xs-12 m-b-15">
-                        <label for="cellphone">Nombre</label>
+                        <label for="cellphone">Celular</label>
                         <input type="text" class="form-control" id="cellphone" name="cellphone" required
                                 ngModel #cellphone="ngModel" placeholder="cellphone">
                           <div *ngIf="cellphone.invalid && (cellphone.dirty || cellphone.touched)"
                                 class="alert alert-danger" role="alert">
                               <small *ngIf="cellphone.errors.required">
-                                  El Nombre es invalido
+                                  El Celular es invalido
                               </small>
                           </div>
                     </div>

@@ -15,6 +15,7 @@ import { CursosComponent } from './cursos/cursos.component';
 import { EstudiantesComponent } from './estudiantes/estudiantes.component';
 import { TutoresComponent } from './tutores/tutores.component';
 import { AsignarEstudiantesTutoresComponent } from './asignar-estudiantes-tutores/asignar-estudiantes-tutores.component';
+import { AsignarGradosJornadaComponent } from './asignar-grados-jornada/asignar-grados-jornada.component';
 
 
 import { SimpleNotificationsModule } from 'angular2-notifications';
@@ -31,6 +32,7 @@ import { SubjectsService } from "./_services/subjects.service";
 import { TeachersService } from "./_services/teachers.service";
 import { TutorsService } from "./_services/tutors.service";
 import { EstudiantesTutoresService } from "./_services/_asignaciones/estudiantes-tutores.service";
+import { AsignarGradosJornadaService } from "./_services/_asignaciones/asignar-grados-jornada.service";
 
 @NgModule({
   imports: [
@@ -54,7 +56,7 @@ import { EstudiantesTutoresService } from "./_services/_asignaciones/estudiantes
     CursosComponent, 
     EstudiantesComponent, 
     TutoresComponent, 
-    AsignarEstudiantesTutoresComponent, 
+    AsignarEstudiantesTutoresComponent, AsignarGradosJornadaComponent, 
   ],
   providers: [
     UsuariosService,
@@ -65,7 +67,8 @@ import { EstudiantesTutoresService } from "./_services/_asignaciones/estudiantes
     SubjectsService,
     TeachersService,
     TutorsService,
-    EstudiantesTutoresService
+    EstudiantesTutoresService,
+    AsignarGradosJornadaService
   ]
 })
 export class AdminModule { }

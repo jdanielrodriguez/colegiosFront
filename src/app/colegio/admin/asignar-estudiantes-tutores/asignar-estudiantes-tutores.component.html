@@ -28,19 +28,22 @@
                     <table id="usersTables" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-hover">
                         <thead>
                             <tr>
-                                <th>Descripcion</th>
-                                <th>Codigo</th>
+                                <th>Nombre</th>
+                                <th>Direccion</th>
+                                <th>Telefono</th>
+                                <th>Celular</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let data of Table">
-                                <td>{{((data.name!=null)?data.name:'')}}</td>
-                                <td>{{((data.code!=null)?data.code:'')}}</td>
+                                <td>{{((data.firstname!=null)?data.firstname+' ':'')+((data.lastname!=null)?data.lastname:'')}}</td>
+                                <td>{{((data.address!=null)?data.address:'')}}</td>
+                                <td>{{((data.phone!=null)?data.phone:'')}}</td>
+                                <td>{{((data.cellphone!=null)?data.cellphone:'')}}</td>
                                 <td>
 
-                                  <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editModal" (click)="cargarSingle(data.id)" style="cursor:pointer;"><i class="fa fa-edit"></i> Editar</button>
-                                  <button type="button" class="btn btn-danger" (click)="delete(data.id)" style="cursor:pointer;"><i class="fa fa-times"></i> Eliminar</button>
+                                  <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#insertModal" (click)="cargarSingle(data.id)" style="cursor:pointer;"><i class="fa fa-edit"></i> Editar</button>
                                   
                                 </td>
                             </tr>
@@ -73,24 +76,27 @@
                     
                     <div class="form-group col-xs-6 m-b-15" >
                         <label for="description">Estudiantes</label>
-                        <input type="text" class="form-control"  [(ngModel)]="search" [ngModelOptions]="{standalone: true}">
-                        <ul droppable (onDrop)="onItemRemove($event)" class="listaDrag">
-                          <li draggable [dragData]="Data" *ngFor = "let Data of childs |filter:search" >
+                        <input type="text" class="form-control" placeholder="Busqueda de Estudiantes" [(ngModel)]="search" [ngModelOptions]="{standalone: true}">
+                        <div droppable (onDrop)="onItemRemove($event)" class="listaDrag">
+                          
+                          <li draggable [dragData]="Data" *ngFor = "let Data of childs |filter:search" class="alert alert-success" >
                             {{((Data.firstname!=null)?Data.firstname+' ':'')+((Data.lastname!=null)?Data.lastname:'')}}
                             
                           </li> 
-                        </ul>
+                        </div>
                         
                     </div>
-                      <ul  class="listaDrag form-group col-xs-6 m-b-15" >
+                      <div  class="form-group col-xs-6 m-b-15" >
                         <label for="tutor">Tutor</label>
-                        <select name="tutor" class="form-control" id="tutor" required ngModel #tutor="ngModel" (change)="cargarSingle(tutor.value)">
+                        <select name="tutor" class="form-control" id="tutor" [(ngModel)]="selectedParent" required ngModel #tutor="ngModel" (change)="cargarSingle(tutor.value)">
                           <option *ngFor="let Data of parentCombo" value="{{Data.id}}">{{((Data.firstname!=null)?Data.firstname+' ':'')+((Data.lastname!=null)?Data.lastname:'')}}</option>
                         </select>
-                          <ul droppable (onDrop)="onItemDrop($event)"  class="listaDrag">
-                            <li draggable [dragData]="item" *ngFor="let item of selectedData">{{item.firstname}}</li>
-                          </ul>
-                      </ul>  
+                          <div droppable (onDrop)="onItemDrop($event)"  class="listaDrag " >
+                            <li draggable [dragData]="item" *ngFor="let item of selectedData" class="alert alert-info">
+                              {{((item.firstname!=null)?item.firstname+' ':'')+((item.lastname!=null)?item.lastname:'')}}
+                            </li>
+                          </div>
+                        </div>  
                     
                     <div class="form-group col-xs-12 text-right m-b-15">
                         <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close" ></i> Cancel</button>
@@ -109,55 +115,3 @@
     
   </div>
 
-<div id="editModal"  class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-  <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-          <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-              <h4 class="modal-title">Edicion de datos</h4>
-          </div>
-          <div class="modal-body" *ngIf="selectedData">
-              <form id="edit-form"  #EditForm="ngForm" (ngSubmit)="update(EditForm.value)">
-                  <div class="form-group col-xs-12 m-b-15">
-                      <label for="description">Descripcion</label>
-                      <input type="text" class="form-control" id="description" name="description" required
-                              ngModel #description="ngModel" [(ngModel)]="selectedData.description">
-                        <div *ngIf="description.invalid && (description.dirty || description.touched)"
-                              class="alert alert-danger" role="alert">
-                            <small *ngIf="description.errors.required">
-                                La Descripcion es invalido
-                            </small>
-                        </div>
-                  </div> 
-                  <div class="form-group col-xs-12 m-b-15">
-                        <label for="code">Codigo</label>
-                        <input type="text" class="form-control" id="code" name="code" required
-                                ngModel #code="ngModel" [(ngModel)]="selectedData.code">
-                          <div *ngIf="code.invalid && (code.dirty || code.touched)"
-                                class="alert alert-danger" role="alert">
-                              <small *ngIf="code.errors.required">
-                                  El Codigo es invalido
-                              </small>
-                          </div>
-                  </div>
-                  
-                  
-                    <input type="hidden" class="form-control" id="id" name="id" required
-                            ngModel #id="ngModel" [(ngModel)]="selectedData.id">
-                    
-                  <div class="form-group col-xs-12 text-right m-b-15">
-                      <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close" ></i> Cancel</button>
-                      <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Guardar</button>
-                  </div>
-              </form>
-              
-          </div>
-          <div class="modal-footer" style="border:none;">
-             
-          </div>
-      </div>
-  </div>
-  
-  
-  
-</div>
