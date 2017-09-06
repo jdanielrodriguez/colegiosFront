@@ -29,17 +29,7 @@ export class AsignarEstudiantesTutoresComponent implements OnInit {
   ) { }
     ngOnInit() {
       this.cargarAll()
-      this.ChildsService.getFreeStudents()
-                        .then(response => {
-                          this.childs = response
-                          this.childs.forEach((item,index)=>{
-                            this.childsId.push({"id":item.id});
-                          })
-                          console.clear 
-                        }).catch(error => {
-                          console.clear     
-                          this.createError(error) 
-                        })
+      this.cargarFree()
       this.ParentsService.getAll()
                         .then(response => {
                           this.parentCombo = response
@@ -81,7 +71,19 @@ export class AsignarEstudiantesTutoresComponent implements OnInit {
 
         
     }
-    
+    cargarFree(){
+      this.ChildsService.getFreeStudents()
+                        .then(response => {
+                          this.childs = response
+                          this.childs.forEach((item,index)=>{
+                            this.childsId.push({"id":item.id});
+                          })
+                          console.clear 
+                        }).catch(error => {
+                          console.clear     
+                          this.createError(error) 
+                        })
+    }
     cargarAll(){
       this.ParentsService.getBussy()
                         .then(response => {
@@ -96,6 +98,8 @@ export class AsignarEstudiantesTutoresComponent implements OnInit {
     }
     cargarSingle(id:number){
       this.selectedParent=id
+      this.droppedItemsId.length = 0;
+      this.cargarFree()
       this.mainService.getStudents(id)
                         .then(response => {
                           this.selectedData = response
