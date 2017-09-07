@@ -551,28 +551,25 @@
       </li>
       
 
-      <li data-toggle="collapse" href="#Assigns"> <a  class="waves-effect"><i class=" fa fa-gear fa-fw"></i> Asignaciones<span class="fa arrow"></span>  </a>
+      <li data-toggle="collapse" href="#Assigns"> <a  class="waves-effect"><i class=" fa fa-sign-in fa-fw"></i> Asignaciones<span class="fa arrow"></span>  </a>
         <ul class="collapse nav nav-second-level" id="Assigns">
           <li> <a routerLinkActive="active"
-            [routerLink]="[ './admin/estudiantes-tutores' ]" class="waves-effect"><i class="fa fa-circle-o-notch  fa-fw"></i> Estudiantes a Tutores</a>
+            [routerLink]="[ './admin/estudiantes-tutores' ]" class="waves-effect"><i class="fa fa-group  fa-fw"></i> Estudiantes a Tutores</a>
+          </li>
+          
+          <li> <a routerLinkActive="active"
+            [routerLink]="[ './admin/ciclo-jornada' ]" class="waves-effect"><i class="fa fa-circle-o-notch  fa-fw"></i> Ciclos a Jornadas</a>
+          </li>
+
+          <li> <a routerLinkActive="active"
+            [routerLink]="[ './admin/jornada-grados' ]" class="waves-effect"><i class="fa  fa-list-alt fa-fw"></i> Grados a Jornada</a>
+          </li>
+
+          <li> <a routerLinkActive="active"
+            [routerLink]="[ './admin/grado-materias' ]" class="waves-effect"><i class="fa  fa-code-fork fa-fw"></i> Materias a Grado</a>
           </li>
           <li> <a routerLinkActive="active"
-            [routerLink]="[ './admin/grados-jornadas' ]" class="waves-effect"><i class="wi wi-day-cloudy fa-fw fa-fw"></i> Grados a Jornadas</a>
-          </li>
-          <li> <a routerLinkActive="active"
-            [routerLink]="[ './admin/maestros' ]" class="waves-effect"><i class="fa fa-male fa-fw"></i> Maestros</a>
-          </li>
-          <li> <a routerLinkActive="active"
-            [routerLink]="[ './admin/grados' ]" class="waves-effect"><i class="fa fa-group fa-fw"></i> Grados</a>
-          </li>
-          <li> <a routerLinkActive="active"
-            [routerLink]="[ './admin/cursos' ]" class="waves-effect"><i class="fa fa-pencil-square-o fa-fw"></i> Cursos</a>
-          </li>
-          <li> <a routerLinkActive="active"
-            [routerLink]="[ './admin/estudiantes' ]" class="waves-effect"><i class="fa fa-child fa-fw"></i> Estudiantes</a>
-          </li>
-          <li> <a routerLinkActive="active"
-            [routerLink]="[ './admin/tutores' ]" class="waves-effect"><i class=" ti-id-badge fa-fw"></i> Tutores</a>
+            [routerLink]="[ './admin/materia-maestros' ]" class="waves-effect"><i class="fa  fa-bank fa-fw"></i> Maestros a Materia</a>
           </li>
         </ul>
       </li>

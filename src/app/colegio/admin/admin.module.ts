@@ -15,7 +15,10 @@ import { CursosComponent } from './cursos/cursos.component';
 import { EstudiantesComponent } from './estudiantes/estudiantes.component';
 import { TutoresComponent } from './tutores/tutores.component';
 import { AsignarEstudiantesTutoresComponent } from './asignar-estudiantes-tutores/asignar-estudiantes-tutores.component';
-import { AsignarGradosJornadaComponent } from './asignar-grados-jornada/asignar-grados-jornada.component';
+import { AsignarCicloJornadaComponent } from './asignar-ciclo-jornada/asignar-ciclo-jornada.component';
+import { AsignarJornadaGradosComponent } from './asignar-jornada-grados/asignar-jornada-grados.component';
+import { AsignarGradoMateriasComponent } from './asignar-grado-materias/asignar-grado-materias.component';
+import { AsignarMateriaMaestrosComponent } from './asignar-materia-maestros/asignar-materia-maestros.component';
 
 
 import { SimpleNotificationsModule } from 'angular2-notifications';
@@ -32,7 +35,10 @@ import { SubjectsService } from "./_services/subjects.service";
 import { TeachersService } from "./_services/teachers.service";
 import { TutorsService } from "./_services/tutors.service";
 import { EstudiantesTutoresService } from "./_services/_asignaciones/estudiantes-tutores.service";
-import { AsignarGradosJornadaService } from "./_services/_asignaciones/asignar-grados-jornada.service";
+import { CiclosJornadaService } from "./_services/_asignaciones/ciclos-jornada.service";
+import { JornadaGradoService } from "./_services/_asignaciones/jornada-grado.service";
+import { GradoMateriaService } from "./_services/_asignaciones/grado-materia.service";
+import { MateriaMaestroService } from "./_services/_asignaciones/materia-maestro.service";
 
 @NgModule({
   imports: [
@@ -56,7 +62,11 @@ import { AsignarGradosJornadaService } from "./_services/_asignaciones/asignar-g
     CursosComponent, 
     EstudiantesComponent, 
     TutoresComponent, 
-    AsignarEstudiantesTutoresComponent, AsignarGradosJornadaComponent, 
+    AsignarEstudiantesTutoresComponent, 
+    AsignarCicloJornadaComponent, 
+    AsignarJornadaGradosComponent, 
+    AsignarGradoMateriasComponent, 
+    AsignarMateriaMaestrosComponent, 
   ],
   providers: [
     UsuariosService,
@@ -68,7 +78,10 @@ import { AsignarGradosJornadaService } from "./_services/_asignaciones/asignar-g
     TeachersService,
     TutorsService,
     EstudiantesTutoresService,
-    AsignarGradosJornadaService
+    CiclosJornadaService,
+    JornadaGradoService,
+    GradoMateriaService,
+    MateriaMaestroService
   ]
 })
 export class AdminModule { }
