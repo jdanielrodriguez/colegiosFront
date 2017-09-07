@@ -12,7 +12,10 @@ import { TutoresComponent } from "./tutores/tutores.component";
 import { UsuariosComponent } from "./usuarios/usuarios.component";
 
 import { AsignarEstudiantesTutoresComponent } from "./asignar-estudiantes-tutores/asignar-estudiantes-tutores.component";
-import { AsignarGradosJornadaComponent } from "./asignar-grados-jornada/asignar-grados-jornada.component";
+import { AsignarCicloJornadaComponent } from "./asignar-ciclo-jornada/asignar-ciclo-jornada.component";
+import { AsignarJornadaGradosComponent } from "./asignar-jornada-grados/asignar-jornada-grados.component";
+import { AsignarGradoMateriasComponent } from "./asignar-grado-materias/asignar-grado-materias.component";
+import { AsignarMateriaMaestrosComponent } from "./asignar-materia-maestros/asignar-materia-maestros.component";
 
 
 const routes: Routes = [
@@ -28,7 +31,10 @@ const routes: Routes = [
     { path: 'tutores', component: TutoresComponent },
     { path: 'usuarios', component: UsuariosComponent },
     { path: 'estudiantes-tutores', component: AsignarEstudiantesTutoresComponent },
-    { path: 'grados-jornadas', component: AsignarGradosJornadaComponent },
+    { path: 'ciclo-jornada', component: AsignarCicloJornadaComponent },
+    { path: 'jornada-grados', component: AsignarJornadaGradosComponent },
+    { path: 'grado-materias', component: AsignarGradoMateriasComponent },
+    { path: 'materia-maestros', component: AsignarMateriaMaestrosComponent },
   ]},
 { path: 'frutas', component: AdminComponent },
 ];

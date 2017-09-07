@@ -6,7 +6,7 @@ import { path } from "../../../../config.module";
 import "rxjs/add/operator/toPromise"; 
 
 @Injectable()
-export class AsignarGradosJornadaService {
+export class CiclosJornadaService {
 
   headers = new Headers({'Access-Control-Allow-Origin':'*',
   'cache-control':'no-cache',
@@ -26,7 +26,7 @@ return Promise.reject(error.message || error)
 }
 
   getAll():Promise<any> {
-  let url = `${this.basePath}/api/studentstutor`
+  let url = `${this.basePath}/api/cyclesstudyingdays`
 
     return this.http.get(url)
                     .toPromise()
@@ -39,19 +39,9 @@ return Promise.reject(error.message || error)
 
  
 
-  getStudents(id:number):Promise<any> {
-  let url = `${this.basePath}/api/tutors/${id}/students`
-
-    return this.http.get(url)
-                    .toPromise()
-                      .then(response => {
-                        //console.log(response.json())
-                        return response.json()
-                      })
-                      .catch(this.handleError)                  
-  }
+ 
   create(form):Promise<any> {
-    let url = `${this.basePath}/api/studentstutor/signedup`
+    let url = `${this.basePath}/api/cyclesstudyingdays`
   
       return this.http.post(url,form)
                       .toPromise()
@@ -61,19 +51,9 @@ return Promise.reject(error.message || error)
                         })
                         .catch(this.handleError)                  
     }
-  deleteAll(form):Promise<any> {
-    let url = `${this.basePath}/api/studentstutor/signeddown`
   
-      return this.http.post(url,form)
-                      .toPromise()
-                        .then(response => {
-                          //console.log(response.json())
-                          return response.json()
-                        })
-                        .catch(this.handleError)                  
-    }
   delete(id):Promise<any> {
-    let url = `${this.basePath}/api/studentstutor/${id}`
+    let url = `${this.basePath}/api/cyclesstudyingdays/${id}`
   
       return this.http.delete(url)
                       .toPromise()
@@ -84,7 +64,7 @@ return Promise.reject(error.message || error)
                         .catch(this.handleError)                  
     }
   update(form):Promise<any> {
-    let url = `${this.basePath}/api/studentstutor/${form.id}`
+    let url = `${this.basePath}/api/cyclesstudyingdays/${form.id}`
   
       return this.http.put(url,form)
                       .toPromise()
@@ -96,7 +76,7 @@ return Promise.reject(error.message || error)
     }
    
   getSingle(id:number):Promise<any> {
-    let url = `${this.basePath}/api/studentstutor/${id}`
+    let url = `${this.basePath}/api/cyclesstudyingdays/${id}`
   
       return this.http.get(url)
                       .toPromise()

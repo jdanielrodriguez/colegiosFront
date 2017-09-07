@@ -39,7 +39,7 @@ return Promise.reject(error.message || error)
 
  
 
-  getStudents(id:number):Promise<any> {
+  getMyChilds(id:number):Promise<any> {
   let url = `${this.basePath}/api/tutors/${id}/students`
 
     return this.http.get(url)

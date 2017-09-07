@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
 
-import { EstudiantesTutoresService } from "../_services/_asignaciones/estudiantes-tutores.service";
-import { CyclesService } from "../_services/cycles.service";
-import { StudyingDaysService } from "../_services/studying-days.service";
+import { JornadaGradoService } from "../_services/_asignaciones/jornada-grado.service";
+import { GradesService } from "../_services/grades.service";
+import { CiclosJornadaService } from "../_services/_asignaciones/ciclos-jornada.service";
 import { NotificationsService } from 'angular2-notifications';
 @Component({
-  selector: 'app-asignar-grados-jornada',
-  templateUrl: './asignar-grados-jornada.component.html',
-  styleUrls: ['./asignar-grados-jornada.component.css']
+  selector: 'app-asignar-jornada-grados',
+  templateUrl: './asignar-jornada-grados.component.html',
+  styleUrls: ['./asignar-jornada-grados.component.css']
 })
-export class AsignarGradosJornadaComponent implements OnInit {
+export class AsignarJornadaGradosComponent implements OnInit {
   Table:any
   selectedData:any[]
   droppedItemsId:any=[]
@@ -23,12 +23,59 @@ export class AsignarGradosJornadaComponent implements OnInit {
     private _service: NotificationsService,
     private route: ActivatedRoute,
     private router: Router,
-    private mainService: EstudiantesTutoresService,
-    private ChildsService: CyclesService,
-    private ParentsService: StudyingDaysService
+    private mainService: JornadaGradoService,
+    private ChildsService: GradesService,
+    private ParentsService: CiclosJornadaService
   ) { }
     ngOnInit() {
       this.cargarAll()
+      this.cargarFree()
+      this.ParentsService.getAll()
+                        .then(response => {
+                          this.parentCombo = response
+                          
+                          console.clear 
+                        }).catch(error => {
+                          console.clear     
+                          this.createError(error) 
+                        })
+    }
+    onItemDrop(e: any) {
+        // Get the dropped data here 
+        if(!this.selectedParent){
+          this.createError("Debe seleccionar un tutor")
+        }else{
+          let existe=(this.selectedData.find(dat=>{
+            return dat.id==e.dragData.id
+          }))
+          if(!existe){
+          this.droppedItemsId.push({"id":e.dragData.id});
+          this.selectedData.push(e.dragData);}
+          // this.childs.splice(this.childs.findIndex(dat=>{
+          //   return dat.id==e.dragData.id
+          // }),1)
+          // this.childsId.splice(this.childsId.findIndex(dat=>{
+          //   return dat.id==e.dragData.id
+          // }),1)
+        }
+    }
+
+    onItemRemove(e: any) {
+        // Get the dropped data here 
+          
+          // this.childsId.push({"id":e.dragData.id});
+          // this.childs.push(e.dragData);
+          this.selectedData.splice(this.selectedData.findIndex(dat=>{
+            return dat.id==e.dragData.id
+          }),1)
+          this.droppedItemsId.splice(this.droppedItemsId.findIndex(dat=>{
+            return dat.id==e.dragData.id
+          }),1)
+        
+
+        
+    }
+    cargarFree(){
       this.ChildsService.getAll()
                         .then(response => {
                           this.childs = response
@@ -40,20 +87,9 @@ export class AsignarGradosJornadaComponent implements OnInit {
                           console.clear     
                           this.createError(error) 
                         })
-      this.ParentsService.getAll()
-                        .then(response => {
-                          this.parentCombo = response
-                          
-                          console.clear 
-                        }).catch(error => {
-                          console.clear     
-                          this.createError(error) 
-                        })
     }
-    
-    
     cargarAll(){
-      this.ParentsService.getAll()
+      this.mainService.getBussy()
                         .then(response => {
                           this.Table = response
                           $("#editModal .close").click();
@@ -66,7 +102,9 @@ export class AsignarGradosJornadaComponent implements OnInit {
     }
     cargarSingle(id:number){
       this.selectedParent=id
-      this.mainService.getStudents(id)
+      this.droppedItemsId.length = 0;
+      this.cargarFree()
+      this.mainService.getMyChilds(id)
                         .then(response => {
                           this.selectedData = response
                           this.selectedData.forEach((item,index)=>{
@@ -105,34 +143,45 @@ export class AsignarGradosJornadaComponent implements OnInit {
                         })
       
     }
-    delete(formValue){
-      this.mainService.deleteAll(formValue)
+    delete(formValueDel){
+
+      let formValue = {
+        "master":this.selectedParent,
+        "grades": this.droppedItemsId
+      }
+
+      formValueDel = {
+        "master":this.selectedParent,
+        "grades": this.childsId
+      }
+      if(this.selectedParent){   
+      this.mainService.deleteAll(formValueDel)
+                        .then(response => {
+                          
+                          this.create('Grados Desasignados')
+                        }).catch(error => {
+                          console.clear     
+                          this.createError(error) 
+                        })
+                      }else{
+                        this.createError("Debe seleccionar un Tutor") 
+                      }
+      this.insert(formValue)
+    }
+    insert(formValue:any){
+      
+      this.mainService.create(formValue)
                         .then(response => {
                           this.cargarAll()
                           console.clear 
-                          this.create('Estudiantes Desasignados')
+                          this.create('Grados Asignados')
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 
                         })
       
-    }
-    insert(formValue:any){
-      
-          console.log(formValue);
-          
-    // if(this.selectedParent){      
-    //   this.mainService.create(formValue)
-    //                     .then(response => {
-    //                       this.create('Estudiantes Asignados')
-    //                     }).catch(error => {
-    //                       console.clear     
-    //                       this.createError(error) 
-    //                     })
-      
-    //                   }else{
-    //                     this.createError("Debe seleccionar un Tutor") 
-    //                   }
+                      
+    
     }
     
   public options = {
