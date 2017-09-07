@@ -100,7 +100,7 @@ export class AsignarEstudiantesTutoresComponent implements OnInit {
       this.selectedParent=id
       this.droppedItemsId.length = 0;
       this.cargarFree()
-      this.mainService.getStudents(id)
+      this.mainService.getMyChilds(id)
                         .then(response => {
                           this.selectedData = response
                           this.selectedData.forEach((item,index)=>{
