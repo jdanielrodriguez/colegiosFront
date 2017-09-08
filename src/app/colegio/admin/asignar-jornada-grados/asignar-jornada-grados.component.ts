@@ -48,22 +48,23 @@ export class AsignarJornadaGradosComponent implements OnInit {
           let existe=(this.selectedData.find(dat=>{
             return dat.id==e.dragData.id
           }))
+
           if(!existe){
-          this.droppedItemsId.push({"id":e.dragData.id});
-          this.selectedData.push(e.dragData);}
-          // this.childs.splice(this.childs.findIndex(dat=>{
-          //   return dat.id==e.dragData.id
-          // }),1)
-          // this.childsId.splice(this.childsId.findIndex(dat=>{
-          //   return dat.id==e.dragData.id
-          // }),1)
-        }
+            this.droppedItemsId.push({"id":e.dragData.id});
+            this.selectedData.push(e.dragData);}
+            // this.childs.splice(this.childs.findIndex(dat=>{
+            //   return dat.id==e.dragData.id
+            // }),1)
+            // this.childsId.splice(this.childsId.findIndex(dat=>{
+            //   return dat.id==e.dragData.id
+            // }),1)
+          }
     }
 
     onItemRemove(e: any) {
         // Get the dropped data here 
           
-          // this.childsId.push({"id":e.dragData.id});
+           this.childsId.push({"id":e.dragData.id});
           // this.childs.push(e.dragData);
           this.selectedData.splice(this.selectedData.findIndex(dat=>{
             return dat.id==e.dragData.id
@@ -103,6 +104,7 @@ export class AsignarJornadaGradosComponent implements OnInit {
     cargarSingle(id:number){
       this.selectedParent=id
       this.droppedItemsId.length = 0;
+      this.childsId.length = 0;
       this.cargarFree()
       this.mainService.getMyChilds(id)
                         .then(response => {
@@ -136,7 +138,7 @@ export class AsignarJornadaGradosComponent implements OnInit {
                         .then(response => {
                           this.cargarAll()
                           console.clear 
-                          this.create('Estudiantes Desasignados')
+                          this.create('Grados Desasignados')
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 
@@ -154,19 +156,24 @@ export class AsignarJornadaGradosComponent implements OnInit {
         "master":this.selectedParent,
         "grades": this.childsId
       }
+      // console.log(formValue);
+      // console.log(formValueDel);
+      
+      
       if(this.selectedParent){   
       this.mainService.deleteAll(formValueDel)
                         .then(response => {
-                          
+                          this.insert(formValue)
                           this.create('Grados Desasignados')
                         }).catch(error => {
+                          this.insert(formValue)
                           console.clear     
                           this.createError(error) 
                         })
                       }else{
-                        this.createError("Debe seleccionar un Tutor") 
+                        this.createError("Debe seleccionar un Ciclo-Jornada") 
                       }
-      this.insert(formValue)
+      
     }
     insert(formValue:any){
       
