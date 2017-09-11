@@ -10,6 +10,7 @@ import { JornadasComponent } from "./jornadas/jornadas.component";
 import { MaestrosComponent } from "./maestros/maestros.component";
 import { TutoresComponent } from "./tutores/tutores.component";
 import { UsuariosComponent } from "./usuarios/usuarios.component";
+import { UsuariosTipoComponent } from "./usuarios-tipo/usuarios-tipo.component";
 
 import { AsignarEstudiantesTutoresComponent } from "./asignar-estudiantes-tutores/asignar-estudiantes-tutores.component";
 import { AsignarCicloJornadaComponent } from "./asignar-ciclo-jornada/asignar-ciclo-jornada.component";
@@ -30,6 +31,7 @@ const routes: Routes = [
     { path: 'maestros', component: MaestrosComponent },
     { path: 'tutores', component: TutoresComponent },
     { path: 'usuarios', component: UsuariosComponent },
+    { path: 'usuarios-tipo', component: UsuariosTipoComponent },
     { path: 'estudiantes-tutores', component: AsignarEstudiantesTutoresComponent },
     { path: 'ciclo-jornada', component: AsignarCicloJornadaComponent },
     { path: 'jornada-grados', component: AsignarJornadaGradosComponent },

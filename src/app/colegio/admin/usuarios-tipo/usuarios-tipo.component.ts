@@ -5,11 +5,11 @@ import { UsuariosService } from "../_services/usuarios.service";
 import { NotificationsService } from 'angular2-notifications';
 
 @Component({
-  selector: 'app-usuarios',
-  templateUrl: './usuarios.component.html',
-  styleUrls: ['./usuarios.component.css']
+  selector: 'app-usuarios-tipo',
+  templateUrl: './usuarios-tipo.component.html',
+  styleUrls: ['./usuarios-tipo.component.css']
 })
-export class UsuariosComponent implements OnInit {
+export class UsuariosTipoComponent implements OnInit {
   userTable:any
   userTypesCombo:any
   foreignCombo:any
