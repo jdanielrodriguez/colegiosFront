@@ -114,13 +114,15 @@ export class AsignarEstudiantesTutoresComponent implements OnInit {
                         })
     }
     update(formValue:any){
-      
+      $('#Loading').css('display','block')
+      $('#Loading').addClass('in')
       //console.log(data)
       this.mainService.update(formValue)
                         .then(response => {
                           this.cargarAll()
                           console.clear 
                           this.create('Ciclo Actualizado exitosamente')
+                          $('#Loading').css('display','none')
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 
@@ -145,6 +147,7 @@ export class AsignarEstudiantesTutoresComponent implements OnInit {
                           this.cargarAll()
                           console.clear 
                           this.create('Estudiantes Desasignados')
+                          $('#Loading').css('display','none')
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 
@@ -152,7 +155,8 @@ export class AsignarEstudiantesTutoresComponent implements OnInit {
       
     }
     insert(formValue:any){
-      
+      $('#Loading').css('display','block')
+      $('#Loading').addClass('in')
       formValue = {
         "tutor":this.selectedParent,
         "students": this.droppedItemsId
