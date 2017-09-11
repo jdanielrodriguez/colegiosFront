@@ -52,7 +52,9 @@ closeResult: string;
   login(formValue:any){
    //console.log(`user: ${formValue.username} pass: ${formValue.password}`)
     
-      
+   $('#Loading').css('display','block')
+   $('#Loading').addClass('in')
+   
     this.authenticationService.Authentication(formValue)
       .then(response => {
         this.auth = response
@@ -80,11 +82,13 @@ closeResult: string;
         }
 
         localStorage.setItem('currentType', type);
-        console.log(type)
+        //console.log(type)
         console.clear
         this.router.navigate([`colegio/${type}`])
       }).catch(error => {
         console.clear
+   $('#Loading').css('display','none')
+   
         this.create(error)
         this.toast(error)
         

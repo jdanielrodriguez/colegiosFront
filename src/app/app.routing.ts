@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { LoginComponent } from "./login/login.component";
+import { LoadersCssModule } from 'angular2-loaders-css';
 
 import { AuthGuard } from "./_guards/auth.guard";
 import { HomeGuard } from "./_guards/home.guard";

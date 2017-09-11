@@ -6,6 +6,7 @@ import { HttpModule } from "@angular/http";
 import { AppRoutingModule } from './app.routing';
 import { AuthGuard } from "./_guards/auth.guard";
 import { HomeGuard } from "./_guards/home.guard";
+import { LoadersCssModule } from 'angular2-loaders-css';
 
 import { AuthService } from "./_services/auth.service";
 
@@ -26,6 +27,8 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
     HttpModule,
     BrowserAnimationsModule,
     SimpleNotificationsModule.forRoot(), 
+    LoadersCssModule,  
+    
     AppRoutingModule
   ],
   providers: [

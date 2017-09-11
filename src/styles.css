@@ -45,3 +45,8 @@ However, delay the fade out process for 2.5 seconds */
 }
 
 
+.loader  div  .loader1 {
+  background-color: #458ab6 !important;
+  width: 20px;
+  height: 100px;
+}
