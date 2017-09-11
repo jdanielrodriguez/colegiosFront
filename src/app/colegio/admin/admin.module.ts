@@ -40,6 +40,8 @@ import { CiclosJornadaService } from "./_services/_asignaciones/ciclos-jornada.s
 import { JornadaGradoService } from "./_services/_asignaciones/jornada-grado.service";
 import { GradoMateriaService } from "./_services/_asignaciones/grado-materia.service";
 import { MateriaMaestroService } from "./_services/_asignaciones/materia-maestro.service";
+import { LoaderComponent } from './loader/loader.component';
+import { UsuariosTipoComponent } from './usuarios-tipo/usuarios-tipo.component';
 
 @NgModule({
   imports: [
@@ -68,7 +70,7 @@ import { MateriaMaestroService } from "./_services/_asignaciones/materia-maestro
     AsignarCicloJornadaComponent, 
     AsignarJornadaGradosComponent, 
     AsignarGradoMateriasComponent, 
-    AsignarMateriaMaestrosComponent, 
+    AsignarMateriaMaestrosComponent, LoaderComponent, UsuariosTipoComponent, 
   ],
   providers: [
     UsuariosService,
