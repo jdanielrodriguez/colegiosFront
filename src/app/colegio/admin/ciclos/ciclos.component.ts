@@ -43,13 +43,15 @@ export class CiclosComponent implements OnInit {
                         })
     }
     update(formValue:any){
-      
+      $('#Loading').css('display','block')
+      $('#Loading').addClass('in')
       //console.log(data)
       this.mainService.update(formValue)
                         .then(response => {
                           this.cargarAll()
                           console.clear 
                           this.create('Ciclo Actualizado exitosamente')
+                          $('#Loading').css('display','none')
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 
@@ -57,11 +59,14 @@ export class CiclosComponent implements OnInit {
       
     }
     delete(id:string){
+      $('#Loading').css('display','block')
+      $('#Loading').addClass('in')
       this.mainService.delete(id)
                         .then(response => {
                           this.cargarAll()
                           console.clear 
                           this.create('Ciclo Eliminado exitosamente')
+                          $('#Loading').css('display','none')
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 
@@ -69,12 +74,14 @@ export class CiclosComponent implements OnInit {
       
     }
     insert(formValue:any){
-      
+      $('#Loading').css('display','block')
+      $('#Loading').addClass('in')
       this.mainService.create(formValue)
                         .then(response => {
                           this.cargarAll()
                           console.clear 
                           this.create('Ciclo Ingresado')
+                          $('#Loading').css('display','none')
                           
                         }).catch(error => {
                           console.clear     
