@@ -19,6 +19,7 @@ import { AsignarCicloJornadaComponent } from './asignar-ciclo-jornada/asignar-ci
 import { AsignarJornadaGradosComponent } from './asignar-jornada-grados/asignar-jornada-grados.component';
 import { AsignarGradoMateriasComponent } from './asignar-grado-materias/asignar-grado-materias.component';
 import { AsignarMateriaMaestrosComponent } from './asignar-materia-maestros/asignar-materia-maestros.component';
+import { UsuariosTipoComponent } from './usuarios-tipo/usuarios-tipo.component';
 
 
 import { SimpleNotificationsModule } from 'angular2-notifications';
@@ -40,8 +41,10 @@ import { CiclosJornadaService } from "./_services/_asignaciones/ciclos-jornada.s
 import { JornadaGradoService } from "./_services/_asignaciones/jornada-grado.service";
 import { GradoMateriaService } from "./_services/_asignaciones/grado-materia.service";
 import { MateriaMaestroService } from "./_services/_asignaciones/materia-maestro.service";
+import { UsersTypesService } from "./_services/users-types.service";
+
+
 import { LoaderComponent } from './loader/loader.component';
-import { UsuariosTipoComponent } from './usuarios-tipo/usuarios-tipo.component';
 
 @NgModule({
   imports: [
@@ -70,7 +73,9 @@ import { UsuariosTipoComponent } from './usuarios-tipo/usuarios-tipo.component';
     AsignarCicloJornadaComponent, 
     AsignarJornadaGradosComponent, 
     AsignarGradoMateriasComponent, 
-    AsignarMateriaMaestrosComponent, LoaderComponent, UsuariosTipoComponent, 
+    AsignarMateriaMaestrosComponent, 
+    LoaderComponent, 
+    UsuariosTipoComponent
   ],
   providers: [
     UsuariosService,
@@ -85,7 +90,8 @@ import { UsuariosTipoComponent } from './usuarios-tipo/usuarios-tipo.component';
     CiclosJornadaService,
     JornadaGradoService,
     GradoMateriaService,
-    MateriaMaestroService
+    MateriaMaestroService,
+    UsersTypesService
   ]
 })
 export class AdminModule { }
