@@ -79,8 +79,8 @@
                 <form id="insert-form"  #InsertForm="ngForm" (ngSubmit)="delete(InsertForm.value)">
                     
                     <div class="form-group col-xs-6 m-b-15" >
-                        <label for="description">Grados</label>
-                        <input type="text" class="form-control" placeholder="Busqueda de Grados" [(ngModel)]="search" [ngModelOptions]="{standalone: true}">
+                        <label for="description">Materias</label>
+                        <input type="text" class="form-control" placeholder="Busqueda de Materias" [(ngModel)]="search" [ngModelOptions]="{standalone: true}">
                         <div droppable (onDrop)="onItemRemove($event)" class="listaDrag">
                           
                           <li draggable [dragData]="Data" *ngFor = "let Data of childs |filter:search" class="alert alert-success" >
@@ -92,7 +92,11 @@
                     </div>
                       <div  class="form-group col-xs-6 m-b-15" >
                         <label for="cycle_study_day">Ciclo/Jornada</label>
-                        <select name="cycle_study_day" class="form-control" id="cycle_study_day" [(ngModel)]="selectedParent" required ngModel #cyclestudyday="ngModel" (change)="cargarSingle(cyclestudyday.value)">
+                        <select name="cycle_study_day" class="form-control" id="cycle_study_day" [(ngModel)]="search" [ngModelOptions]="{standalone: true}" required ngModel #cyclestudyday="ngModel" (change)="cargarChilds(cyclestudyday.value)">
+                          <option *ngFor="let Data of parentCombo" value="{{Data.id}}">{{((Data.cycles.description!=null)?Data.cycles.description+'-':'')+((Data.studying_days.description!=null)?Data.studying_days.description:'')}}</option>
+                        </select>
+                        <label for="grades">Grades</label>
+                        <select name="grades" class="form-control" id="grades" [(ngModel)]="selectedParent" required ngModel #grades="ngModel" (change)="cargarSingle(grades.value)">
                           <option *ngFor="let Data of parentCombo" value="{{Data.id}}">{{((Data.cycles.description!=null)?Data.cycles.description+'-':'')+((Data.studying_days.description!=null)?Data.studying_days.description:'')}}</option>
                         </select>
                           <div droppable (onDrop)="onItemDrop($event)"  class="listaDrag " >

@@ -25,7 +25,7 @@ return Promise.reject(error.message || error)
 }
 
     getAll():Promise<any> {
-    let url = `${this.basePath}/api/studyingdaysgrades`
+    let url = `${this.basePath}/api/gradessubjects`
       return this.http.get(url)
                       .toPromise()
                         .then(response => {
@@ -36,7 +36,7 @@ return Promise.reject(error.message || error)
     }
 
     getBussy():Promise<any> {
-      let url = `${this.basePath}/api/bussy/studyingdaysgrades`
+      let url = `${this.basePath}/api/bussy/gradessubjects`
         return this.http.get(url)
                         .toPromise()
                           .then(response => {

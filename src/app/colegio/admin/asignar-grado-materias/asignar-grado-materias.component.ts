@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
 
-import { JornadaGradoService } from "../_services/_asignaciones/jornada-grado.service";
-import { GradesService } from "../_services/grades.service";
+import { GradoMateriaService } from "../_services/_asignaciones/grado-materia.service";
+import { SubjectsService } from "../_services/subjects.service";
 import { CiclosJornadaService } from "../_services/_asignaciones/ciclos-jornada.service";
 import { NotificationsService } from 'angular2-notifications';
 @Component({
@@ -23,8 +23,8 @@ export class AsignarGradoMateriasComponent implements OnInit {
     private _service: NotificationsService,
     private route: ActivatedRoute,
     private router: Router,
-    private mainService: JornadaGradoService,
-    private ChildsService: GradesService,
+    private mainService: GradoMateriaService,
+    private ChildsService: SubjectsService,
     private ParentsService: CiclosJornadaService
   ) { }
     ngOnInit() {
@@ -103,6 +103,23 @@ export class AsignarGradoMateriasComponent implements OnInit {
     }
     cargarSingle(id:number){
       this.selectedParent=id
+      this.droppedItemsId.length = 0;
+      this.childsId.length = 0;
+      this.cargarFree()
+      this.mainService.getMyChilds(id)
+                        .then(response => {
+                          this.selectedData = response
+                          this.selectedData.forEach((item,index)=>{
+                            this.droppedItemsId.push({"id":item.id});
+                          })
+                          console.clear 
+                                                    
+                        }).catch(error => {
+                          console.clear     
+                          this.createError(error) 
+                        })
+    }
+    cargarChilds(id:number){
       this.droppedItemsId.length = 0;
       this.childsId.length = 0;
       this.cargarFree()
