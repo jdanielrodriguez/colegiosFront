@@ -75,7 +75,8 @@ export class UsuariosComponent implements OnInit {
                         })
     }
     updateUser(formValue:any){
-      
+      $('#Loading').css('display','block')
+      $('#Loading').addClass('in')
       let tutor:any = null
       let teacher:any = null
       let student:any = null
@@ -127,6 +128,8 @@ export class UsuariosComponent implements OnInit {
                           this.cargarUsers()
                           console.clear 
                           this.create('Usuario Actualizado exitosamente')
+                          $('#Loading').css('display','none')
+      
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 
@@ -134,11 +137,15 @@ export class UsuariosComponent implements OnInit {
       
     }
     deleteUser(id:string){
+      $('#Loading').css('display','block')
+      $('#Loading').addClass('in')
       this.userService.delete(id)
                         .then(response => {
                           this.cargarUsers()
                           console.clear 
                           this.create('Usuario Eliminado exitosamente')
+                          $('#Loading').css('display','none')
+                          
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 
@@ -146,6 +153,8 @@ export class UsuariosComponent implements OnInit {
       
     }
     insertUser(formValue:any){
+      $('#Loading').css('display','block')
+      $('#Loading').addClass('in')
       let tutor:any = null
       let teacher:any = null
       let student:any = null
@@ -221,6 +230,7 @@ export class UsuariosComponent implements OnInit {
                           this.cargarUsers()
                           console.clear 
                           this.create('Usuario Ingresado')
+                          $('#Loading').css('display','none')
                           
                         }).catch(error => {
                           console.clear     
