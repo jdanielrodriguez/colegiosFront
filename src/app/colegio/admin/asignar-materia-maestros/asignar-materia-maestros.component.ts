@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
 
 import { GradoMateriaService } from "../_services/_asignaciones/grado-materia.service";
-import { SubjectsService } from "../_services/subjects.service";
+import { TeachersService } from "../_services/teachers.service";
 import { JornadaGradoService } from "../_services/_asignaciones/jornada-grado.service";
 import { NotificationsService } from 'angular2-notifications';
 @Component({
@@ -13,6 +13,7 @@ import { NotificationsService } from 'angular2-notifications';
 export class AsignarMateriaMaestrosComponent implements OnInit {
   Table:any
   selectedData:any[]
+  selectedDataSigned:any=[]
   selectedDataId:any
   droppedItemsId:any=[]
   childs:any[]
@@ -27,7 +28,7 @@ export class AsignarMateriaMaestrosComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private mainService: GradoMateriaService,
-    private ChildsService: SubjectsService,
+    private ChildsService: TeachersService,
     private ParentsService: JornadaGradoService
   ) { }
     ngOnInit() {
@@ -48,20 +49,19 @@ export class AsignarMateriaMaestrosComponent implements OnInit {
         if(!this.selectedParent){
           this.createError("Debe seleccionar un tutor")
         }else{
-          let existe=(this.selectedData.find(dat=>{
+          let existe=(this.selectedDataSigned.find(dat=>{
             return dat.id==e.dragData.id
           }))
 
           if(!existe){
-            this.droppedItemsId.push({"id":e.dragData.id});
-            this.selectedData.push(e.dragData);}
+            //this.droppedItemsId.push({"id":e.dragData.id});
+            this.selectedDataSigned.push(e.dragData);}
             // this.childs.splice(this.childs.findIndex(dat=>{
             //   return dat.id==e.dragData.id
             // }),1)
             // this.childsId.splice(this.childsId.findIndex(dat=>{
             //   return dat.id==e.dragData.id
             // }),1)
-            console.log(this.droppedItemsId);
             
           }
     }

@@ -86,7 +86,7 @@
                         <div droppable (onDrop)="onItemRemove($event)" class="listaDrag">
                           
                           <li draggable [dragData]="Data" *ngFor = "let Data of childs |filter:search" class="alert alert-success" >
-                            {{((Data.name!=null)?Data.name:'')}}
+                            {{((Data.firstname!=null)?Data.firstname+' ':'')+((Data.lastname!=null)?Data.lastname:'')}}
                             
                           </li> 
                         </div>
@@ -101,9 +101,15 @@
                         <select name="grades" *ngIf="parentCombo" class="form-control" id="grades" [(ngModel)]="selectedParent" required ngModel #grades="ngModel" (change)="cargarGrandChilds(grades.value)">
                           <option *ngFor="let Data of parentCombo" value="{{Data.id}}">{{((Data.name!=null)?Data.name:'')}}</option>
                         </select>
-                          <div droppable (onDrop)="onItemDrop($event)"  class="listaDrag " >
-                            <li draggable [dragData]="item" *ngFor="let item of selectedData" class="alert alert-info">
-                              {{((item.name!=null)?item.name:'')}}
+                          <div   class="listaDrag " >
+                            <li *ngFor="let data of selectedData" class="alert alert-info">
+                              {{((data.name!=null)?data.name:'')}}
+                              <div droppable (onDrop)="onItemDrop($event)">
+                                <li draggable [dragData]="item" *ngFor="let item of selectedDataSigned" class="alert alert-danger">
+                                  {{((item.firstname!=null)?item.firstname+' ':'')+((item.lastname!=null)?item.lastname:'')}}
+                                  </li>
+                            
+                              </div>
                             </li>
                           </div>
                         </div>  

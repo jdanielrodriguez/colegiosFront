@@ -61,7 +61,7 @@ export class AsignarGradoMateriasComponent implements OnInit {
             // this.childsId.splice(this.childsId.findIndex(dat=>{
             //   return dat.id==e.dragData.id
             // }),1)
-            console.log(this.droppedItemsId);
+            // console.log(this.droppedItemsId);
             
           }
     }
