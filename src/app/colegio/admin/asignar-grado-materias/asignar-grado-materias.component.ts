@@ -13,12 +13,15 @@ import { NotificationsService } from 'angular2-notifications';
 export class AsignarGradoMateriasComponent implements OnInit {
   Table:any
   selectedData:any[]
+  selectedDataId:any
   droppedItemsId:any=[]
   childs:any[]
   childsId:any=[]
   droppedItems:any=[]
   parentCombo:any
+  grandParentCombo:any
   selectedParent:any
+  selectedGrandParent:any
   constructor(
     private _service: NotificationsService,
     private route: ActivatedRoute,
@@ -30,9 +33,9 @@ export class AsignarGradoMateriasComponent implements OnInit {
     ngOnInit() {
       this.cargarAll()
       this.cargarFree()
-      this.ParentsService.getAll()
+      this.ParentsService.getBussy()
                         .then(response => {
-                          this.parentCombo = response
+                          this.grandParentCombo = response
                           
                           console.clear 
                         }).catch(error => {
@@ -58,6 +61,8 @@ export class AsignarGradoMateriasComponent implements OnInit {
             // this.childsId.splice(this.childsId.findIndex(dat=>{
             //   return dat.id==e.dragData.id
             // }),1)
+            console.log(this.droppedItemsId);
+            
           }
     }
 
@@ -93,6 +98,7 @@ export class AsignarGradoMateriasComponent implements OnInit {
       this.mainService.getBussy()
                         .then(response => {
                           this.Table = response
+                          
                           $("#editModal .close").click();
                           $("#insertModal .close").click();
                           console.clear 
@@ -101,34 +107,84 @@ export class AsignarGradoMateriasComponent implements OnInit {
                           this.createError(error) 
                         })
     }
-    cargarSingle(id:number){
-      this.selectedParent=id
-      this.droppedItemsId.length = 0;
-      this.childsId.length = 0;
+    cargarSingle(id:number,id2:number){
+
+      this.selectedGrandParent=id2
       this.cargarFree()
-      this.mainService.getMyChilds(id)
+      this.mainService.getMyChilds(id2)
                         .then(response => {
-                          this.selectedData = response
-                          this.selectedData.forEach((item,index)=>{
-                            this.droppedItemsId.push({"id":item.id});
-                          })
+                          this.parentCombo = response
+                          
                           console.clear 
                                                     
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 
                         })
-    }
-    cargarChilds(id:number){
+
+      this.selectedParent=id
       this.droppedItemsId.length = 0;
       this.childsId.length = 0;
+      this.mainService.getMyId(id2,id)
+                          .then(response => {
+                            this.selectedDataId=response.id
+                            this.cargarFree()
+                            this.mainService.getMyGrandChilds(this.selectedDataId)
+                                              .then(response => {
+                                                this.selectedData = response
+                                                this.selectedData.forEach((item,index)=>{
+                                                  this.droppedItemsId.push({"id":item.id});
+                                                })
+                                                console.clear 
+                                                                          
+                                              }).catch(error => {
+                                                console.clear     
+                                                this.createError(error) 
+                                              })
+                            
+                            console.clear 
+                                                      
+                          }).catch(error => {
+                            console.clear     
+                            this.createError(error) 
+                          })
+      
+    }
+    cargarGrandChilds(id:number){
+      this.selectedParent=id
+      this.droppedItemsId.length = 0;
+      this.childsId.length = 0;
+      this.mainService.getMyId(this.selectedGrandParent,id)
+                          .then(response => {
+                            this.selectedDataId=response.id
+                            this.cargarFree()
+                            this.mainService.getMyGrandChilds(this.selectedDataId)
+                                              .then(response => {
+                                                this.selectedData = response
+                                                this.selectedData.forEach((item,index)=>{
+                                                  this.droppedItemsId.push({"id":item.id});
+                                                })
+                                                console.clear 
+                                                                          
+                                              }).catch(error => {
+                                                console.clear     
+                                                this.createError(error) 
+                                              })
+                            console.clear 
+                                                      
+                          }).catch(error => {
+                            console.clear     
+                            this.createError(error) 
+                          })
+      
+    }
+    cargarChild(id:number){
+      this.selectedGrandParent=id
       this.cargarFree()
       this.mainService.getMyChilds(id)
                         .then(response => {
-                          this.selectedData = response
-                          this.selectedData.forEach((item,index)=>{
-                            this.droppedItemsId.push({"id":item.id});
-                          })
+                          this.parentCombo = response
+                          
                           console.clear 
                                                     
                         }).catch(error => {
@@ -168,13 +224,13 @@ export class AsignarGradoMateriasComponent implements OnInit {
       $('#Loading').css('display','block')
       $('#Loading').addClass('in')
       let formValue = {
-        "master":this.selectedParent,
-        "grades": this.droppedItemsId
+        "grade":this.selectedDataId,
+        "subjects": this.droppedItemsId
       }
 
       formValueDel = {
-        "master":this.selectedParent,
-        "grades": this.childsId
+        "grade":this.selectedDataId,
+        "subjects": this.childsId
       }
       // console.log(formValue);
       // console.log(formValueDel);
@@ -184,7 +240,7 @@ export class AsignarGradoMateriasComponent implements OnInit {
       this.mainService.deleteAll(formValueDel)
                         .then(response => {
                           this.insert(formValue)
-                          this.create('Grados Desasignados')
+                          this.create('Materias Desasignadas')
                         }).catch(error => {
                           this.insert(formValue)
                           console.clear     
