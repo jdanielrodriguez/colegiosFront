@@ -522,7 +522,7 @@
         [routerLink]="[ './admin/dashboard' ]" class="waves-effect"><i class="icon-speedometer fa-fw"></i> Dashboard</a>
       </li>
       <li data-toggle="collapse" href="#Users"> <a  class="waves-effect"><i class=" fa fa-user fa-fw"></i> Usuarios<span class="fa arrow"></span>  </a>
-        <ul class="collapse nav nav-second-level" id="Users">
+      </li><ul class="collapse nav nav-second-level" id="Users">
           <li> <a routerLinkActive="active"
             [routerLink]="[ './admin/usuarios' ]" class="waves-effect"><i class="icon-user fa-fw"></i> Usuarios</a>
           </li>
@@ -530,9 +530,9 @@
             [routerLink]="[ './admin/usuarios-tipo' ]" class="waves-effect"><i class="icon-user fa-fw"></i> Tipos de Usuarios</a>
           </li>
         </ul>
-      </li>
+      
       <li data-toggle="collapse" href="#Elements"> <a  class="waves-effect"><i class=" fa fa-gear fa-fw"></i> Administracion<span class="fa arrow"></span>  </a>
-        <ul class="collapse nav nav-second-level" id="Elements">
+      </li> <ul class="collapse nav nav-second-level" id="Elements">
           <li> <a routerLinkActive="active"
             [routerLink]="[ './admin/ciclos' ]" class="waves-effect"><i class="fa fa-circle-o-notch  fa-fw"></i> Ciclos</a>
           </li>
@@ -554,12 +554,22 @@
           <li> <a routerLinkActive="active"
             [routerLink]="[ './admin/tutores' ]" class="waves-effect"><i class=" ti-id-badge fa-fw"></i> Tutores</a>
           </li>
+          <li data-toggle="collapse" href="#Events"> <a  class="waves-effect"><i class=" fa fa-calendar fa-fw"></i> Eventos<span class="fa arrow"></span>  </a>
+          </li><ul class="collapse nav nav-third-level" id="Events">
+              <li> <a routerLinkActive="active"
+                [routerLink]="[ './admin/eventos' ]" class="waves-effect"><i class="icon-user fa-fw"></i> Eventos</a>
+              </li>
+              <li> <a routerLinkActive="active"
+                [routerLink]="[ './admin/eventos-tipo' ]" class="waves-effect"><i class="icon-user fa-fw"></i> Tipos de Eventos</a>
+              </li>
+            </ul>
+          
         </ul>
-      </li>
+      
       
 
       <li data-toggle="collapse" href="#Assigns"> <a  class="waves-effect"><i class=" fa fa-sign-in fa-fw"></i> Asignaciones<span class="fa arrow"></span>  </a>
-        <ul class="collapse nav nav-second-level" id="Assigns">
+      </li> <ul class="collapse nav nav-second-level" id="Assigns">
           <li> <a routerLinkActive="active"
             [routerLink]="[ './admin/estudiantes-tutores' ]" class="waves-effect"><i class="fa fa-group  fa-fw"></i> Estudiantes a Tutores</a>
           </li>
@@ -579,7 +589,7 @@
             [routerLink]="[ './admin/materia-maestros' ]" class="waves-effect"><i class="fa  fa-bank fa-fw"></i> Maestros a Materia</a>
           </li>
         </ul>
-      </li>
+      
       
       <li> <a href="map-google.html" class="waves-effect"><i class="ti-location-pin fa-fw"></i> Google Map</a> </li>
       <li> <a href="map-vector.html" class="waves-effect"><i class="ti-ink-pen fa-fw"></i> Vector Map</a> </li>

@@ -1,22 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
 
-import { UsersTypesService } from "../_services/users-types.service";
+import { EventsTypeService } from "../_services/events-type.service";
 import { NotificationsService } from 'angular2-notifications';
 
 @Component({
-  selector: 'app-usuarios-tipo',
-  templateUrl: './usuarios-tipo.component.html',
-  styleUrls: ['./usuarios-tipo.component.css']
+  selector: 'app-eventos-tipo',
+  templateUrl: './eventos-tipo.component.html',
+  styleUrls: ['./eventos-tipo.component.css']
 })
-export class UsuariosTipoComponent implements OnInit {
+export class EventosTipoComponent implements OnInit {
   Table:any
   selectedData:any
   constructor(
     private _service: NotificationsService,
     private route: ActivatedRoute,
     private router: Router,
-    private mainService: UsersTypesService
+    private mainService: EventsTypeService
   ) { }
   
     ngOnInit() {

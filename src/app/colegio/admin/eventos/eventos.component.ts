@@ -1,26 +1,48 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
 
-import { UsersTypesService } from "../_services/users-types.service";
+import { EventsService } from "../_services/events.service";
+import { EventsTypeService } from "../_services/events-type.service";
 import { NotificationsService } from 'angular2-notifications';
 
 @Component({
-  selector: 'app-usuarios-tipo',
-  templateUrl: './usuarios-tipo.component.html',
-  styleUrls: ['./usuarios-tipo.component.css']
+  selector: 'app-eventos',
+  templateUrl: './eventos.component.html',
+  styleUrls: ['./eventos.component.css']
 })
-export class UsuariosTipoComponent implements OnInit {
+export class EventosComponent implements OnInit {
   Table:any
   selectedData:any
+  parentCombo:any
+  beginDate:any
+  endDate:any
   constructor(
     private _service: NotificationsService,
     private route: ActivatedRoute,
     private router: Router,
-    private mainService: UsersTypesService
+    private mainService: EventsService,
+    private parentService: EventsTypeService
   ) { }
   
     ngOnInit() {
+      let date = new Date();
+      let month = date.getMonth()+1;
+      let month2;
+      if(month<10){
+        month2='0'+month;
+      }else{
+        month2=month
+      }
+      this.beginDate= date.getFullYear()+'-'+month2+'-01'
+      month = date.getMonth()+2;
+      if(month<10){
+        month2='0'+month;
+      }else{
+        month2=month;
+      }
+      this.endDate=date.getFullYear()+'-'+month2+'-01'
       this.cargarAll()
+      this.cargarTipo()
     }
     cargarAll(){
       this.mainService.getAll()
@@ -34,6 +56,19 @@ export class UsuariosTipoComponent implements OnInit {
                           this.createError(error) 
                         })
     }
+
+    cargarTipo(){
+      this.parentService.getAll()
+                        .then(response => {
+                          this.parentCombo = response
+                         
+                          console.clear 
+                        }).catch(error => {
+                          console.clear     
+                          this.createError(error) 
+                        })
+    }
+
     cargarSingle(id:number){
       this.mainService.getSingle(id)
                         .then(response => {
