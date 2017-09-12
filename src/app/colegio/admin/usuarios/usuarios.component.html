@@ -38,9 +38,9 @@
                         <tbody>
                             <tr *ngFor="let user of userTable">
                                 <td>{{((user.firstname!=null)?user.firstname+' ':'')+((user.lastname!=null)?user.lastname:'')}}</td>
-                                <td>{{user.username}}</td>
-                                <td>{{user.email}}</td>
-                                <td>{{(user.type==1)?'Estudiante':(user.type==2)?'Maestro':(user.type==3)?'Tutor':'Administrador'}}</td>
+                                <td>{{((user.username!=null)?user.username:'')}}</td>
+                                <td>{{((user.email!=null)?user.email:'')}}</td>
+                                <td>{{(user.types.description!=null)?user.types.description:''}}</td>
                                 <td>
 
                                   <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editModal" (click)="cargarUser(user.id)" style="cursor:pointer;"><i class="fa fa-edit"></i> Editar</button>
