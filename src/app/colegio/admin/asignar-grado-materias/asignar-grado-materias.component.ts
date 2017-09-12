@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 
 import { GradoMateriaService } from "../_services/_asignaciones/grado-materia.service";
 import { SubjectsService } from "../_services/subjects.service";
-import { CiclosJornadaService } from "../_services/_asignaciones/ciclos-jornada.service";
+import { JornadaGradoService } from "../_services/_asignaciones/jornada-grado.service";
 import { NotificationsService } from 'angular2-notifications';
 @Component({
   selector: 'app-asignar-grado-materias',
@@ -25,7 +25,7 @@ export class AsignarGradoMateriasComponent implements OnInit {
     private router: Router,
     private mainService: GradoMateriaService,
     private ChildsService: SubjectsService,
-    private ParentsService: CiclosJornadaService
+    private ParentsService: JornadaGradoService
   ) { }
     ngOnInit() {
       this.cargarAll()
