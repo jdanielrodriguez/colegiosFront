@@ -57,9 +57,31 @@ return Promise.reject(error.message || error)
                           })
                           .catch(this.handleError)                  
       }
+    getMyGrandChilds(id:number):Promise<any> {
+      let url = `${this.basePath}/api/grades/${id}/subjects`
+    
+        return this.http.get(url)
+                        .toPromise()
+                          .then(response => {
+                            //console.log(response.json())
+                            return response.json()
+                          })
+                          .catch(this.handleError)                  
+      }
+      getMyId(id:number,id2:number):Promise<any> {
+        let url = `${this.basePath}/api/studyingdaysgrades/${id}/grades/${id2}`
+      
+          return this.http.get(url)
+                          .toPromise()
+                            .then(response => {
+                              //console.log(response.json())
+                              return response.json()
+                            })
+                            .catch(this.handleError)                  
+        }
 
     create(form):Promise<any> {
-    let url = `${this.basePath}/api/studyingdaysgrades/signedup`
+    let url = `${this.basePath}/api/gradessubjects/signedup`
       return this.http.post(url,form)
                       .toPromise()
                         .then(response => {
@@ -69,7 +91,7 @@ return Promise.reject(error.message || error)
                         .catch(this.handleError) 
     }
     deleteAll(form):Promise<any> {
-      let url = `${this.basePath}/api/studyingdaysgrades/signeddown`
+      let url = `${this.basePath}/api/gradessubjects/signeddown`
     
         return this.http.post(url,form)
                         .toPromise()
