@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
 
-import { UsuariosService } from "../_services/usuarios.service";
+import { UsersTypesService } from "../_services/users-types.service";
 import { NotificationsService } from 'angular2-notifications';
 
 @Component({
@@ -10,33 +10,22 @@ import { NotificationsService } from 'angular2-notifications';
   styleUrls: ['./usuarios-tipo.component.css']
 })
 export class UsuariosTipoComponent implements OnInit {
-  userTable:any
-  userTypesCombo:any
-  foreignCombo:any
-  foreignData:any
-  selectedUser:any
-  Data:any
+  Table:any
+  selectedData:any
   constructor(
     private _service: NotificationsService,
     private route: ActivatedRoute,
     private router: Router,
-    private userService: UsuariosService
+    private mainService: UsersTypesService
   ) { }
   
     ngOnInit() {
-      this.cargarUsers()
-      this.userService.getTypes()
-                        .then(response => {
-                          this.userTypesCombo = response
-                        }).catch(error => {
-                          console.clear     
-                          this.createError(error) 
-                        })
+      this.cargarAll()
     }
-    cargarUsers(){
-      this.userService.getAll()
+    cargarAll(){
+      this.mainService.getAll()
                         .then(response => {
-                          this.userTable = response
+                          this.Table = response
                           $("#editModal .close").click();
                           $("#insertModal .close").click();
                           console.clear 
@@ -45,191 +34,54 @@ export class UsuariosTipoComponent implements OnInit {
                           this.createError(error) 
                         })
     }
-    cargarUser(id:number){
-      this.userService.getSingle(id)
+    cargarSingle(id:number){
+      this.mainService.getSingle(id)
                         .then(response => {
-                          this.selectedUser = response;
-                          this.cargarForanea(response.type+'');
-                          switch (response.type+'') {
-                            case '1':{
-                              this.selectedUser.foreign=response.student
-                              break;
-                          }
-                            case '2':{
-                              this.selectedUser.foreign=response.teacher
-                              break;
-                          }
-                            case '3':{
-                              this.selectedUser.foreign=response.tutor
-                              break;
-                          }
-                            default:{
-                              break;}
-                          }
-                          if(this.selectedUser.foreign){
-                            this.getForeign(this.selectedUser.foreign+'',response.type+'')
-                          }
+                          this.selectedData = response;
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 
                         })
     }
-    updateUser(formValue:any){
+    update(formValue:any){
       $('#Loading').css('display','block')
       $('#Loading').addClass('in')
-      let tutor:any = null
-      let teacher:any = null
-      let student:any = null
-      switch (formValue.type) {
-        case '1':{
-          student=this.selectedUser.foreign*1
-          break;
-        }
-        case '2':{
-          teacher=this.selectedUser.foreign*1
-          break;
-        }
-        case '3':{
-          tutor=this.selectedUser.foreign*1
-          break;
-        }
-        case 1:{
-          student=this.selectedUser.foreign*1
-          break;
-        }
-        case 2:{
-          teacher=this.selectedUser.foreign*1
-          break;
-        }
-        case 3:{
-          tutor=this.selectedUser.foreign*1
-          break;
-        }
-        default:{
-          break;
-        }
-      }
-      
-      
-      let data = {
-        id: formValue.id,
-        username: formValue.username,
-        email: formValue.email,
-        firstname: formValue.firstname?formValue.firstname:'',
-        lastname: formValue.lastname?formValue.lastname:'',
-        type: formValue.type,
-        student: student,
-        teacher: teacher,
-        tutor: tutor
-      }
       //console.log(data)
-      this.userService.update(data)
+      this.mainService.update(formValue)
                         .then(response => {
-                          this.cargarUsers()
+                          this.cargarAll()
                           console.clear 
-                          this.create('Usuario Actualizado exitosamente')
+                          this.create('Tipo de Usuario Actualizado exitosamente')
                           $('#Loading').css('display','none')
-      
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 
                         })
       
     }
-    deleteUser(id:string){
+    delete(id:string){
       $('#Loading').css('display','block')
       $('#Loading').addClass('in')
-      this.userService.delete(id)
+      this.mainService.delete(id)
                         .then(response => {
-                          this.cargarUsers()
+                          this.cargarAll()
                           console.clear 
-                          this.create('Usuario Eliminado exitosamente')
+                          this.create('Tipo de Usuario Eliminado exitosamente')
                           $('#Loading').css('display','none')
-                          
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 
                         })
       
     }
-    insertUser(formValue:any){
+    insert(formValue:any){
       $('#Loading').css('display','block')
       $('#Loading').addClass('in')
-      let tutor:any = null
-      let teacher:any = null
-      let student:any = null
-      
-      switch (formValue.type) {
-        case '1':{
-          if(formValue.foreign=='null'){
-            formValue.foreign=null
-          }else{
-            student=formValue.foreign*1
-          }
-          break;
-        }
-        case '2':{
-          if(formValue.foreign=='null'){
-            formValue.foreign=null
-          }else{
-            teacher=formValue.foreign*1
-          }
-          break;
-        }
-        case '3':{
-          if(formValue.foreign=='null'){
-            formValue.foreign=null
-          }else{
-            tutor=formValue.foreign*1
-          }
-          break;
-        }
-        case 1:{
-          if(formValue.foreign=='null'){
-            formValue.foreign=null
-          }else{
-            student=formValue.foreign*1
-          }
-          break;
-        }
-        case 2:{
-          if(formValue.foreign=='null'){
-            formValue.foreign=null
-          }else{
-            teacher=formValue.foreign*1
-          }
-          break;
-        }
-        case 3:{
-          if(formValue.foreign=='null'){
-            formValue.foreign=null
-          }else{
-            tutor=formValue.foreign*1
-          }
-          break;
-        }
-        default:{
-          break;
-        }
-      }
-      let pass = this.generar(20)
-      let data = {
-        username: formValue.username,
-        email: formValue.email,
-        firstname: formValue.firstname,
-        lastname: formValue.lastname,
-        type: formValue.type,
-        student: student,
-        teacher: teacher,
-        password: pass,
-        tutor: tutor
-      }
-      console.log(data)
-      this.userService.create(data)
+      this.mainService.create(formValue)
                         .then(response => {
-                          this.cargarUsers()
+                          this.cargarAll()
                           console.clear 
-                          this.create('Usuario Ingresado')
+                          this.create('Tipo de Usuario Ingresado')
                           $('#Loading').css('display','none')
                           
                         }).catch(error => {
@@ -239,143 +91,7 @@ export class UsuariosTipoComponent implements OnInit {
       
       
     }
-    generar(longitud)
-    {
-      let i:number
-      var caracteres = "123456789+/-*abcdefghijkmnpqrtuvwxyz123456789+/-*ABCDEFGHIJKLMNPQRTUVWXYZ12346789+/-*";
-      var contraseña = "";
-      for (i=0; i<longitud; i++) contraseña += caracteres.charAt(Math.floor(Math.random()*caracteres.length));
-      return contraseña;
-    }
-    comboTutor(id:string){
-      this.userService.getTutor(id)
-                        .then(response => {
-                          this.Data = {
-                            lastnameData:response.lastname,
-                            firstnameData:response.firstname
-                          }
-                        }).catch(error => {
-                          console.clear     
-                          this.createError(error) 
-                        })
-    }
-    comboTeacher(id:string){
-      this.userService.getTeacher(id)
-                        .then(response => {
-                          this.Data = {
-                            lastnameData:response.lastname,
-                            firstnameData:response.firstname
-                          }
-                        }).catch(error => {
-                          console.clear     
-                          this.createError(error) 
-                        })
-    }
-    comboStudent(id:string){
-      this.userService.getStudent(id)
-                        .then(response => {
-                          this.Data = {
-                            lastnameData:response.lastname,
-                            firstnameData:response.firstname
-                          }
-                        }).catch(error => {
-                          console.clear     
-                          this.createError(error) 
-                        })
-    }
-    getForeign(id:string,type:string){
-      //console.log(`${id} ${type}`)
-      switch (type) {
-        case '1':{
-          this.comboStudent(id)
-          break;
-        }
-        case '2':{
-          this.comboTeacher(id)
-          break;
-        }
-        case '3':{
-          this.comboTutor(id)
-          break;
-        }
-        default:{
-          console.log(`${id} id
-          ${type} tipo`)
-          break;
-        }
-      }
-    }
-    comboTutors(type:string){
-      this.userService.getTutors()
-                        .then(response => {
-                          this.foreignCombo = response
-                        }).catch(error => {
-                          console.clear     
-                          this.createError(error) 
-                        })
-    }
-    comboTeachers(type:string){
-      this.userService.getTeachers()
-                        .then(response => {
-                          this.foreignCombo = response
-                        }).catch(error => {
-                          console.clear     
-                          this.createError(error) 
-                        })
-    }
-    comboStudents(type:string){
-      this.userService.getStudents()
-                        .then(response => {
-                          this.foreignCombo = response
-                        }).catch(error => {
-                          console.clear     
-                          this.createError(error) 
-                        })
-    }
-    cargarForanea(type:string){
-      
-      switch (type) {
-        case '1':{
-          this.comboStudents(type)
-          this.foreignData = {
-            title:'Alumnos',
-            type: type
-          };
-          break;
-        }
-        case '2':{
-          this.comboTeachers(type)
-          this.foreignData = {
-            title:'Maestros',
-            type: type
-          };
-          break;
-        }
-        case '3':{
-          this.comboTutors(type)
-          this.foreignData = {
-            title:'Tutores',
-            type: type
-          };
-          break;
-        }
-        case '4':{
-          this.foreignData = {
-            title:'',
-            type: type
-          };
-          break;
-        }
-        default:{
-          this.foreignData = {
-            title:'',
-            type: type
-          };
-          console.log(`combo foraneo no encontrado ${type} tipo`)
-          break;
-        }
-      }
-    }
+    
   public options = {
                position: ["bottom", "right"],
                timeOut: 2000,
