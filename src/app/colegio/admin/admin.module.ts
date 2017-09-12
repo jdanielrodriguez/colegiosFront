@@ -42,9 +42,13 @@ import { JornadaGradoService } from "./_services/_asignaciones/jornada-grado.ser
 import { GradoMateriaService } from "./_services/_asignaciones/grado-materia.service";
 import { MateriaMaestroService } from "./_services/_asignaciones/materia-maestro.service";
 import { UsersTypesService } from "./_services/users-types.service";
+import { EventsTypeService } from "./_services/events-type.service";
+import { EventsService } from "./_services/events.service";
 
 
 import { LoaderComponent } from './loader/loader.component';
+import { EventosComponent } from './eventos/eventos.component';
+import { EventosTipoComponent } from './eventos-tipo/eventos-tipo.component';
 
 @NgModule({
   imports: [
@@ -75,7 +79,7 @@ import { LoaderComponent } from './loader/loader.component';
     AsignarGradoMateriasComponent, 
     AsignarMateriaMaestrosComponent, 
     LoaderComponent, 
-    UsuariosTipoComponent
+    UsuariosTipoComponent, EventosComponent, EventosTipoComponent
   ],
   providers: [
     UsuariosService,
@@ -91,7 +95,9 @@ import { LoaderComponent } from './loader/loader.component';
     JornadaGradoService,
     GradoMateriaService,
     MateriaMaestroService,
-    UsersTypesService
+    UsersTypesService,
+    EventsTypeService,
+    EventsService
   ]
 })
 export class AdminModule { }
