@@ -20,7 +20,10 @@ import { AsignarJornadaGradosComponent } from './asignar-jornada-grados/asignar-
 import { AsignarGradoMateriasComponent } from './asignar-grado-materias/asignar-grado-materias.component';
 import { AsignarMateriaMaestrosComponent } from './asignar-materia-maestros/asignar-materia-maestros.component';
 import { UsuariosTipoComponent } from './usuarios-tipo/usuarios-tipo.component';
-
+import { EventosComponent } from './eventos/eventos.component';
+import { EventosTipoComponent } from './eventos-tipo/eventos-tipo.component';
+import { InscribirAlumnoComponent } from './inscribir-alumno/inscribir-alumno.component';
+import { InscripcionJornadaComponent } from './inscripcion-jornada/inscripcion-jornada.component';
 
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { ChartsModule } from 'ng2-charts';
@@ -44,11 +47,11 @@ import { MateriaMaestroService } from "./_services/_asignaciones/materia-maestro
 import { UsersTypesService } from "./_services/users-types.service";
 import { EventsTypeService } from "./_services/events-type.service";
 import { EventsService } from "./_services/events.service";
-
+import { InscriptionsService } from "./_services/_asignaciones/inscriptions.service";
+import { InscriptionsStudyingDayService } from "./_services/_asignaciones/inscriptions-studying-day.service";
 
 import { LoaderComponent } from './loader/loader.component';
-import { EventosComponent } from './eventos/eventos.component';
-import { EventosTipoComponent } from './eventos-tipo/eventos-tipo.component';
+
 
 @NgModule({
   imports: [
@@ -79,7 +82,11 @@ import { EventosTipoComponent } from './eventos-tipo/eventos-tipo.component';
     AsignarGradoMateriasComponent, 
     AsignarMateriaMaestrosComponent, 
     LoaderComponent, 
-    UsuariosTipoComponent, EventosComponent, EventosTipoComponent
+    UsuariosTipoComponent, 
+    EventosComponent, 
+    EventosTipoComponent, 
+    InscribirAlumnoComponent, 
+    InscripcionJornadaComponent
   ],
   providers: [
     UsuariosService,
@@ -97,7 +104,9 @@ import { EventosTipoComponent } from './eventos-tipo/eventos-tipo.component';
     MateriaMaestroService,
     UsersTypesService,
     EventsTypeService,
-    EventsService
+    EventsService,
+    InscriptionsService,
+    InscriptionsStudyingDayService
   ]
 })
 export class AdminModule { }
