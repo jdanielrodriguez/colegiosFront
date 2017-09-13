@@ -20,6 +20,9 @@ import { AsignarJornadaGradosComponent } from "./asignar-jornada-grados/asignar-
 import { AsignarGradoMateriasComponent } from "./asignar-grado-materias/asignar-grado-materias.component";
 import { AsignarMateriaMaestrosComponent } from "./asignar-materia-maestros/asignar-materia-maestros.component";
 
+import { InscribirAlumnoComponent } from "./inscribir-alumno/inscribir-alumno.component";
+import { InscripcionJornadaComponent } from "./inscripcion-jornada/inscripcion-jornada.component";
+
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },  
@@ -41,6 +44,8 @@ const routes: Routes = [
     { path: 'jornada-grados', component: AsignarJornadaGradosComponent },
     { path: 'grado-materias', component: AsignarGradoMateriasComponent },
     { path: 'materia-maestros', component: AsignarMateriaMaestrosComponent },
+    { path: 'inscripcion-alumno', component: InscribirAlumnoComponent },
+    { path: 'inscripcion-jornada', component: InscripcionJornadaComponent },
   ]},
 { path: 'frutas', component: AdminComponent },
 ];

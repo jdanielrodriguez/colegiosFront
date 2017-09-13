@@ -588,35 +588,20 @@
           <li> <a routerLinkActive="active"
             [routerLink]="[ './admin/materia-maestros' ]" class="waves-effect"><i class="fa  fa-bank fa-fw"></i> Maestros a Materia</a>
           </li>
+
         </ul>
-      
-      
-      <li> <a href="map-google.html" class="waves-effect"><i class="ti-location-pin fa-fw"></i> Google Map</a> </li>
-      <li> <a href="map-vector.html" class="waves-effect"><i class="ti-ink-pen fa-fw"></i> Vector Map</a> </li>
-      <li data-toggle="collapse" href="#Pages"> <a class="waves-effect"><i class="ti-files fa-fw"></i> Sample Pages<span class="fa arrow"></span></a>
-          <ul id="Pages" class="collapse nav nav-second-level">
-              <li><a href="blank.html">Blank Page</a></li>
-              <li><a href="login.html">Login Page</a></li>
-              <li><a href="login2.html">Login Page 2</a></li>
-              <li><a href="profile.html">Profile</a></li>
-              <li><a href="invoice.html">Invoice</a></li>
-              <li><a href="faq.html">FAQ</a></li>
-              <li><a href="gallery.html">Gallery</a></li>
-              <li><a href="pricing.html">Pricing</a></li>
-              <li><a href="register.html">Register</a></li>
-              <li><a href="recoverpw.html">Recover Password</a></li>
-              <li><a href="lock-screen.html">Lock Screen</a></li>
-              <li><a href="400.html">Error 400</a></li>
-              <li><a href="403.html">Error 403</a></li>
-              <li><a href="404.html">Error 404</a></li>
-              <li><a href="500.html">Error 500</a></li>
-              <li><a href="503.html">Error 503</a></li>
+        <li data-toggle="collapse" href="#Inscriptions"> <a  class="waves-effect"><i class=" fa fa-edit fa-fw"></i> Inscripciones<span class="fa arrow"></span>  </a>
+        </li> <ul class="collapse nav nav-second-level" id="Inscriptions">
+             
+            <li> <a routerLinkActive="active"
+              [routerLink]="[ './admin/inscripcion-alumno' ]" class="waves-effect"><i class="fa  fa-users fa-fw"></i> Inscribir Alumno</a>
+            </li>
+             
+            <li> <a routerLinkActive="active"
+              [routerLink]="[ './admin/inscripcion-jornada' ]" class="waves-effect"><i class="fa  fa-users fa-fw"></i> Inscrito a Jornada</a>
+            </li>
           </ul>
-          <!-- /.nav-second-level -->
-      </li>
-      <li> <a href="inbox.html" class="waves-effect"><i class="ti-email fa-fw"></i> Inbox</a> </li>
-      <li> <a href="calendar.html" class="waves-effect"><i class="ti-calendar fa-fw"></i> Calender</a> </li>
-     
+      
     </ul>
 <!-- fin menu administrador -->
     </div>
