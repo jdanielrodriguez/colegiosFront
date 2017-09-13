@@ -51,7 +51,10 @@ export class InscripcionJornadaComponent implements OnInit {
 
           if(!existe){
             this.droppedItemsId.push({"id":e.dragData.id});
-            this.selectedData.push(e.dragData);}
+            this.selectedData.push(e.dragData);
+            console.log(this.selectedParent);
+            
+          }
             // this.childs.splice(this.childs.findIndex(dat=>{
             //   return dat.id==e.dragData.id
             // }),1)
