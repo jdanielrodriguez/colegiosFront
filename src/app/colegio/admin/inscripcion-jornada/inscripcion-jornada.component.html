@@ -47,7 +47,7 @@
                             <td>{{((data.inscription!=null)?'Q. '+data.inscription:'')}}</td>
                             <td>
 
-                              <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#insertModal" (click)="cargarSingle(data.id)" style="cursor:pointer;"><i class="fa fa-edit"></i> Editar</button>
+                              <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#insertModal" (click)="cargarSingle(data.id+','+data.begin+','+data.end)" style="cursor:pointer;"><i class="fa fa-edit"></i> Editar</button>
                               
                             </td>
                         </tr>
@@ -93,7 +93,7 @@
                       <div  class="form-group col-xs-6 m-b-15" >
                         <label for="cycle_study_day">Ciclo/Jornada</label>
                         <select name="cycle_study_day" class="form-control" id="cycle_study_day" [(ngModel)]="selectedParent" required ngModel #cyclestudyday="ngModel" (change)="cargarSingle(cyclestudyday.value)">
-                          <option *ngFor="let Data of parentCombo" value="{{Data.id}}">{{((Data.cycles.description!=null)?Data.cycles.description+'-':'')+((Data.studying_days.description!=null)?Data.studying_days.description:'')}}</option>
+                          <option *ngFor="let Data of parentCombo" value="{{Data.id+','+Data.begin+','+Data.end}}">{{((Data.cycles.description!=null)?Data.cycles.description+'-':'')+((Data.studying_days.description!=null)?Data.studying_days.description:'')}}</option>
                         </select>
                           <div droppable (onDrop)="onItemDrop($event)"  class="listaDrag " >
                             <li draggable [dragData]="item" *ngFor="let item of selectedData" class="alert alert-info">

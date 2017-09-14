@@ -105,11 +105,13 @@ export class InscripcionJornadaComponent implements OnInit {
                         })
     }
     cargarSingle(id:number){
+      let values:any = (id+'').split(',')
+      
       this.selectedParent=id
       this.droppedItemsId.length = 0;
       this.childsId.length = 0;
       this.cargarFree()
-      this.mainService.getMyChilds(id)
+      this.mainService.getMyChilds(values[0])
                         .then(response => {
                           this.selectedData = response
                           this.selectedData.forEach((item,index)=>{
@@ -153,13 +155,14 @@ export class InscripcionJornadaComponent implements OnInit {
     delete(formValueDel){
       $('#Loading').css('display','block')
       $('#Loading').addClass('in')
+      let values:any = (this.selectedParent+'').split(',')
       let formValue = {
-        "master":this.selectedParent,
+        "master":values[0],
         "inscription": this.droppedItemsId
       }
 
       formValueDel = {
-        "master":this.selectedParent,
+        "master":values[0],
         "inscription": this.childsId
       }
       // console.log(formValue);
