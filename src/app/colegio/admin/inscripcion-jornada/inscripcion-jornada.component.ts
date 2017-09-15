@@ -23,6 +23,10 @@ export class InscripcionJornadaComponent implements OnInit {
   selectedParent:any
   dtOptions: DataTables.Settings = {}
   dtTrigger: Subject<any> = new Subject<any>();
+  selectedDate:any = {
+    begin:'',
+    end:''
+  }
   constructor(
     private _service: NotificationsService,
     private route: ActivatedRoute,
@@ -73,9 +77,17 @@ export class InscripcionJornadaComponent implements OnInit {
           }))
 
           if(!existe){
+            let aF1 = this.selectedDate.begin.split("-");
+            let aF2 = this.selectedDate.end.split("-");
+            
+            let numMeses = aF2[0]*12 + aF2[1] - (aF1[0]*12 + aF1[1]);
+            if (aF2[2]<aF1[2]){
+              numMeses = numMeses - 1;
+            }
+            console.log(this.selectedDate.begin+' '+this.selectedDate.end+' = '+numMeses);
+            
             this.droppedItemsId.push({"id":e.dragData.id});
             this.selectedData.push(e.dragData);
-            console.log(this.selectedParent);
             
           }
             // this.childs.splice(this.childs.findIndex(dat=>{
@@ -130,7 +142,10 @@ export class InscripcionJornadaComponent implements OnInit {
     }
     cargarSingle(id:number){
       let values:any = (id+'').split(',')
-      
+      this.selectedDate ={
+        begin: values[1],
+        end: values[2]
+      }
       this.selectedParent=id
       this.droppedItemsId.length = 0;
       this.childsId.length = 0;
