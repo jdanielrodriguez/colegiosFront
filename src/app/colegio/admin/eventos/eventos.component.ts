@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { EventsService } from "../_services/events.service";
 import { EventsTypeService } from "../_services/events-type.service";
 import { NotificationsService } from 'angular2-notifications';
+import { Subject } from 'rxjs/Rx';
 
 @Component({
   selector: 'app-eventos',
@@ -16,6 +17,8 @@ export class EventosComponent implements OnInit {
   parentCombo:any
   beginDate:any
   endDate:any
+  dtOptions: DataTables.Settings = {}
+  dtTrigger: Subject<any> = new Subject<any>();
   constructor(
     private _service: NotificationsService,
     private route: ActivatedRoute,
@@ -41,6 +44,25 @@ export class EventosComponent implements OnInit {
         month2=month;
       }
       this.endDate=date.getFullYear()+'-'+month2+'-01'
+      this.dtOptions = {
+        pagingType: 'full_numbers',
+        language: {
+          emptyTable: 'Tabla limpia',
+          info: 'Mostrando página _PAGE_ de _PAGES_',
+          infoEmpty: 'No hay registros disponibles',
+          infoFiltered: '(filtrado de _MAX_ registros totales)',
+          zeroRecords: 'Nada para mostrar, lo sentimos',
+          search: 'Buscar',
+          lengthMenu: 'Mostranto _MENU_ registro por página',
+          paginate: {
+            first: 'Primero',
+            last: 'Ultimo',
+            next: 'Siguiente',
+            previous: 'Anterior'
+          }
+  
+        }
+      };
       this.cargarAll()
       this.cargarTipo()
     }
@@ -48,6 +70,7 @@ export class EventosComponent implements OnInit {
       this.mainService.getAll()
                         .then(response => {
                           this.Table = response
+                          this.dtTrigger.next()                          
                           $("#editModal .close").click();
                           $("#insertModal .close").click();
                           console.clear 

@@ -5,6 +5,7 @@ import { InscriptionsStudyingDayService } from "../_services/_asignaciones/inscr
 import { InscriptionsService } from "../_services/_asignaciones/inscriptions.service";
 import { CiclosJornadaService } from "../_services/_asignaciones/ciclos-jornada.service";
 import { NotificationsService } from 'angular2-notifications';
+import { Subject } from 'rxjs/Rx';
 @Component({
   selector: 'app-inscripcion-jornada',
   templateUrl: './inscripcion-jornada.component.html',
@@ -12,6 +13,7 @@ import { NotificationsService } from 'angular2-notifications';
 })
 export class InscripcionJornadaComponent implements OnInit {
   Table:any
+  search:any
   selectedData:any[]
   droppedItemsId:any=[]
   childs:any[]
@@ -19,6 +21,8 @@ export class InscripcionJornadaComponent implements OnInit {
   droppedItems:any=[]
   parentCombo:any
   selectedParent:any
+  dtOptions: DataTables.Settings = {}
+  dtTrigger: Subject<any> = new Subject<any>();
   constructor(
     private _service: NotificationsService,
     private route: ActivatedRoute,
@@ -28,6 +32,25 @@ export class InscripcionJornadaComponent implements OnInit {
     private ParentsService: CiclosJornadaService
   ) { }
     ngOnInit() {
+      this.dtOptions = {
+        pagingType: 'full_numbers',
+        language: {
+          emptyTable: 'Tabla limpia',
+          info: 'Mostrando página _PAGE_ de _PAGES_',
+          infoEmpty: 'No hay registros disponibles',
+          infoFiltered: '(filtrado de _MAX_ registros totales)',
+          zeroRecords: 'Nada para mostrar, lo sentimos',
+          search: 'Buscar',
+          lengthMenu: 'Mostranto _MENU_ registro por página',
+          paginate: {
+            first: 'Primero',
+            last: 'Ultimo',
+            next: 'Siguiente',
+            previous: 'Anterior'
+          }
+  
+        }
+      };
       this.cargarAll()
       this.cargarFree()
       this.ParentsService.getAll()
@@ -96,6 +119,7 @@ export class InscripcionJornadaComponent implements OnInit {
       this.mainService.getBussy()
                         .then(response => {
                           this.Table = response
+                          this.dtTrigger.next()                          
                           $("#editModal .close").click();
                           $("#insertModal .close").click();
                           console.clear 

@@ -5,6 +5,7 @@ import { CiclosJornadaService } from "../_services/_asignaciones/ciclos-jornada.
 import { CyclesService } from "../_services/cycles.service";
 import { StudyingDaysService } from "../_services/studying-days.service";
 import { NotificationsService } from 'angular2-notifications';
+import { Subject } from 'rxjs/Rx';
 
 @Component({
   selector: 'app-asignar-ciclo-jornada',
@@ -13,11 +14,14 @@ import { NotificationsService } from 'angular2-notifications';
 })
 export class AsignarCicloJornadaComponent implements OnInit {
   Table:any
+  search:any
   selectedData:any[]
   childs:any[]
   parentCombo:any
   beginDate:any
   endDate:any
+  dtOptions: DataTables.Settings = {}
+  dtTrigger: Subject<any> = new Subject<any>();
   constructor(
     private _service: NotificationsService,
     private route: ActivatedRoute,
@@ -44,6 +48,25 @@ export class AsignarCicloJornadaComponent implements OnInit {
       }
       this.endDate=date.getFullYear()+'-'+month2+'-01'
       
+      this.dtOptions = {
+        pagingType: 'full_numbers',
+        language: {
+          emptyTable: 'Tabla limpia',
+          info: 'Mostrando página _PAGE_ de _PAGES_',
+          infoEmpty: 'No hay registros disponibles',
+          infoFiltered: '(filtrado de _MAX_ registros totales)',
+          zeroRecords: 'Nada para mostrar, lo sentimos',
+          search: 'Buscar',
+          lengthMenu: 'Mostranto _MENU_ registro por página',
+          paginate: {
+            first: 'Primero',
+            last: 'Ultimo',
+            next: 'Siguiente',
+            previous: 'Anterior'
+          }
+  
+        }
+      };
       this.cargarAll()
       this.ChildsService.getAll()
                         .then(response => {
@@ -70,6 +93,7 @@ export class AsignarCicloJornadaComponent implements OnInit {
       this.mainService.getAll()
                         .then(response => {
                           this.Table = response
+                          this.dtTrigger.next()                          
                           $("#editModal .close").click();
                           $("#insertModal .close").click();
                           console.clear 

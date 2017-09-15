@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 
 import { UsuariosService } from "../_services/usuarios.service";
 import { NotificationsService } from 'angular2-notifications';
+import { Subject } from 'rxjs/Rx';
 
 @Component({
   selector: 'app-usuarios',
@@ -15,6 +16,8 @@ export class UsuariosComponent implements OnInit {
   foreignCombo:any
   foreignData:any
   selectedUser:any
+  dtOptions: DataTables.Settings = {}
+  dtTrigger: Subject<any> = new Subject<any>();
   Data:any
   constructor(
     private _service: NotificationsService,
@@ -24,6 +27,25 @@ export class UsuariosComponent implements OnInit {
   ) { }
   
     ngOnInit() {
+      this.dtOptions = {
+        pagingType: 'full_numbers',
+        language: {
+          emptyTable: 'Tabla limpia',
+          info: 'Mostrando página _PAGE_ de _PAGES_',
+          infoEmpty: 'No hay registros disponibles',
+          infoFiltered: '(filtrado de _MAX_ registros totales)',
+          zeroRecords: 'Nada para mostrar, lo sentimos',
+          search: 'Buscar',
+          lengthMenu: 'Mostranto _MENU_ registro por página',
+          paginate: {
+            first: 'Primero',
+            last: 'Ultimo',
+            next: 'Siguiente',
+            previous: 'Anterior'
+          }
+  
+        }
+      };
       this.cargarUsers()
       this.userService.getTypes()
                         .then(response => {
@@ -37,6 +59,7 @@ export class UsuariosComponent implements OnInit {
       this.userService.getAll()
                         .then(response => {
                           this.userTable = response
+                          this.dtTrigger.next()                          
                           $("#editModal .close").click();
                           $("#insertModal .close").click();
                           console.clear 
