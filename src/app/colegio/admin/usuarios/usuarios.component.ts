@@ -56,6 +56,7 @@ export class UsuariosComponent implements OnInit {
                         })
     }
     cargarUsers(){
+      this.dtTrigger = new Subject<any>();
       this.userService.getAll()
                         .then(response => {
                           this.userTable = response

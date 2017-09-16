@@ -67,6 +67,7 @@ export class EventosComponent implements OnInit {
       this.cargarTipo()
     }
     cargarAll(){
+      this.dtTrigger = new Subject<any>();
       this.mainService.getAll()
                         .then(response => {
                           this.Table = response

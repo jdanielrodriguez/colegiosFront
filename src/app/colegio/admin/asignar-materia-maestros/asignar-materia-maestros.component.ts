@@ -118,6 +118,7 @@ export class AsignarMateriaMaestrosComponent implements OnInit {
                         })
     }
     cargarAll(){
+      this.dtTrigger = new Subject<any>();
       this.mainService.getBussy()
                         .then(response => {
                           this.Table = response

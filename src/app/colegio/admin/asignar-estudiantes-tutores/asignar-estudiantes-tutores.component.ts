@@ -108,6 +108,7 @@ export class AsignarEstudiantesTutoresComponent implements OnInit {
                         })
     }
     cargarAll(){
+      this.dtTrigger = new Subject<any>();
       this.ParentsService.getBussy()
                         .then(response => {
                           this.Table = response

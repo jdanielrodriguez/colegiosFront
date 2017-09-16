@@ -44,6 +44,7 @@ export class CiclosComponent implements OnInit {
       this.cargarAll()
     }
     cargarAll(){
+      this.dtTrigger = new Subject<any>();
       this.mainService.getAll()
                         .then(response => {
                           this.Table = response

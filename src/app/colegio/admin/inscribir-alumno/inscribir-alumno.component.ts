@@ -54,6 +54,7 @@ export class InscribirAlumnoComponent implements OnInit {
       this.cargarFree()
     }
     cargarAll(){
+      this.dtTrigger = new Subject<any>();
       this.mainService.getAll()
                         .then(response => {
                           this.Table = response
