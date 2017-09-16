@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { InscriptionsStudyingDayService } from "../_services/_asignaciones/inscriptions-studying-day.service";
 import { InscriptionsService } from "../_services/_asignaciones/inscriptions.service";
 import { CiclosJornadaService } from "../_services/_asignaciones/ciclos-jornada.service";
+import { ChargesService } from "../_services/charges.service";
 import { NotificationsService } from 'angular2-notifications';
 import { Subject } from 'rxjs/Rx';
 @Component({
@@ -25,7 +26,10 @@ export class InscripcionJornadaComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject<any>();
   selectedDate:any = {
     begin:'',
-    end:''
+    end:'',
+    inscription:'',
+    tuiton:'',
+    id:''
   }
   constructor(
     private _service: NotificationsService,
@@ -33,7 +37,8 @@ export class InscripcionJornadaComponent implements OnInit {
     private router: Router,
     private mainService: InscriptionsStudyingDayService,
     private ChildsService: InscriptionsService,
-    private ParentsService: CiclosJornadaService
+    private ParentsService: CiclosJornadaService,
+    private alternService: ChargesService
   ) { }
     ngOnInit() {
       this.dtOptions = {
@@ -84,10 +89,11 @@ export class InscripcionJornadaComponent implements OnInit {
             if (aF2[2]<aF1[2]){
               numMeses = numMeses - 1;
             }
-            console.log(this.selectedDate.begin+' '+this.selectedDate.end+' = '+numMeses);
             
             this.droppedItemsId.push({"id":e.dragData.id});
             this.selectedData.push(e.dragData);
+
+            this.makeCharge(numMeses)
             
           }
             // this.childs.splice(this.childs.findIndex(dat=>{
@@ -110,6 +116,17 @@ export class InscripcionJornadaComponent implements OnInit {
           this.droppedItemsId.splice(this.droppedItemsId.findIndex(dat=>{
             return dat.id==e.dragData.id
           }),1)
+
+          let aF1 = this.selectedDate.begin.split("-");
+          let aF2 = this.selectedDate.end.split("-");
+          
+          let numMeses = aF2[0]*12 + aF2[1] - (aF1[0]*12 + aF1[1]);
+          if (aF2[2]<aF1[2]){
+            numMeses = numMeses - 1;
+          }
+          
+
+          this.deleteCharge(numMeses)
         
 
         
@@ -144,7 +161,10 @@ export class InscripcionJornadaComponent implements OnInit {
       let values:any = (id+'').split(',')
       this.selectedDate ={
         begin: values[1],
-        end: values[2]
+        end: values[2],
+        inscription:values[3],
+        tuiton:values[4],
+        id:values[0]
       }
       this.selectedParent=id
       this.droppedItemsId.length = 0;
@@ -239,7 +259,89 @@ export class InscripcionJornadaComponent implements OnInit {
                       
     
     }
-    
+    makeCharge(cant:number){
+      $('#Loading').css('display','block')
+      $('#Loading').addClass('in')
+      let data = {
+        "inscription":this.selectedDate.id,
+        "charges": [
+          {
+            "tuition":false,
+            "inscription":true,
+            "charge_limit":this.selectedDate.begin.substring(0,8)+'17',
+            "quantity":this.selectedDate.inscription,
+            "increase":"15",
+            "idinscription":this.selectedDate.id
+          }
+        ]
+      }
+      let dates = this.selectedDate.begin.split('-')
+      for(let i=0;i<cant;i++){
+        let month=((dates[1]*1)+i)
+      data.charges.push(
+
+        {
+          "tuition":true,
+          "inscription":false,
+          "charge_limit":dates[0]+'-'+((month<10)?'0'+month:month)+'-'+'15',
+          "quantity":this.selectedDate.tuiton,
+          "increase":"15",
+          "idinscription":this.selectedDate.id
+        }
+      )
+    }
+      this.alternService.createAll(data)
+                        .then(response => {
+                          console.clear 
+                          $('#Loading').css('display','none')
+                        }).catch(error => {
+                          console.clear     
+                          this.createError(error) 
+                        })
+      
+    }
+
+    deleteCharge(cant:number){
+      $('#Loading').css('display','block')
+      $('#Loading').addClass('in')
+      let data = {
+        "inscription":this.selectedDate.id,
+        "charges": [
+          {
+            "tuition":false,
+            "inscription":true,
+            "charge_limit":this.selectedDate.begin.substring(0,8)+'17',
+            "quantity":this.selectedDate.inscription,
+            "increase":"15",
+            "idinscription":this.selectedDate.id
+          }
+        ]
+      }
+      let dates = this.selectedDate.begin.split('-')
+      for(let i=0;i<cant;i++){
+        let month=((dates[1]*1)+i)
+      data.charges.push(
+
+        {
+          "tuition":true,
+          "inscription":false,
+          "charge_limit":dates[0]+'-'+((month<10)?'0'+month:month)+'-'+'15',
+          "quantity":this.selectedDate.tuiton,
+          "increase":"15",
+          "idinscription":this.selectedDate.id
+        }
+      )
+    }
+      this.alternService.deleteAll(data)
+                        .then(response => {
+                          console.clear 
+                          $('#Loading').css('display','none')
+                        }).catch(error => {
+                          console.clear     
+                          this.createError(error) 
+                        })
+      
+    }
   public options = {
                position: ["bottom", "right"],
                timeOut: 2000,
