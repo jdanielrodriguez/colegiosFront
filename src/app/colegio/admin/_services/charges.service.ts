@@ -47,6 +47,27 @@ return Promise.reject(error.message || error)
                         .catch(this.handleError) 
     }
 
+    createAll(form):Promise<any> {
+      let url = `${this.basePath}/api/charges/signedup`
+        return this.http.post(url,form)
+                        .toPromise()
+                          .then(response => {
+                            //console.log(response.json())
+                            return response.json()
+                          })
+                          .catch(this.handleError) 
+      }
+
+    deleteAll(form):Promise<any> {
+      let url = `${this.basePath}/api/charges/signeddown`
+        return this.http.post(url,form)
+                        .toPromise()
+                          .then(response => {
+                            //console.log(response.json())
+                            return response.json()
+                          })
+                          .catch(this.handleError) 
+      }
     delete(id):Promise<any> {
     let url = `${this.basePath}/api/charges/${id}`
       return this.http.delete(url)
