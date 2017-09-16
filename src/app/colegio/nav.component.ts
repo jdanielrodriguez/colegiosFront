@@ -11,9 +11,26 @@ export class NavComponent implements OnInit {
   lastname=localStorage.getItem('currentLastName');
   id=localStorage.getItem('currentId');
   type=localStorage.getItem('currentType');
+  click:boolean
   constructor() { }
 
   ngOnInit() {
+  }
+  hideNav(){
+    if(!this.click){
+      $('#page-wrapper').css('margin-left','0px')
+      $('.nicescroll').css('width','0px')
+      $('#apple-admin').css('display','none')
+      $('.top-left-part').css('width','70px')
+      this.click = !this.click
+    }else{
+      $('#page-wrapper').css('margin-left','')
+      $('.nicescroll').css('width','')
+      $('#apple-admin').css('display','')
+      $('.top-left-part').css('width','')
+      this.click = !this.click
+    }
+    
   }
   logout() {
     // remove user from local storage to log user out

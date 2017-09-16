@@ -1,12 +1,12 @@
 <div id="wrapper">
   <!-- Navigation -->
   <nav class="navbar navbar-default navbar-static-top" style="margin-bottom: 0">
-      <div class="navbar-header"> <a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse" data-target=".navbar-collapse"><i class="ti-menu"></i></a>
+      <div class="navbar-header"> <a class="navbar-toggle hidden-sm hidden-md hidden-lg "  href="javascript:void(0)" data-toggle="collapse" data-target=".navbar-collapse"><i class="ti-menu"></i></a>
           <div class="top-left-part">
-              <a class="logo" href="index.html"><b><img src="../assets/images/maple-icon.png" alt="Home"></b><span class="hidden-xs"><img src="../assets/images/maple-admin.png" alt="Home"></span></a>
+              <a class="logo" href="index.html"><b><img src="../assets/images/maple-icon.png" alt="Home"></b><span id="apple-admin" class="hidden-xs"><img src="../assets/images/maple-admin.png" alt="Home"></span></a>
           </div>
           <ul class="nav navbar-top-links navbar-left">
-            <li><a href="javascript:void(0)" class="open-close hidden-xs waves-effect waves-light"><i class="icon-arrow-left-circle ti-menu"></i></a></li>
+            <li><a (click)="hideNav()" class="open-close hidden-xs waves-effect waves-light"><i class=" ti-menu"></i></a></li>
             <li class="dropdown"> <a class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#"><i class="icon-envelope"></i> <span class="badge badge-xs badge-warning">5</span></a>
                 <ul class="dropdown-menu mailbox">
                     <li>
@@ -162,7 +162,7 @@
   </nav>
   
   <div class="navbar-default sidebar nicescroll" role="navigation">
-    <div class="sidebar-nav navbar-collapse ">
+    <div class="sidebar-nav navbar-collapse collapse">
     <!-- inicia menu tutores -->  
       <ul *ngIf="type=='tutor'" class="nav" id="side-menu">
         <li class="sidebar-search hidden-sm hidden-md hidden-lg">
@@ -513,8 +513,8 @@
       <li class="sidebar-search hidden-sm hidden-md hidden-lg">
           <div class="input-group custom-search-form">
               <input type="text" class="form-control" placeholder="Search..."> <span class="input-group-btn">
-    <button class="btn btn-default" type="button"> <i class="fa fa-search"></i> </button>
-    </span> </div>
+          <button class="btn btn-default" type="button"> <i class="fa fa-search"></i> </button>
+          </span> </div>
           <!-- /input-group -->
       </li>
       <li  class="nav-small-cap">Administrador</li>
@@ -554,7 +554,7 @@
           <li> <a routerLinkActive="active"
             [routerLink]="[ './admin/tutores' ]" class="waves-effect"><i class=" ti-id-badge fa-fw"></i> Tutores</a>
           </li>
-          <li data-toggle="collapse" href="#Events"> <a  class="waves-effect"><i class=" fa fa-calendar fa-fw"></i> Eventos<span class="fa arrow"></span>  </a>
+        <li data-toggle="collapse" href="#Events"> <a  class="waves-effect"><i class=" fa fa-calendar fa-fw"></i> Eventos<span class="fa arrow"></span>  </a>
           </li><ul class="collapse nav nav-third-level" id="Events">
               <li> <a routerLinkActive="active"
                 [routerLink]="[ './admin/eventos' ]" class="waves-effect"><i class="icon-user fa-fw"></i> Eventos</a>
@@ -601,6 +601,18 @@
               [routerLink]="[ './admin/inscripcion-jornada' ]" class="waves-effect"><i class="fa  fa-users fa-fw"></i> Inscrito a Jornada</a>
             </li>
           </ul>
+        
+          <li data-toggle="collapse" href="#Charges"> <a  class="waves-effect"><i class=" fa fa-dollar fa-fw"></i> Cargos<span class="fa arrow"></span>  </a>
+          </li> <ul class="collapse nav nav-second-level" id="Charges">
+               
+              <li> <a routerLinkActive="active"
+                [routerLink]="[ './admin/cargos' ]" class="waves-effect"><i class="fa  fa-dollar fa-fw"></i> Caros</a>
+              </li>
+               
+              <li> <a routerLinkActive="active"
+                [routerLink]="[ './admin/inscripcion-jornada' ]" class="waves-effect"><i class="fa  fa-users fa-fw"></i> Inscrito a Jornada</a>
+              </li>
+            </ul>
       
     </ul>
 <!-- fin menu administrador -->
