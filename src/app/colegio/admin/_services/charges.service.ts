@@ -25,7 +25,7 @@ return Promise.reject(error.message || error)
 }
 
     getAll():Promise<any> {
-    let url = `${this.basePath}/api/charges`
+    let url = `${this.basePath}/api/bussy/charges`
       return this.http.get(url)
                       .toPromise()
                         .then(response => {
@@ -49,6 +49,8 @@ return Promise.reject(error.message || error)
 
     createAll(form):Promise<any> {
       let url = `${this.basePath}/api/charges/signedup`
+      console.log(form);
+      
         return this.http.post(url,form)
                         .toPromise()
                           .then(response => {
@@ -91,7 +93,7 @@ return Promise.reject(error.message || error)
     }
 
     getSingle(id:number):Promise<any> {
-    let url = `${this.basePath}/api/charges/${id}`
+    let url = `${this.basePath}/api/students/${id}/charges`
       return this.http.get(url)
                       .toPromise()
                         .then(response => {

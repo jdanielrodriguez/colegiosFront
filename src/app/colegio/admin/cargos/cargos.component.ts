@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
 
-import { StudentsService } from "../_services/students.service";
+import { ChargesService } from "../_services/charges.service";
 import { NotificationsService } from 'angular2-notifications';
 import { Subject } from 'rxjs/Rx';
 @Component({
@@ -19,7 +19,7 @@ export class CargosComponent implements OnInit {
     private _service: NotificationsService,
     private route: ActivatedRoute,
     private router: Router,
-    private mainService: StudentsService
+    private mainService: ChargesService
   ) { }
   
     ngOnInit() {
@@ -62,6 +62,8 @@ export class CargosComponent implements OnInit {
       this.mainService.getSingle(id)
                         .then(response => {
                           this.selectedData = response;
+                          console.log(response);
+                          
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 
