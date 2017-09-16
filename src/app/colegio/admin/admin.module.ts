@@ -52,6 +52,7 @@ import { InscriptionsStudyingDayService } from "./_services/_asignaciones/inscri
 import { ChargesService } from "./_services/charges.service";
 
 import { LoaderComponent } from './loader/loader.component';
+import { CargosComponent } from './cargos/cargos.component';
 
 
 @NgModule({
@@ -87,7 +88,7 @@ import { LoaderComponent } from './loader/loader.component';
     EventosComponent, 
     EventosTipoComponent, 
     InscribirAlumnoComponent, 
-    InscripcionJornadaComponent
+    InscripcionJornadaComponent, CargosComponent
   ],
   providers: [
     UsuariosService,

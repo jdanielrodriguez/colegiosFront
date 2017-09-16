@@ -13,6 +13,7 @@ import { UsuariosComponent } from "./usuarios/usuarios.component";
 import { UsuariosTipoComponent } from "./usuarios-tipo/usuarios-tipo.component";
 import { EventosTipoComponent } from './eventos-tipo/eventos-tipo.component';
 import { EventosComponent } from './eventos/eventos.component';
+import { CargosComponent } from './cargos/cargos.component';
 
 import { AsignarEstudiantesTutoresComponent } from "./asignar-estudiantes-tutores/asignar-estudiantes-tutores.component";
 import { AsignarCicloJornadaComponent } from "./asignar-ciclo-jornada/asignar-ciclo-jornada.component";
@@ -46,6 +47,7 @@ const routes: Routes = [
     { path: 'materia-maestros', component: AsignarMateriaMaestrosComponent },
     { path: 'inscripcion-alumno', component: InscribirAlumnoComponent },
     { path: 'inscripcion-jornada', component: InscripcionJornadaComponent },
+    { path: 'cargos', component: CargosComponent },
   ]},
 { path: 'frutas', component: AdminComponent },
 ];
