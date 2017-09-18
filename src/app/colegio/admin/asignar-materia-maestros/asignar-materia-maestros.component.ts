@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
 
-import { GradoMateriaService } from "../_services/_asignaciones/grado-materia.service";
+import { MateriaMaestroService } from "../_services/_asignaciones/materia-maestro.service";
 import { TeachersService } from "../_services/teachers.service";
+import { GradoMateriaService } from "../_services/_asignaciones/grado-materia.service";
 import { JornadaGradoService } from "../_services/_asignaciones/jornada-grado.service";
 import { NotificationsService } from 'angular2-notifications';
 import { Subject } from 'rxjs/Rx';
@@ -17,6 +18,7 @@ export class AsignarMateriaMaestrosComponent implements OnInit {
   selectedData:any[]
   selectedDataSigned:any=[]
   selectedDataId:any
+  selectedDataChildId:any
   droppedItemsId:any=[]
   childs:any[]
   childsId:any=[]
@@ -25,15 +27,17 @@ export class AsignarMateriaMaestrosComponent implements OnInit {
   grandParentCombo:any
   selectedParent:any
   selectedGrandParent:any
+  selectedChild:any
   dtOptions: DataTables.Settings = {}
   dtTrigger: Subject<any> = new Subject<any>();
   constructor(
     private _service: NotificationsService,
     private route: ActivatedRoute,
     private router: Router,
-    private mainService: GradoMateriaService,
+    private mainService: MateriaMaestroService,
     private ChildsService: TeachersService,
-    private ParentsService: JornadaGradoService
+    private ParentsService: JornadaGradoService,
+    private GrandParentsService: GradoMateriaService
   ) { }
     ngOnInit() {
       this.dtOptions = {
@@ -184,6 +188,37 @@ export class AsignarMateriaMaestrosComponent implements OnInit {
                             this.selectedDataId=response.id
                             this.cargarFree()
                             this.mainService.getMyGrandChilds(this.selectedDataId)
+                                              .then(response => {
+                                                this.selectedData = response
+                                                this.selectedData.forEach((item,index)=>{
+                                                  this.droppedItemsId.push({"id":item.id});
+                                                })
+                                                console.clear 
+                                                                          
+                                              }).catch(error => {
+                                                console.clear     
+                                                this.createError(error) 
+                                              })
+                            console.clear 
+                                                      
+                          }).catch(error => {
+                            console.clear     
+                            this.createError(error) 
+                          })
+      
+    }
+    cargarChilds(id:number){
+      this.selectedParent=id
+      this.droppedItemsId.length = 0;
+      this.childsId.length = 0;
+      console.log(this.selectedDataId);
+      this.GrandParentsService.getMyId(this.selectedDataId,id)
+                          .then(response => {
+                            this.selectedDataChildId=response.id
+                          
+                          
+                            this.cargarFree()
+                            this.GrandParentsService.getMyGrandChilds(this.selectedDataId)
                                               .then(response => {
                                                 this.selectedData = response
                                                 this.selectedData.forEach((item,index)=>{

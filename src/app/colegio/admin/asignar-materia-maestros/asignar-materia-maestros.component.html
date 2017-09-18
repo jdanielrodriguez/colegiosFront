@@ -81,8 +81,8 @@
                 <form id="insert-form"  #InsertForm="ngForm" (ngSubmit)="delete(InsertForm.value)">
                     
                     <div class="form-group col-xs-6 m-b-15" >
-                        <label for="description">Materias</label>
-                        <input type="text" class="form-control" placeholder="Busqueda de Materias" [(ngModel)]="search" [ngModelOptions]="{standalone: true}">
+                        <label for="description">Maestros</label>
+                        <input type="text" class="form-control" placeholder="Busqueda de Maestros" [(ngModel)]="search" [ngModelOptions]="{standalone: true}">
                         <div droppable (onDrop)="onItemRemove($event)" class="listaDrag">
                           
                           <li draggable [dragData]="Data" *ngFor = "let Data of childs |filter:search" class="alert alert-success" >
@@ -97,21 +97,21 @@
                         <select name="cyclestudyingdays" class="form-control" id="cyclestudyingdays" [(ngModel)]="selectedGrandParent" required ngModel #cyclestudyingdays="ngModel" (change)="cargarChild(cyclestudyingdays.value)">
                           <option *ngFor="let Data of grandParentCombo" value="{{Data.id}}">{{((Data.cycles.description!=null)?Data.cycles.description+'-':'')+((Data.studying_days.description!=null)?Data.studying_days.description:'')}}</option>
                         </select>
-                        <label for="grades">Grades</label>
+                        <label for="grades">Grados</label>
                         <select name="grades" *ngIf="parentCombo" class="form-control" id="grades" [(ngModel)]="selectedParent" required ngModel #grades="ngModel" (change)="cargarGrandChilds(grades.value)">
                           <option *ngFor="let Data of parentCombo" value="{{Data.id}}">{{((Data.name!=null)?Data.name:'')}}</option>
                         </select>
-                          <div   class="listaDrag " >
-                            <li *ngFor="let data of selectedData" class="alert alert-info">
-                              {{((data.name!=null)?data.name:'')}}
-                              <div droppable (onDrop)="onItemDrop($event)">
+                        <label for="subjects">Materias</label>
+                        <select name="subjects" *ngIf="selectedData" class="form-control" id="subjects" [(ngModel)]="selectedChild" required ngModel #subjects="ngModel" (change)="cargarChilds(subjects.value)">
+                          <option *ngFor="let Data of selectedData" value="{{Data.id}}">{{((Data.name!=null)?Data.name:'')}}</option>
+                        </select>
+                           
+                              <div droppable (onDrop)="onItemDrop($event)" class="listaDrag ">
                                 <li draggable [dragData]="item" *ngFor="let item of selectedDataSigned" class="alert alert-danger">
                                   {{((item.firstname!=null)?item.firstname+' ':'')+((item.lastname!=null)?item.lastname:'')}}
                                   </li>
                             
                               </div>
-                            </li>
-                          </div>
                         </div>  
                     
                     <div class="form-group col-xs-12 text-right m-b-15">

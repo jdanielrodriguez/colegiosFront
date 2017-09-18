@@ -36,7 +36,7 @@ return Promise.reject(error.message || error)
     }
 
     getBussy():Promise<any> {
-      let url = `${this.basePath}/api/bussy/gradessubjects`
+      let url = `${this.basePath}/api/bussy/subjectsteachers`
         return this.http.get(url)
                         .toPromise()
                           .then(response => {
