@@ -554,6 +554,7 @@
           <li> <a routerLinkActive="active"
             [routerLink]="[ './admin/tutores' ]" class="waves-effect"><i class=" ti-id-badge fa-fw"></i> Tutores</a>
           </li>
+
         <li data-toggle="collapse" href="#Events"> <a  class="waves-effect"><i class=" fa fa-calendar fa-fw"></i> Eventos<span class="fa arrow"></span>  </a>
           </li><ul class="collapse nav nav-third-level" id="Events">
               <li> <a routerLinkActive="active"
@@ -563,6 +564,10 @@
                 [routerLink]="[ './admin/eventos-tipo' ]" class="waves-effect"><i class="icon-user fa-fw"></i> Tipos de Eventos</a>
               </li>
             </ul>
+            
+            <li> <a routerLinkActive="active"
+              [routerLink]="[ './admin/cargos' ]" class="waves-effect"><i class="fa  fa-dollar fa-fw"></i> Cargos</a>
+            </li>
           
         </ul>
       
@@ -602,17 +607,7 @@
             </li>
           </ul>
         
-          <li data-toggle="collapse" href="#Charges"> <a  class="waves-effect"><i class=" fa fa-dollar fa-fw"></i> Cargos<span class="fa arrow"></span>  </a>
-          </li> <ul class="collapse nav nav-second-level" id="Charges">
-               
-              <li> <a routerLinkActive="active"
-                [routerLink]="[ './admin/cargos' ]" class="waves-effect"><i class="fa  fa-dollar fa-fw"></i> Caros</a>
-              </li>
-               
-              <li> <a routerLinkActive="active"
-                [routerLink]="[ './admin/inscripcion-jornada' ]" class="waves-effect"><i class="fa  fa-users fa-fw"></i> Inscrito a Jornada</a>
-              </li>
-            </ul>
+          
       
     </ul>
 <!-- fin menu administrador -->
