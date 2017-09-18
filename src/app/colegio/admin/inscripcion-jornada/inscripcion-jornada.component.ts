@@ -89,6 +89,7 @@ export class InscripcionJornadaComponent implements OnInit {
             if (aF2[2]<aF1[2]){
               numMeses = numMeses - 1;
             }
+            this.selectedDate.id=e.dragData.id
             
             this.droppedItemsId.push({"id":e.dragData.id});
             this.selectedData.push(e.dragData);
@@ -107,7 +108,7 @@ export class InscripcionJornadaComponent implements OnInit {
 
     onItemRemove(e: any) {
         // Get the dropped data here 
-          
+        this.selectedDate.id=e.dragData.id
            this.childsId.push({"id":e.dragData.id});
           // this.childs.push(e.dragData);
           this.selectedData.splice(this.selectedData.findIndex(dat=>{
