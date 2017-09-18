@@ -49,8 +49,6 @@ return Promise.reject(error.message || error)
 
     createAll(form):Promise<any> {
       let url = `${this.basePath}/api/charges/signedup`
-      console.log(form);
-      
         return this.http.post(url,form)
                         .toPromise()
                           .then(response => {
@@ -62,7 +60,7 @@ return Promise.reject(error.message || error)
 
     deleteAll(form):Promise<any> {
       let url = `${this.basePath}/api/charges/signeddown`
-        return this.http.post(url,form)
+      return this.http.post(url,form)
                         .toPromise()
                           .then(response => {
                             //console.log(response.json())
@@ -92,8 +90,8 @@ return Promise.reject(error.message || error)
                         .catch(this.handleError) 
     }
 
-    getSingle(id:number):Promise<any> {
-    let url = `${this.basePath}/api/students/${id}/charges`
+    getSingle(id:number,option:string):Promise<any> {
+    let url = `${this.basePath}/api/students/${id}/charges${option}`
       return this.http.get(url)
                       .toPromise()
                         .then(response => {
