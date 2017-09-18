@@ -58,21 +58,23 @@ export class CargosComponent implements OnInit {
                           this.createError(error) 
                         })
     }
-    cargarSingle(id:number){
-      this.mainService.getSingle(id)
+    cargarSingle(id:number,option:string){
+      this.mainService.getSingle(id,option)
                         .then(response => {
                           this.selectedData = response;
-                          console.log(response);
-                          
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 
                         })
     }
-    update(formValue:any){
+    update(id:any,state:any){
       $('#Loading').css('display','block')
       $('#Loading').addClass('in')
       //console.log(data)
+      let formValue = {
+        id:id,
+        state:state
+      }
       this.mainService.update(formValue)
                         .then(response => {
                           this.cargarAll()

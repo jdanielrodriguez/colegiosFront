@@ -41,8 +41,8 @@
                                 <td>{{((data.students.cellphone!=null)?data.students.cellphone:'')}}</td>
                                 <td>
 
-                                  <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editModal" (click)="cargarSingle(data.id)" style="cursor:pointer;"><i class="fa fa-edit"></i> Editar</button>
-                                  <button type="button" class="btn btn-danger" (click)="delete(data.id)" style="cursor:pointer;"><i class="fa fa-times"></i> Eliminar</button>
+                                  <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editModal" (click)='cargarSingle(data.id,"?option=porpagar")' style="cursor:pointer;"><i class="fa fa-percent"></i> Por Pagar</button>
+                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#editModal" (click)='cargarSingle(data.id,"?option=pagados")' style="cursor:pointer;"><i class="fa fa-dollar"></i> Pagados</button>
                                   
                                 </td>
                             </tr>
@@ -73,7 +73,7 @@
               <form id="edit-form"  #EditForm="ngForm" (ngSubmit)="update(EditForm.value)">
                   <div class="form-group col-xs-6 m-b-6">
                       <label for="firstname">Nombre</label>
-                      <input type="text" class="form-control" id="firstname" name="firstname" required
+                      <input type="text" class="form-control" id="firstname" name="firstname" required disabled
                               ngModel #firstname="ngModel" [(ngModel)]="selectedData.students.firstname">
                         <div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)"
                               class="alert alert-danger" role="alert">
@@ -84,7 +84,7 @@
                   </div> 
                   <div class="form-group col-xs-6 m-b-6">
                       <label for="lastname">Apellido</label>
-                      <input type="text" class="form-control" id="lastname" name="lastname" required
+                      <input type="text" class="form-control" id="lastname" name="lastname" required disabled
                               ngModel #lastname="ngModel" [(ngModel)]="selectedData.students.lastname">
                         <div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)"
                               class="alert alert-danger" role="alert">
@@ -96,7 +96,7 @@
 
                   <div class="form-group col-xs-12 m-b-15">
                         <label for="address">Direccion</label>
-                        <input type="text" class="form-control" id="address" name="address" required
+                        <input type="text" class="form-control" id="address" name="address" required disabled
                                 ngModel #address="ngModel" [(ngModel)]="selectedData.students.address">
                           <div *ngIf="address.invalid && (address.dirty || address.touched)"
                                 class="alert alert-danger" role="alert">
@@ -107,7 +107,7 @@
                   </div>
                   <div class="form-group col-xs-6 m-b-6">
                         <label for="phone">Telefono</label>
-                        <input type="text" class="form-control" id="phone" name="phone"
+                        <input type="text" class="form-control" id="phone" name="phone" disabled
                                 ngModel #phone="ngModel" [(ngModel)]="selectedData.students.phone">
                           <div *ngIf="phone.invalid && (phone.dirty || phone.touched)"
                                 class="alert alert-danger" role="alert">
@@ -118,7 +118,7 @@
                   </div>
                   <div class="form-group col-xs-6 m-b-6">
                         <label for="cellphone">Celular</label>
-                        <input type="text" class="form-control" id="cellphone" name="cellphone"
+                        <input type="text" class="form-control" id="cellphone" name="cellphone" disabled
                                 ngModel #cellphone="ngModel" [(ngModel)]="selectedData.students.cellphone">
                           <div *ngIf="cellphone.invalid && (cellphone.dirty || cellphone.touched)"
                                 class="alert alert-danger" role="alert">
@@ -138,19 +138,33 @@
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr *ngFor="let data of selectedData.charges">
-                            <td>{{((data.tuition!=0)?'Matricula':'Inscripcion')}}</td>
-                            <td>{{((data.charge_limit!=null)?data.charge_limit:'')}}</td>
-                            <td>{{((data.quantity!=null)?data.quantity:'')}}</td>
-                            <td>{{((data.increase!=null)?data.increase:'')}}</td>
-                            <td>
+                    <tbody *ngIf="selectedData.charges_pending">
+                        <tr  *ngFor="let data of selectedData.charges_pending">
+                          <td>{{((data.tuition!=0)?'Matricula':'Inscripcion')}}</td>
+                          <td>{{((data.charge_limit!=null)?data.charge_limit:'')}}</td>
+                          <td>{{((data.quantity!=null)?data.quantity:'')}}</td>
+                          <td>{{((data.increase!=null)?data.increase:'')}}</td>
+                          <td>
 
-                              <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editModal" (click)="cargarSingle(data.id)" style="cursor:pointer;"><i class="fa fa-edit"></i> Editar</button>
-                              <button type="button" class="btn btn-danger" (click)="delete(data.id)" style="cursor:pointer;"><i class="fa fa-times"></i> Eliminar</button>
-                              
-                            </td>
-                        </tr>
+                            <button type="button" class="btn btn-success btn-circle btn-lg" (click)='update(data.id,"0")' style="cursor:pointer;"><i class="fa fa-check"></i> </button>
+                            <button type="button" class="btn btn-danger  btn-circle btn-lg" (click)="delete(data.id)" style="cursor:pointer;"><i class="fa fa-times"></i> </button>
+                            
+                          </td>
+                      </tr>
+                    </tbody>
+                    <tbody *ngIf="selectedData.charges_pay">
+                      <tr *ngFor="let data of selectedData.charges_pay">
+                        <td>{{((data.tuition!=0)?'Matricula':'Inscripcion')}}</td>
+                        <td>{{((data.charge_limit!=null)?data.charge_limit:'')}}</td>
+                        <td>{{((data.quantity!=null)?data.quantity:'')}}</td>
+                        <td>{{((data.increase!=null)?data.increase:'')}}</td>
+                        <td>
+
+                          <button type="button" class="btn btn-warning btn-circle btn-lg" (click)='update(data.id,"1")' style="cursor:pointer;"><i class="fa fa-download"></i> </button>
+                          <button type="button" class="btn btn-danger btn-circle btn-lg" (click)="delete(data.id)" style="cursor:pointer;"><i class="fa fa-times"></i> </button>
+                          
+                        </td>
+                    </tr>
                         
                     </tbody>
                 </table>
@@ -159,7 +173,7 @@
                     <input type="hidden" class="form-control" id="id" name="id" required
                             ngModel #id="ngModel" [(ngModel)]="selectedData.id">
                     
-                  <div class="form-group col-xs-12 text-right m-b-15">
+                  <div class="form-group col-xs-12 text-right m-b-15 hidden">
                       <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close" ></i> Cancel</button>
                       <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Guardar</button>
                   </div>
