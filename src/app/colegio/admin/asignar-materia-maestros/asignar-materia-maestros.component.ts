@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
+import * as $ from 'jquery';
 
 import { MateriaMaestroService } from "../_services/_asignaciones/materia-maestro.service";
 import { TeachersService } from "../_services/teachers.service";
@@ -16,6 +17,7 @@ export class AsignarMateriaMaestrosComponent implements OnInit {
   Table:any
   search:any
   selectedData:any[]
+  $:any;
   selectedDataSigned:any=[]
   selectedDataId:any
   selectedDataChildId:any
@@ -81,8 +83,9 @@ export class AsignarMateriaMaestrosComponent implements OnInit {
           }))
 
           if(!existe){
-            //this.droppedItemsId.push({"id":e.dragData.id});
-            this.selectedDataSigned.push(e.dragData);}
+            this.droppedItemsId.push({"id":e.dragData.id});
+            this.selectedDataSigned.push(e.dragData);
+          }
             // this.childs.splice(this.childs.findIndex(dat=>{
             //   return dat.id==e.dragData.id
             // }),1)
@@ -98,7 +101,7 @@ export class AsignarMateriaMaestrosComponent implements OnInit {
           
            this.childsId.push({"id":e.dragData.id});
           // this.childs.push(e.dragData);
-          this.selectedData.splice(this.selectedData.findIndex(dat=>{
+          this.selectedDataSigned.splice(this.selectedData.findIndex(dat=>{
             return dat.id==e.dragData.id
           }),1)
           this.droppedItemsId.splice(this.droppedItemsId.findIndex(dat=>{
@@ -136,11 +139,11 @@ export class AsignarMateriaMaestrosComponent implements OnInit {
                           this.createError(error) 
                         })
     }
-    cargarSingle(id:number,id2:number){
+    cargarSingle(id:number,id2:number,id3:number){
 
       this.selectedGrandParent=id2
       this.cargarFree()
-      this.mainService.getMyChilds(id2)
+      this.GrandParentsService.getMyChilds(id2)
                         .then(response => {
                           this.parentCombo = response
                           
@@ -153,17 +156,38 @@ export class AsignarMateriaMaestrosComponent implements OnInit {
 
       this.selectedParent=id
       this.droppedItemsId.length = 0;
+      this.selectedDataSigned.length = 0;
       this.childsId.length = 0;
-      this.mainService.getMyId(id2,id)
+      this.GrandParentsService.getMyId(id2,id)
                           .then(response => {
                             this.selectedDataId=response.id
-                            this.cargarFree()
-                            this.mainService.getMyGrandChilds(this.selectedDataId)
+                            this.GrandParentsService.getMyGrandChilds(this.selectedDataId)
                                               .then(response => {
                                                 this.selectedData = response
-                                                this.selectedData.forEach((item,index)=>{
-                                                  this.droppedItemsId.push({"id":item.id});
-                                                })
+                                                this.selectedChild=id3
+                                                this.mainService.getMyId(this.selectedDataId,id3)
+                                                                        .then(response => {
+                                                                          this.selectedDataChildId=response.id
+                                                                          
+                                                                          this.cargarFree()
+                                                                          this.mainService.getMyGrandChilds(this.selectedDataChildId)
+                                                                                            .then(response => {
+                                                                                              this.selectedDataSigned = response
+                                                                                              this.selectedDataSigned.forEach((item,index)=>{
+                                                                                                this.droppedItemsId.push({"id":item.id});
+                                                                                              })
+                                                                                              console.clear 
+                                                                                                                        
+                                                                                            }).catch(error => {
+                                                                                              console.clear     
+                                                                                              this.createError(error) 
+                                                                                            })
+                                                                          console.clear 
+                                                                                                    
+                                                                        }).catch(error => {
+                                                                          console.clear     
+                                                                          this.createError(error) 
+                                                                        })
                                                 console.clear 
                                                                           
                                               }).catch(error => {
@@ -182,17 +206,16 @@ export class AsignarMateriaMaestrosComponent implements OnInit {
     cargarGrandChilds(id:number){
       this.selectedParent=id
       this.droppedItemsId.length = 0;
+      this.selectedDataSigned.length = 0;
       this.childsId.length = 0;
-      this.mainService.getMyId(this.selectedGrandParent,id)
+      this.GrandParentsService.getMyId(this.selectedGrandParent,id)
                           .then(response => {
                             this.selectedDataId=response.id
                             this.cargarFree()
-                            this.mainService.getMyGrandChilds(this.selectedDataId)
+                            this.GrandParentsService.getMyGrandChilds(this.selectedDataId)
                                               .then(response => {
                                                 this.selectedData = response
-                                                this.selectedData.forEach((item,index)=>{
-                                                  this.droppedItemsId.push({"id":item.id});
-                                                })
+                                                
                                                 console.clear 
                                                                           
                                               }).catch(error => {
@@ -208,20 +231,19 @@ export class AsignarMateriaMaestrosComponent implements OnInit {
       
     }
     cargarChilds(id:number){
-      this.selectedParent=id
+      this.selectedChild=id
       this.droppedItemsId.length = 0;
+      this.selectedDataSigned.length = 0;
       this.childsId.length = 0;
-      console.log(this.selectedDataId);
-      this.GrandParentsService.getMyId(this.selectedDataId,id)
+      this.mainService.getMyId(this.selectedDataId,id)
                           .then(response => {
                             this.selectedDataChildId=response.id
-                          
-                          
+                            
                             this.cargarFree()
-                            this.GrandParentsService.getMyGrandChilds(this.selectedDataId)
+                            this.mainService.getMyGrandChilds(this.selectedDataChildId)
                                               .then(response => {
-                                                this.selectedData = response
-                                                this.selectedData.forEach((item,index)=>{
+                                                this.selectedDataSigned = response
+                                                this.selectedDataSigned.forEach((item,index)=>{
                                                   this.droppedItemsId.push({"id":item.id});
                                                 })
                                                 console.clear 
@@ -241,7 +263,7 @@ export class AsignarMateriaMaestrosComponent implements OnInit {
     cargarChild(id:number){
       this.selectedGrandParent=id
       this.cargarFree()
-      this.mainService.getMyChilds(id)
+      this.GrandParentsService.getMyChilds(id)
                         .then(response => {
                           this.parentCombo = response
                           
@@ -281,17 +303,20 @@ export class AsignarMateriaMaestrosComponent implements OnInit {
       
     }
     delete(formValueDel){
+      
       $('#Loading').css('display','block')
       $('#Loading').addClass('in')
       let formValue = {
-        "grade":this.selectedDataId,
-        "subjects": this.droppedItemsId
+        "subject":this.selectedDataChildId,
+        "teachers": this.droppedItemsId
       }
 
       formValueDel = {
-        "grade":this.selectedDataId,
-        "subjects": this.childsId
+        "subject":this.selectedDataChildId,
+        "teachers": this.childsId
       }
+      // console.log(this.selectedDataChildId);
+      
       // console.log(formValue);
       // console.log(formValueDel);
       

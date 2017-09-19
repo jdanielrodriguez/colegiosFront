@@ -59,7 +59,7 @@ closeResult: string;
       .then(response => {
         this.auth = response
         
-        console.log(response.username)
+        // console.log(response.username)
         let type:string = null;
         localStorage.setItem('currentUser', response.username);
         localStorage.setItem('currentEmail', response.email);

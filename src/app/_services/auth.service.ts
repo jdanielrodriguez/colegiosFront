@@ -30,7 +30,7 @@ export class AuthService {
     return this.http.post(url,login)
                     .toPromise()
                     .then(response => {
-                      console.log(response.json())
+                      // console.log(response.json())
                       return response.json()
                     })
                     .catch(this.handleError)
