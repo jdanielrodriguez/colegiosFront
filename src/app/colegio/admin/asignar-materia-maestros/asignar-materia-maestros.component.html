@@ -28,6 +28,7 @@
                     <table id="usersTables" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-hover">
                       <thead>
                         <tr>
+                            <th>Materia</th>
                             <th>Grado</th>
                             <th>Ciclo</th>
                             <th>Jornada</th>
@@ -40,16 +41,17 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let data of Table">
-                            <td>{{((data.grades.name!=null)?data.grades.name:'')}}</td>
-                            <td>{{((data.cycles_studying_days.cycles.description!=null)?data.cycles_studying_days.cycles.description:'')}}</td>
-                            <td>{{((data.cycles_studying_days.studying_days.description!=null)?data.cycles_studying_days.studying_days.description:'')}}</td>
-                            <td>{{((data.cycles_studying_days.begin!=null)?data.cycles_studying_days.begin:'')}}</td>
-                            <td>{{((data.cycles_studying_days.end!=null)?data.cycles_studying_days.end:'')}}</td>
-                            <td>{{((data.cycles_studying_days.tuiton!=null)?'Q. '+data.cycles_studying_days.tuiton:'')}}</td>
-                            <td>{{((data.cycles_studying_days.inscription!=null)?'Q. '+data.cycles_studying_days.inscription:'')}}</td>
+                            <td>{{((data.subjects.name!=null)?data.subjects.name:'')}}</td>
+                            <td>{{((data.grades.grades.name!=null)?data.grades.grades.name:'')}}</td>
+                            <td>{{((data.grades.cycles_studying_days.cycles.description!=null)?data.grades.cycles_studying_days.cycles.description:'')}}</td>
+                            <td>{{((data.grades.cycles_studying_days.studying_days.description!=null)?data.grades.cycles_studying_days.studying_days.description:'')}}</td>
+                            <td>{{((data.grades.cycles_studying_days.begin!=null)?data.grades.cycles_studying_days.begin:'')}}</td>
+                            <td>{{((data.grades.cycles_studying_days.end!=null)?data.grades.cycles_studying_days.end:'')}}</td>
+                            <td>{{((data.grades.cycles_studying_days.tuiton!=null)?'Q. '+data.grades.cycles_studying_days.tuiton:'')}}</td>
+                            <td>{{((data.grades.cycles_studying_days.inscription!=null)?'Q. '+data.grades.cycles_studying_days.inscription:'')}}</td>
                             <td>
 
-                              <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#insertModal" (click)="cargarSingle(data.grades.id,data.cycles_studying_days.id)" style="cursor:pointer;"><i class="fa fa-edit"></i> Editar</button>
+                              <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#insertModal" (click)="cargarSingle(data.grades.grades.id,data.grades.cycles_studying_days.id,data.subjects.id)" style="cursor:pointer;"><i class="fa fa-edit"></i> Editar</button>
                               
                             </td>
                         </tr>
