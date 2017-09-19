@@ -58,7 +58,7 @@ return Promise.reject(error.message || error)
                           .catch(this.handleError)                  
       }
     getMyGrandChilds(id:number):Promise<any> {
-      let url = `${this.basePath}/api/grades/${id}/subjects`
+      let url = `${this.basePath}/api/subjects/${id}/teachers`
     
         return this.http.get(url)
                         .toPromise()
@@ -69,7 +69,7 @@ return Promise.reject(error.message || error)
                           .catch(this.handleError)                  
       }
       getMyId(id:number,id2:number):Promise<any> {
-        let url = `${this.basePath}/api/studyingdaysgrades/${id}/grades/${id2}`
+        let url = `${this.basePath}/api/grades/${id}/subjects/${id2}`
       
           return this.http.get(url)
                           .toPromise()
@@ -81,7 +81,7 @@ return Promise.reject(error.message || error)
         }
 
     create(form):Promise<any> {
-    let url = `${this.basePath}/api/gradessubjects/signedup`
+    let url = `${this.basePath}/api/subjectsteachers/signedup`
       return this.http.post(url,form)
                       .toPromise()
                         .then(response => {
@@ -91,7 +91,7 @@ return Promise.reject(error.message || error)
                         .catch(this.handleError) 
     }
     deleteAll(form):Promise<any> {
-      let url = `${this.basePath}/api/gradessubjects/signeddown`
+      let url = `${this.basePath}/api/subjectsteachers/signeddown`
     
         return this.http.post(url,form)
                         .toPromise()
