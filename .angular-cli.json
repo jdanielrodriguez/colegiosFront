@@ -28,6 +28,7 @@
         "./assets/bower_components/chartist-js/dist/chartist-init.css",
         "./assets/bower_components/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css",
         "./assets/css/style.css",
+        "./../node_modules/fullcalendar/dist/fullcalendar.min.css",
         "styles.css"
       ],
       "scripts": [
