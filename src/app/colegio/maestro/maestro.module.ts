@@ -11,6 +11,7 @@ import { DetalleAlumnoComponent } from './detalle-alumno/detalle-alumno.componen
 import { TareasComponent } from './tareas/tareas.component';
 import { CursoAlumnosComponent } from './curso-alumnos/curso-alumnos.component';
 import { AsistenciaComponent } from './asistencia/asistencia.component';
+import { LoaderComponent } from "./loader/loader.component";
 
 import {CalendarModule} from "ap-angular2-fullcalendar";
 import { SimpleNotificationsModule } from 'angular2-notifications';
@@ -19,6 +20,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { Ng2DragDropModule } from 'ng2-drag-drop';
 import { LoadersCssModule } from 'angular2-loaders-css';
 
+import { EventsService } from "./../admin/_services/events.service";
+import { CursosService } from "./_services/cursos.service";
 @NgModule({
   imports: [
     CommonModule,
@@ -39,7 +42,12 @@ import { LoadersCssModule } from 'angular2-loaders-css';
     DetalleAlumnoComponent, 
     TareasComponent, 
     CursoAlumnosComponent, 
-    AsistenciaComponent
+    AsistenciaComponent,
+    LoaderComponent
+  ],
+  providers: [
+    EventsService,
+    CursosService
   ]
 })
 export class MaestroModule { }
