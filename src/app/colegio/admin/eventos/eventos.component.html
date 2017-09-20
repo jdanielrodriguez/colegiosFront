@@ -84,12 +84,12 @@
                     </div> 
 
                     <div class="form-group col-xs-6 m-b-6">
-                        <label for="begingdate">Fecha de Inicio</label>
-                        <input type="date" class="form-control" [(ngModel)]="beginDate" id="begingdate" name="begingdate" required
-                                ngModel #begingdate="ngModel" placeholder="begingdate">
-                          <div *ngIf="begingdate.invalid && (begingdate.dirty || begingdate.touched)"
+                        <label for="begindate">Fecha de Inicio</label>
+                        <input type="date" class="form-control" [(ngModel)]="beginDate" id="begindate" name="begindate" required
+                                ngModel #begindate="ngModel" placeholder="begindate">
+                          <div *ngIf="begindate.invalid && (begindate.dirty || begindate.touched)"
                                 class="alert alert-danger" role="alert">
-                              <small *ngIf="begingdate.errors.required">
+                              <small *ngIf="begindate.errors.required">
                                   La Fecha de Inicio es invalido
                               </small>
                           </div>

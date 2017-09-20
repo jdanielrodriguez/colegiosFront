@@ -50,3 +50,8 @@ However, delay the fade out process for 2.5 seconds */
   width: 20px;
   height: 100px;
 }
+
+.fc-event{
+  height:40px !important;
+  padding-top: 5px;
+}
