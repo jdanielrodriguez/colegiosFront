@@ -22,6 +22,7 @@ import { LoadersCssModule } from 'angular2-loaders-css';
 
 import { EventsService } from "./../admin/_services/events.service";
 import { CursosService } from "./_services/cursos.service";
+import { CursoAlumnosService } from "./_services/curso-alumnos.service";
 @NgModule({
   imports: [
     CommonModule,
@@ -47,7 +48,8 @@ import { CursosService } from "./_services/cursos.service";
   ],
   providers: [
     EventsService,
-    CursosService
+    CursosService,
+    CursoAlumnosService
   ]
 })
 export class MaestroModule { }
