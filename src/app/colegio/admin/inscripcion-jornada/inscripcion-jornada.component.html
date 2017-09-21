@@ -28,6 +28,7 @@
                     <table id="usersTables" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-hover">
                       <thead>
                         <tr>
+                            <th>Grado</th>
                             <th>Ciclo</th>
                             <th>Jornada</th>
                             <th>Inicio</th>
@@ -39,15 +40,16 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let data of Table">
-                            <td>{{((data.cycles.description!=null)?data.cycles.description:'')}}</td>
-                            <td>{{((data.studying_days.description!=null)?data.studying_days.description:'')}}</td>
-                            <td>{{((data.begin!=null)?data.begin:'')}}</td>
-                            <td>{{((data.end!=null)?data.end:'')}}</td>
-                            <td>{{((data.tuiton!=null)?'Q. '+data.tuiton:'')}}</td>
-                            <td>{{((data.inscription!=null)?'Q. '+data.inscription:'')}}</td>
+                            <td>{{((data.grades.name!=null)?data.grades.name:'')}}</td>
+                            <td>{{((data.cycles_studying_days.cycles.description!=null)?data.cycles_studying_days.cycles.description:'')}}</td>
+                            <td>{{((data.cycles_studying_days.studying_days.description!=null)?data.cycles_studying_days.studying_days.description:'')}}</td>
+                            <td>{{((data.cycles_studying_days.begin!=null)?data.cycles_studying_days.begin:'')}}</td>
+                            <td>{{((data.cycles_studying_days.end!=null)?data.cycles_studying_days.end:'')}}</td>
+                            <td>{{((data.cycles_studying_days.tuiton!=null)?'Q. '+data.cycles_studying_days.tuiton:'')}}</td>
+                            <td>{{((data.cycles_studying_days.inscription!=null)?'Q. '+data.cycles_studying_days.inscription:'')}}</td>
                             <td>
 
-                              <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#insertModal" (click)="cargarSingle(data.id+','+data.begin+','+data.end+','+data.inscription+','+data.tuiton)" style="cursor:pointer;"><i class="fa fa-edit"></i> Editar</button>
+                              <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#insertModal" (click)="cargarSingle(data.grades.id,data.cycles_studying_days.id+','+data.cycles_studying_days.begin+','+data.cycles_studying_days.end+','+data.cycles_studying_days.inscription+','+data.cycles_studying_days.tuiton)" style="cursor:pointer;"><i class="fa fa-edit"></i> Editar</button>
                               
                             </td>
                         </tr>
@@ -79,25 +81,29 @@
                 <form id="insert-form"  #InsertForm="ngForm" (ngSubmit)="delete(InsertForm.value)">
                     
                     <div class="form-group col-xs-6 m-b-15" >
-                        <label for="description">Alumnos Inscritos</label>
-                        <input type="text" class="form-control" placeholder="Busqueda de Alumnos" [(ngModel)]="search" [ngModelOptions]="{standalone: true}">
+                        <label for="description">Materias</label>
+                        <input type="text" class="form-control" placeholder="Busqueda de Materias" [(ngModel)]="search" [ngModelOptions]="{standalone: true}">
                         <div droppable (onDrop)="onItemRemove($event)" class="listaDrag">
                           
                           <li draggable [dragData]="Data" *ngFor = "let Data of childs |filter:search" class="alert alert-success" >
-                            {{((Data.students.firstname!=null)?Data.students.firstname+' ':'')+((Data.students.lastname!=null)?Data.students.lastname:'')}}
+                            {{((Data.name!=null)?Data.name:'')}}
                             
                           </li> 
                         </div>
                         
                     </div>
                       <div  class="form-group col-xs-6 m-b-15" >
-                        <label for="cycle_study_day">Ciclo/Jornada</label>
-                        <select name="cycle_study_day" class="form-control" id="cycle_study_day" [(ngModel)]="selectedParent" required ngModel #cyclestudyday="ngModel" (change)="cargarSingle(cyclestudyday.value)">
-                          <option *ngFor="let Data of parentCombo" value="{{Data.id+','+Data.begin+','+Data.end+','+Data.inscription+','+Data.tuiton}}">{{((Data.cycles.description!=null)?Data.cycles.description+'-':'')+((Data.studying_days.description!=null)?Data.studying_days.description:'')}}</option>
+                        <label for="cyclestudyingdays">Ciclo/Jornada</label>
+                        <select name="cyclestudyingdays" class="form-control" id="cyclestudyingdays" [(ngModel)]="selectedGrandParent" required ngModel #cyclestudyingdays="ngModel" (change)="cargarChild(cyclestudyingdays.value)">
+                          <option *ngFor="let Data of grandParentCombo" value="{{Data.id+','+Data.begin+','+Data.end+','+Data.inscription+','+Data.tuiton}}">{{((Data.cycles.description!=null)?Data.cycles.description+'-':'')+((Data.studying_days.description!=null)?Data.studying_days.description:'')}}</option>
+                        </select>
+                        <label for="grades">Grades</label>
+                        <select name="grades" *ngIf="parentCombo" class="form-control" id="grades" [(ngModel)]="selectedParent" required ngModel #grades="ngModel" (change)="cargarGrandChilds(grades.value)">
+                          <option *ngFor="let Data of parentCombo" value="{{Data.id}}">{{((Data.name!=null)?Data.name:'')}}</option>
                         </select>
                           <div droppable (onDrop)="onItemDrop($event)"  class="listaDrag " >
                             <li draggable [dragData]="item" *ngFor="let item of selectedData" class="alert alert-info">
-                            {{((item.students.firstname!=null)?item.students.firstname+' ':'')+((item.students.lastname!=null)?item.students.lastname:'')}}
+                              {{((item.name!=null)?item.name:'')}}
                             </li>
                           </div>
                         </div>  

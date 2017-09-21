@@ -2,11 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
 
 import { InscriptionsStudyingDayService } from "../_services/_asignaciones/inscriptions-studying-day.service";
+
+import { GradoMateriaService } from "../_services/_asignaciones/grado-materia.service";
+import { SubjectsService } from "../_services/subjects.service";
+
 import { InscriptionsService } from "../_services/_asignaciones/inscriptions.service";
-import { CiclosJornadaService } from "../_services/_asignaciones/ciclos-jornada.service";
+import { JornadaGradoService } from "../_services/_asignaciones/jornada-grado.service";
 import { ChargesService } from "../_services/charges.service";
 import { NotificationsService } from 'angular2-notifications';
 import { Subject } from 'rxjs/Rx';
+
+
 @Component({
   selector: 'app-inscripcion-jornada',
   templateUrl: './inscripcion-jornada.component.html',
@@ -24,6 +30,11 @@ export class InscripcionJornadaComponent implements OnInit {
   selectedParent:any
   dtOptions: DataTables.Settings = {}
   dtTrigger: Subject<any> = new Subject<any>();
+
+  selectedDataId:any
+  grandParentCombo:any
+  selectedGrandParent:any
+ 
   selectedDate:any = {
     begin:'',
     end:'',
@@ -35,9 +46,9 @@ export class InscripcionJornadaComponent implements OnInit {
     private _service: NotificationsService,
     private route: ActivatedRoute,
     private router: Router,
-    private mainService: InscriptionsStudyingDayService,
-    private ChildsService: InscriptionsService,
-    private ParentsService: CiclosJornadaService,
+    private mainService: GradoMateriaService,
+    private ChildsService: SubjectsService,
+    private ParentsService: JornadaGradoService,
     private alternService: ChargesService
   ) { }
     ngOnInit() {
@@ -62,9 +73,9 @@ export class InscripcionJornadaComponent implements OnInit {
       };
       this.cargarAll()
       this.cargarFree()
-      this.ParentsService.getAll()
+      this.ParentsService.getBussy()
                         .then(response => {
-                          this.parentCombo = response
+                          this.grandParentCombo = response
                           
                           console.clear 
                         }).catch(error => {
@@ -73,51 +84,15 @@ export class InscripcionJornadaComponent implements OnInit {
                         })
     }
     onItemDrop(e: any) {
-        // Get the dropped data here 
-        if(!this.selectedParent){
-          this.createError("Debe seleccionar un tutor")
-        }else{
-          let existe=(this.selectedData.find(dat=>{
-            return dat.id==e.dragData.id
-          }))
+      // Get the dropped data here 
+      if(!this.selectedParent){
+        this.createError("Debe seleccionar un tutor")
+      }else{
+        let existe=(this.selectedData.find(dat=>{
+          return dat.id==e.dragData.id
+        }))
 
-          if(!existe){
-            let aF1 = this.selectedDate.begin.split("-");
-            let aF2 = this.selectedDate.end.split("-");
-            
-            let numMeses = aF2[0]*12 + aF2[1] - (aF1[0]*12 + aF1[1]);
-            if (aF2[2]<aF1[2]){
-              numMeses = numMeses - 1;
-            }
-            this.selectedDate.id=e.dragData.id
-            
-            this.droppedItemsId.push({"id":e.dragData.id});
-            this.selectedData.push(e.dragData);
-
-            this.makeCharge(numMeses)
-            
-          }
-            // this.childs.splice(this.childs.findIndex(dat=>{
-            //   return dat.id==e.dragData.id
-            // }),1)
-            // this.childsId.splice(this.childsId.findIndex(dat=>{
-            //   return dat.id==e.dragData.id
-            // }),1)
-          }
-    }
-
-    onItemRemove(e: any) {
-        // Get the dropped data here 
-        this.selectedDate.id=e.dragData.id
-           this.childsId.push({"id":e.dragData.id});
-          // this.childs.push(e.dragData);
-          this.selectedData.splice(this.selectedData.findIndex(dat=>{
-            return dat.id==e.dragData.id
-          }),1)
-          this.droppedItemsId.splice(this.droppedItemsId.findIndex(dat=>{
-            return dat.id==e.dragData.id
-          }),1)
-
+        if(!existe){
           let aF1 = this.selectedDate.begin.split("-");
           let aF2 = this.selectedDate.end.split("-");
           
@@ -125,13 +100,49 @@ export class InscripcionJornadaComponent implements OnInit {
           if (aF2[2]<aF1[2]){
             numMeses = numMeses - 1;
           }
+          this.selectedDate.id=e.dragData.id
           
+          this.droppedItemsId.push({"id":e.dragData.id});
+          this.selectedData.push(e.dragData);
 
-          this.deleteCharge(numMeses)
+          this.makeCharge(numMeses)
+          
+        }
+          // this.childs.splice(this.childs.findIndex(dat=>{
+          //   return dat.id==e.dragData.id
+          // }),1)
+          // this.childsId.splice(this.childsId.findIndex(dat=>{
+          //   return dat.id==e.dragData.id
+          // }),1)
+        }
+  }
+
+  onItemRemove(e: any) {
+      // Get the dropped data here 
+      this.selectedDate.id=e.dragData.id
+         this.childsId.push({"id":e.dragData.id});
+        // this.childs.push(e.dragData);
+        this.selectedData.splice(this.selectedData.findIndex(dat=>{
+          return dat.id==e.dragData.id
+        }),1)
+        this.droppedItemsId.splice(this.droppedItemsId.findIndex(dat=>{
+          return dat.id==e.dragData.id
+        }),1)
+      
+        let aF1 = this.selectedDate.begin.split("-");
+        let aF2 = this.selectedDate.end.split("-");
+        
+        let numMeses = aF2[0]*12 + aF2[1] - (aF1[0]*12 + aF1[1]);
+        if (aF2[2]<aF1[2]){
+          numMeses = numMeses - 1;
+        }
         
 
-        
-    }
+        this.deleteCharge(numMeses)
+      
+  
+  
+      }
     cargarFree(){
       this.ChildsService.getAll()
                         .then(response => {
@@ -159,8 +170,8 @@ export class InscripcionJornadaComponent implements OnInit {
                           this.createError(error) 
                         })
     }
-    cargarSingle(id:number){
-      let values:any = (id+'').split(',')
+    cargarSingle(id:number,id2:number){
+      let values:any = (id2+'').split(',')
       this.selectedDate ={
         begin: values[1],
         end: values[2],
@@ -168,16 +179,82 @@ export class InscripcionJornadaComponent implements OnInit {
         tuiton:values[4],
         id:values[0]
       }
-      this.selectedParent=id
-      this.droppedItemsId.length = 0;
-      this.childsId.length = 0;
+      this.selectedGrandParent=id2
       this.cargarFree()
       this.mainService.getMyChilds(values[0])
                         .then(response => {
-                          this.selectedData = response
-                          this.selectedData.forEach((item,index)=>{
-                            this.droppedItemsId.push({"id":item.id});
+                          this.parentCombo = response
+                          
+                          console.clear 
+                                                    
+                        }).catch(error => {
+                          console.clear     
+                          this.createError(error) 
+                        })
+
+      this.selectedParent=id
+      this.droppedItemsId.length = 0;
+      this.childsId.length = 0;
+      this.mainService.getMyId(values[0],id)
+                          .then(response => {
+                            this.selectedDataId=response.id
+                            this.cargarFree()
+                            this.mainService.getMyGrandChilds(this.selectedDataId)
+                                              .then(response => {
+                                                this.selectedData = response
+                                                this.selectedData.forEach((item,index)=>{
+                                                  this.droppedItemsId.push({"id":item.id});
+                                                })
+                                                console.clear 
+                                                                          
+                                              }).catch(error => {
+                                                console.clear     
+                                                this.createError(error) 
+                                              })
+                            
+                            console.clear 
+                                                      
+                          }).catch(error => {
+                            console.clear     
+                            this.createError(error) 
                           })
+    }
+
+    cargarGrandChilds(id:number){
+      this.selectedParent=id
+      this.droppedItemsId.length = 0;
+      this.childsId.length = 0;
+      this.mainService.getMyId(this.selectedGrandParent,id)
+                          .then(response => {
+                            this.selectedDataId=response.id
+                            this.cargarFree()
+                            this.mainService.getMyGrandChilds(this.selectedDataId)
+                                              .then(response => {
+                                                this.selectedData = response
+                                                this.selectedData.forEach((item,index)=>{
+                                                  this.droppedItemsId.push({"id":item.id});
+                                                })
+                                                console.clear 
+                                                                          
+                                              }).catch(error => {
+                                                console.clear     
+                                                this.createError(error) 
+                                              })
+                            console.clear 
+                                                      
+                          }).catch(error => {
+                            console.clear     
+                            this.createError(error) 
+                          })
+      
+    }
+    cargarChild(id:number){
+      this.selectedGrandParent=id
+      this.cargarFree()
+      this.mainService.getMyChilds(id)
+                        .then(response => {
+                          this.parentCombo = response
+                          
                           console.clear 
                                                     
                         }).catch(error => {
@@ -216,15 +293,14 @@ export class InscripcionJornadaComponent implements OnInit {
     delete(formValueDel){
       $('#Loading').css('display','block')
       $('#Loading').addClass('in')
-      let values:any = (this.selectedParent+'').split(',')
       let formValue = {
-        "master":values[0],
-        "inscription": this.droppedItemsId
+        "grade":this.selectedDataId,
+        "subjects": this.droppedItemsId
       }
 
       formValueDel = {
-        "master":values[0],
-        "inscription": this.childsId
+        "grade":this.selectedDataId,
+        "subjects": this.childsId
       }
       // console.log(formValue);
       // console.log(formValueDel);
@@ -234,7 +310,7 @@ export class InscripcionJornadaComponent implements OnInit {
       this.mainService.deleteAll(formValueDel)
                         .then(response => {
                           this.insert(formValue)
-                          this.create('Grados Desasignados')
+                          this.create('Materias Desasignadas')
                         }).catch(error => {
                           this.insert(formValue)
                           console.clear     
