@@ -19,7 +19,7 @@
                 <div class="white-box">
                     <h3>Data Table</h3>
                     <div class="row">
-                        <div class="col-md-3 card text-center alert alert-success m-l-15" style="cursor:pointer;" *ngFor="let Data of Table"  [routerLink]="[ '../curso-alumnos' , Data.id ]">
+                        <div class="col-md-3 card text-center alert alert-success m-l-15" style="cursor:pointer;" *ngFor="let Data of Table"  [routerLink]="[ '../curso-alumnos' , Data.id , Data.subjects.name ]">
                           <div class="card-body">
                             <div class=" alert alert-info" style="padding-bottom:0px;margin-bottom:0px;">
                               <h4 class="card-title"  style="margin-bottom:0px">

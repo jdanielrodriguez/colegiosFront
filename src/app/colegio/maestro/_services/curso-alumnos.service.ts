@@ -24,8 +24,8 @@ console.log(error)
 return Promise.reject(error.message || error)
 }
 
-    getAll():Promise<any> {
-    let url = `${this.basePath}/api/events`
+    getAll(id:number):Promise<any> {
+    let url = `${this.basePath}/api/subjects/${id}/students`
       return this.http.get(url)
                       .toPromise()
                         .then(response => {

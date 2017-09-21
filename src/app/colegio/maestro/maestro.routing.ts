@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: '', component: MaestroComponent, children: [
     { path: 'dashboard', component: DashboardComponent },
     { path: 'cursos', component: CursosComponent },
-    { path: 'curso-alumnos/:id', component: CursoAlumnosComponent },
+    { path: 'curso-alumnos/:id/:name', component: CursoAlumnosComponent },
     { path: 'tables', component: MaestroComponent },
     { path: 'files', component: MaestroComponent }
   ]},
