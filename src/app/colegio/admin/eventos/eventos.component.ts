@@ -110,7 +110,7 @@ export class EventosComponent implements OnInit {
                         .then(response => {
                           this.cargarAll()
                           console.clear 
-                          this.create('Tipo de Usuario Actualizado exitosamente')
+                          this.create('Evento Actualizado exitosamente')
                           $('#Loading').css('display','none')
                         }).catch(error => {
                           console.clear     
@@ -125,7 +125,7 @@ export class EventosComponent implements OnInit {
                         .then(response => {
                           this.cargarAll()
                           console.clear 
-                          this.create('Tipo de Usuario Eliminado exitosamente')
+                          this.create('Evento Eliminado exitosamente')
                           $('#Loading').css('display','none')
                         }).catch(error => {
                           console.clear     
@@ -140,7 +140,7 @@ export class EventosComponent implements OnInit {
                         .then(response => {
                           this.cargarAll()
                           console.clear 
-                          this.create('Tipo de Usuario Ingresado')
+                          this.create('Evento Ingresado')
                           $('#Loading').css('display','none')
                           
                         }).catch(error => {
