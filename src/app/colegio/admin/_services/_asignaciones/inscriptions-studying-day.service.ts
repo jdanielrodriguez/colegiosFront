@@ -23,9 +23,19 @@ console.error("ha ocurrido un error")
 console.log(error)
 return Promise.reject(error.message || error)
 }
+getAll():Promise<any> {
+  let url = `${this.basePath}/api/gradessubjects`
+    return this.http.get(url)
+                    .toPromise()
+                      .then(response => {
+                        //console.log(response.json())
+                        return response.json()
+                      })
+                      .catch(this.handleError) 
+  }
 
-    getAll():Promise<any> {
-    let url = `${this.basePath}/api/studyingdaysgrades`
+  getBussy():Promise<any> {
+    let url = `${this.basePath}/api/bussy/gradesstudents`
       return this.http.get(url)
                       .toPromise()
                         .then(response => {
@@ -35,103 +45,201 @@ return Promise.reject(error.message || error)
                         .catch(this.handleError) 
     }
 
-    getBussy():Promise<any> {
-      let url = `${this.basePath}/api/bussy/studyingdaysgrades/inscriptions`
+  getMyChilds(id:number):Promise<any> {
+    let url = `${this.basePath}/api/studyingdays/${id}/grades`
+  
+      return this.http.get(url)
+                      .toPromise()
+                        .then(response => {
+                          //console.log(response.json())
+                          return response.json()
+                        })
+                        .catch(this.handleError)                  
+    }
+  getMyGrandChilds(id:number):Promise<any> {
+    let url = `${this.basePath}/api/studyingdays/${id}/inscriptions`
+  
+      return this.http.get(url)
+                      .toPromise()
+                        .then(response => {
+                          //console.log(response.json())
+                          return response.json()
+                        })
+                        .catch(this.handleError)                  
+    }
+    getMyId(id:number,id2:number):Promise<any> {
+      let url = `${this.basePath}/api/studyingdaysgrades/${id}/grades/${id2}`
+    
         return this.http.get(url)
                         .toPromise()
                           .then(response => {
                             //console.log(response.json())
                             return response.json()
                           })
-                          .catch(this.handleError) 
+                          .catch(this.handleError)                  
       }
 
-    getMyChilds(id:number):Promise<any> {
-      let url = `${this.basePath}/api/studyingdays/${id}/inscriptions`
-    
-        return this.http.get(url)
-                        .toPromise()
-                          .then(response => {
-                            //console.log(response.json())
-                            return response.json()
-                          })
-                          .catch(this.handleError)                  
-      }
-      getMyGrandChilds(id:number):Promise<any> {
-      let url = `${this.basePath}/api/grades/${id}/subjects`
-    
-        return this.http.get(url)
-                        .toPromise()
-                          .then(response => {
-                            //console.log(response.json())
-                            return response.json()
-                          })
-                          .catch(this.handleError)                  
-      }
-      getMyId(id:number,id2:number):Promise<any> {
-        let url = `${this.basePath}/api/studyingdaysgrades/${id}/grades/${id2}`
-      
-          return this.http.get(url)
-                          .toPromise()
-                            .then(response => {
-                              //console.log(response.json())
-                              return response.json()
-                            })
-                            .catch(this.handleError)                  
-        }
-    create(form):Promise<any> {
-    let url = `${this.basePath}/api/inscriptionsstudyingdays/signedup`
+  create(form):Promise<any> {
+  let url = `${this.basePath}/api/inscriptionsstudyingdays/signedup`
+    return this.http.post(url,form)
+                    .toPromise()
+                      .then(response => {
+                        //console.log(response.json())
+                        return response.json()
+                      })
+                      .catch(this.handleError) 
+  }
+  deleteAll(form):Promise<any> {
+    let url = `${this.basePath}/api/inscriptionsstudyingdays/signeddown`
+  
       return this.http.post(url,form)
                       .toPromise()
                         .then(response => {
                           //console.log(response.json())
                           return response.json()
                         })
-                        .catch(this.handleError) 
+                        .catch(this.handleError)                  
     }
-    deleteAll(form):Promise<any> {
-      let url = `${this.basePath}/api/inscriptionsstudyingdays/signeddown`
+  delete(id):Promise<any> {
+  let url = `${this.basePath}/api/studyingdaysgrades/${id}`
+    return this.http.delete(url)
+                    .toPromise()
+                      .then(response => {
+                        //console.log(response.json())
+                        return response.json()
+                      })
+                      .catch(this.handleError) 
+  }
+
+  update(form):Promise<any> {
+  let url = `${this.basePath}/api/studyingdaysgrades/${form.id}`
+    return this.http.put(url,form)
+                    .toPromise()
+                      .then(response => {
+                        //console.log(response.json())
+                        return response.json()
+                      })
+                      .catch(this.handleError) 
+  }
+
+  getSingle(id:number):Promise<any> {
+  let url = `${this.basePath}/api/studyingdaysgrades/${id}`
+    return this.http.get(url)
+                    .toPromise()
+                      .then(response => {
+                        //console.log(response.json())
+                        return response.json()
+                      })
+                      .catch(this.handleError)  
+  }
+    // getAll():Promise<any> {
+    // let url = `${this.basePath}/api/studyingdaysgrades`
+    //   return this.http.get(url)
+    //                   .toPromise()
+    //                     .then(response => {
+    //                       //console.log(response.json())
+    //                       return response.json()
+    //                     })
+    //                     .catch(this.handleError) 
+    // }
+
+    // getBussy():Promise<any> {
+    //   let url = `${this.basePath}/api/bussy/studyingdaysgrades/inscriptions`
+    //     return this.http.get(url)
+    //                     .toPromise()
+    //                       .then(response => {
+    //                         //console.log(response.json())
+    //                         return response.json()
+    //                       })
+    //                       .catch(this.handleError) 
+    //   }
+
+    // getMyChilds(id:number):Promise<any> {
+    //   let url = `${this.basePath}/api/studyingdays/${id}/inscriptions`
     
-        return this.http.post(url,form)
-                        .toPromise()
-                          .then(response => {
-                            //console.log(response.json())
-                            return response.json()
-                          })
-                          .catch(this.handleError)                  
-      }
-    delete(id):Promise<any> {
-    let url = `${this.basePath}/api/studyingdaysgrades/${id}`
-      return this.http.delete(url)
-                      .toPromise()
-                        .then(response => {
-                          //console.log(response.json())
-                          return response.json()
-                        })
-                        .catch(this.handleError) 
-    }
+    //     return this.http.get(url)
+    //                     .toPromise()
+    //                       .then(response => {
+    //                         //console.log(response.json())
+    //                         return response.json()
+    //                       })
+    //                       .catch(this.handleError)                  
+    //   }
+    //   getMyGrandChilds(id:number):Promise<any> {
+    //   let url = `${this.basePath}/api/grades/${id}/subjects`
+    
+    //     return this.http.get(url)
+    //                     .toPromise()
+    //                       .then(response => {
+    //                         //console.log(response.json())
+    //                         return response.json()
+    //                       })
+    //                       .catch(this.handleError)                  
+    //   }
+    //   getMyId(id:number,id2:number):Promise<any> {
+    //     let url = `${this.basePath}/api/studyingdaysgrades/${id}/grades/${id2}`
+      
+    //       return this.http.get(url)
+    //                       .toPromise()
+    //                         .then(response => {
+    //                           //console.log(response.json())
+    //                           return response.json()
+    //                         })
+    //                         .catch(this.handleError)                  
+    //     }
+    // create(form):Promise<any> {
+    // let url = `${this.basePath}/api/inscriptionsstudyingdays/signedup`
+    //   return this.http.post(url,form)
+    //                   .toPromise()
+    //                     .then(response => {
+    //                       //console.log(response.json())
+    //                       return response.json()
+    //                     })
+    //                     .catch(this.handleError) 
+    // }
+    // deleteAll(form):Promise<any> {
+    //   let url = `${this.basePath}/api/inscriptionsstudyingdays/signeddown`
+    
+    //     return this.http.post(url,form)
+    //                     .toPromise()
+    //                       .then(response => {
+    //                         //console.log(response.json())
+    //                         return response.json()
+    //                       })
+    //                       .catch(this.handleError)                  
+    //   }
+    // delete(id):Promise<any> {
+    // let url = `${this.basePath}/api/studyingdaysgrades/${id}`
+    //   return this.http.delete(url)
+    //                   .toPromise()
+    //                     .then(response => {
+    //                       //console.log(response.json())
+    //                       return response.json()
+    //                     })
+    //                     .catch(this.handleError) 
+    // }
 
-    update(form):Promise<any> {
-    let url = `${this.basePath}/api/studyingdaysgrades/${form.id}`
-      return this.http.put(url,form)
-                      .toPromise()
-                        .then(response => {
-                          //console.log(response.json())
-                          return response.json()
-                        })
-                        .catch(this.handleError) 
-    }
+    // update(form):Promise<any> {
+    // let url = `${this.basePath}/api/studyingdaysgrades/${form.id}`
+    //   return this.http.put(url,form)
+    //                   .toPromise()
+    //                     .then(response => {
+    //                       //console.log(response.json())
+    //                       return response.json()
+    //                     })
+    //                     .catch(this.handleError) 
+    // }
 
-    getSingle(id:number):Promise<any> {
-    let url = `${this.basePath}/api/studyingdaysgrades/${id}`
-      return this.http.get(url)
-                      .toPromise()
-                        .then(response => {
-                          //console.log(response.json())
-                          return response.json()
-                        })
-                        .catch(this.handleError)  
-    }
+    // getSingle(id:number):Promise<any> {
+    // let url = `${this.basePath}/api/studyingdaysgrades/${id}`
+    //   return this.http.get(url)
+    //                   .toPromise()
+    //                     .then(response => {
+    //                       //console.log(response.json())
+    //                       return response.json()
+    //                     })
+    //                     .catch(this.handleError)  
+    // }
 
 }
 

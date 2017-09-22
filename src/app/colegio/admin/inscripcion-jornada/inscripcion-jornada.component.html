@@ -81,12 +81,12 @@
                 <form id="insert-form"  #InsertForm="ngForm" (ngSubmit)="delete(InsertForm.value)">
                     
                     <div class="form-group col-xs-6 m-b-15" >
-                        <label for="description">Materias</label>
-                        <input type="text" class="form-control" placeholder="Busqueda de Materias" [(ngModel)]="search" [ngModelOptions]="{standalone: true}">
+                        <label for="description">Estudiantes</label>
+                        <input type="text" class="form-control" placeholder="Busqueda de Estudiantes" [(ngModel)]="search" [ngModelOptions]="{standalone: true}">
                         <div droppable (onDrop)="onItemRemove($event)" class="listaDrag">
                           
                           <li draggable [dragData]="Data" *ngFor = "let Data of childs |filter:search" class="alert alert-success" >
-                            {{((Data.name!=null)?Data.name:'')}}
+                            {{((Data.students.firstname!=null)?Data.students.firstname+' ':'')+((Data.students.lastname!=null)?Data.students.lastname:'')}}
                             
                           </li> 
                         </div>
@@ -103,7 +103,7 @@
                         </select>
                           <div droppable (onDrop)="onItemDrop($event)"  class="listaDrag " >
                             <li draggable [dragData]="item" *ngFor="let item of selectedData" class="alert alert-info">
-                              {{((item.name!=null)?item.name:'')}}
+                              {{((item.students.firstname!=null)?item.students.firstname+' ':'')+((item.students.lastname!=null)?item.students.lastname:'')}}
                             </li>
                           </div>
                         </div>  

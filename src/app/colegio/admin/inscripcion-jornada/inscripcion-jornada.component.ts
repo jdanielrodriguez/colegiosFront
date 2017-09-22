@@ -2,10 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
 
 import { InscriptionsStudyingDayService } from "../_services/_asignaciones/inscriptions-studying-day.service";
-
-import { GradoMateriaService } from "../_services/_asignaciones/grado-materia.service";
-import { SubjectsService } from "../_services/subjects.service";
-
 import { InscriptionsService } from "../_services/_asignaciones/inscriptions.service";
 import { JornadaGradoService } from "../_services/_asignaciones/jornada-grado.service";
 import { ChargesService } from "../_services/charges.service";
@@ -46,8 +42,8 @@ export class InscripcionJornadaComponent implements OnInit {
     private _service: NotificationsService,
     private route: ActivatedRoute,
     private router: Router,
-    private mainService: GradoMateriaService,
-    private ChildsService: SubjectsService,
+    private mainService: InscriptionsStudyingDayService,
+    private ChildsService: InscriptionsService,
     private ParentsService: JornadaGradoService,
     private alternService: ChargesService
   ) { }
@@ -198,10 +194,12 @@ export class InscripcionJornadaComponent implements OnInit {
       this.mainService.getMyId(values[0],id)
                           .then(response => {
                             this.selectedDataId=response.id
+                            
                             this.cargarFree()
                             this.mainService.getMyGrandChilds(this.selectedDataId)
                                               .then(response => {
                                                 this.selectedData = response
+                            
                                                 this.selectedData.forEach((item,index)=>{
                                                   this.droppedItemsId.push({"id":item.id});
                                                 })
@@ -249,9 +247,17 @@ export class InscripcionJornadaComponent implements OnInit {
       
     }
     cargarChild(id:number){
+      let values:any = (id+'').split(',')
+      this.selectedDate ={
+        begin: values[1],
+        end: values[2],
+        inscription:values[3],
+        tuiton:values[4],
+        id:values[0]
+      }
       this.selectedGrandParent=id
       this.cargarFree()
-      this.mainService.getMyChilds(id)
+      this.mainService.getMyChilds(values[0])
                         .then(response => {
                           this.parentCombo = response
                           
@@ -294,14 +300,15 @@ export class InscripcionJornadaComponent implements OnInit {
       $('#Loading').css('display','block')
       $('#Loading').addClass('in')
       let formValue = {
-        "grade":this.selectedDataId,
-        "subjects": this.droppedItemsId
+        "master":this.selectedDataId,
+        "inscription": this.droppedItemsId
       }
 
       formValueDel = {
-        "grade":this.selectedDataId,
-        "subjects": this.childsId
+        "master":this.selectedDataId,
+        "inscription": this.childsId
       }
+      
       // console.log(formValue);
       // console.log(formValueDel);
       
@@ -368,6 +375,7 @@ export class InscripcionJornadaComponent implements OnInit {
         }
       )
     }
+      
       this.alternService.createAll(data)
                         .then(response => {
                           console.clear 
