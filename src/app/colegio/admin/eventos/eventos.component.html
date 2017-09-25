@@ -22,10 +22,13 @@
                       <div class="col-md-4 text-center">
                         <button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#insertModal" style="cursor:pointer;"><i class="fa fa-plus"></i>Agregar Nuevo</button>
                       </div>
-                      
+                      <div class="col-md-3 col-xs-offset-5">
+                          <input type="text" class="form-control" placeholder="Busqueda" [(ngModel)]="search" [ngModelOptions]="{standalone: true}">
+                        </div>  
                       
                     </div> 
-                    <table id="usersTables" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-hover">
+                    <table class="table table-hover table-responsive" [mfData]="Table | filter : search" #mf="mfDataTable"
+                             [mfRowsOnPage]="rowsOnPage">
                         <thead>
                             <tr>
                                 <th>Descripcion</th>
@@ -35,7 +38,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let data of Table">
+                            <tr *ngFor="let data of mf.data">
                               <td>{{((data.description!=null)?data.description:'')}}</td>
                               <td>{{((data.finishdate!=null)?data.finishdate:'')}}</td>
                               <td>{{((data.types.description!=null)?data.types.description:'')}}</td>
@@ -48,6 +51,13 @@
                             </tr>
                             
                         </tbody>
+                        <tfoot>
+                          <tr>
+                              <td colspan="5">
+                                  <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                              </td>
+                          </tr>
+                          </tfoot>
                     </table>
                 </div>
             </div> 

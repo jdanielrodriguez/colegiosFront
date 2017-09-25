@@ -21,9 +21,12 @@
                     <div class="row">
                       
                       
-                      
+                        <div class="col-md-3 col-xs-offset-9">
+                            <input type="text" class="form-control" placeholder="Busqueda" [(ngModel)]="search" [ngModelOptions]="{standalone: true}">
+                          </div>  
                     </div> 
-                    <table id="usersTables" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-responsive table-hover ">
+                    <table class="table table-hover table-responsive" [mfData]="Table | filter : search" #mf="mfDataTable"
+                             [mfRowsOnPage]="rowsOnPage">
                         <thead>
                             <tr>
                                 <th>Nombre</th>
@@ -34,7 +37,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let data of Table">
+                            <tr *ngFor="let data of mf.data">
                                 <td>{{((data.students.firstname!=null)?data.students.firstname+' ':'')+((data.students.lastname!=null)?data.students.lastname:'')}}</td>
                                 <td>{{((data.students.address!=null)?data.students.address:'')}}</td>
                                 <td>{{((data.students.phone!=null)?data.students.phone:'')}}</td>
@@ -48,6 +51,13 @@
                             </tr>
                             
                         </tbody>
+                        <tfoot>
+                          <tr>
+                              <td colspan="5">
+                                  <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                              </td>
+                          </tr>
+                          </tfoot>
                     </table>
                 </div>
             </div> 
@@ -128,7 +138,8 @@
                           </div>
                   </div>
                   
-                  <table id="dataTables" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTriggerDetail2" class="table table-hover">
+                  <table *ngIf="selectedData.charges_pending" class="table table-hover table-responsive" [mfData]="selectedData.charges_pending | filter : search" #mf="mfDataTable"
+                             [mfRowsOnPage]="rowsOnPage">
                     <thead>
                         <tr>
                             <th>Tipo</th>
@@ -138,8 +149,8 @@
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody *ngIf="selectedData.charges_pending">
-                        <tr  *ngFor="let data of selectedData.charges_pending">
+                    <tbody>
+                        <tr  *ngFor="let data of mf.data">
                           <td>{{((data.tuition!=0)?'Matricula':'Inscripcion')}}</td>
                           <td>{{((data.charge_limit!=null)?data.charge_limit:'')}}</td>
                           <td>{{((data.quantity!=null)?data.quantity:'')}}</td>
@@ -152,21 +163,46 @@
                           </td>
                       </tr>
                     </tbody>
-                    <tbody *ngIf="selectedData.charges_pay">
-                      <tr *ngFor="let data of selectedData.charges_pay">
-                        <td>{{((data.tuition!=0)?'Matricula':'Inscripcion')}}</td>
-                        <td>{{((data.charge_limit!=null)?data.charge_limit:'')}}</td>
-                        <td>{{((data.quantity!=null)?data.quantity:'')}}</td>
-                        <td>{{((data.increase!=null)?data.increase:'')}}</td>
-                        <td>
+                    <tfoot>
+                      <tr>
+                          <td colspan="5">
+                              <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                          </td>
+                      </tr>
+                      </tfoot>
+                </table>
+                <table *ngIf="selectedData.charges_pay" class="table table-hover table-responsive" [mfData]="selectedData.charges_pay | filter : search" #mf="mfDataTable"
+                             [mfRowsOnPage]="rowsOnPage">
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Fecha Limite</th>
+                            <th>Cantidad</th>
+                            <th>Incremento</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr  *ngFor="let data of mf.data">
+                          <td>{{((data.tuition!=0)?'Matricula':'Inscripcion')}}</td>
+                          <td>{{((data.charge_limit!=null)?data.charge_limit:'')}}</td>
+                          <td>{{((data.quantity!=null)?data.quantity:'')}}</td>
+                          <td>{{((data.increase!=null)?data.increase:'')}}</td>
+                          <td>
 
-                          <button type="button" class="btn btn-warning btn-circle btn-lg" (click)='update(data.id,"1")' style="cursor:pointer;"><i class="fa fa-download"></i> </button>
-                          <button type="button" class="btn btn-danger btn-circle btn-lg" (click)="delete(data.id)" style="cursor:pointer;"><i class="fa fa-times"></i> </button>
-                          
-                        </td>
-                    </tr>
-                        
+                            <button type="button" class="btn btn-success btn-circle btn-lg" (click)='update(data.id,"1")' style="cursor:pointer;"><i class="fa fa-check"></i> </button>
+                            <button type="button" class="btn btn-danger  btn-circle btn-lg" (click)="delete(data.id)" style="cursor:pointer;"><i class="fa fa-times"></i> </button>
+                            
+                          </td>
+                      </tr>
                     </tbody>
+                    <tfoot>
+                      <tr>
+                          <td colspan="5">
+                              <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                          </td>
+                      </tr>
+                      </tfoot>
                 </table>
                  
                   

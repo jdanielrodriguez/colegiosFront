@@ -23,9 +23,12 @@
                         <button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#insertModal" style="cursor:pointer;"><i class="fa fa-plus"></i>Agregar Nuevo</button>
                       </div>
                       
-                      
+                      <div class="col-md-3 col-xs-offset-5">
+                          <input type="text" class="form-control" placeholder="Busqueda" [(ngModel)]="search" [ngModelOptions]="{standalone: true}">
+                        </div>  
                     </div> 
-                    <table id="usersTables" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-hover">
+                    <table class="table table-hover table-responsive" [mfData]="Table | filter : search" #mf="mfDataTable"
+                             [mfRowsOnPage]="rowsOnPage">
                       <thead>
                         <tr>
                             <th>Grado</th>
@@ -39,7 +42,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let data of Table">
+                        <tr *ngFor="let data of mf.data">
                             <td>{{((data.grades.name!=null)?data.grades.name:'')}}</td>
                             <td>{{((data.cycles_studying_days.cycles.description!=null)?data.cycles_studying_days.cycles.description:'')}}</td>
                             <td>{{((data.cycles_studying_days.studying_days.description!=null)?data.cycles_studying_days.studying_days.description:'')}}</td>
@@ -55,6 +58,13 @@
                         </tr>
                         
                     </tbody>
+                    <tfoot>
+                      <tr>
+                          <td colspan="5">
+                              <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                          </td>
+                      </tr>
+                      </tfoot>
                     </table>
                 </div>
             </div> 
