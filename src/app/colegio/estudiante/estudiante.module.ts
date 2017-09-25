@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from "@angular/forms";
-import { DataTablesModule } from 'angular-datatables';
+import { DataTableModule } from "angular2-datatable";
 
 import { EstudianteRoutingModule } from './estudiante.routing';
 import { EstudianteComponent } from './estudiante.component';
@@ -15,7 +15,7 @@ import { LoadersCssModule } from 'angular2-loaders-css';
   imports: [
     CommonModule,
     FormsModule,
-    DataTablesModule, 
+    DataTableModule, 
     ChartsModule,
     SimpleNotificationsModule.forRoot(),  
     Ng2SearchPipeModule, 

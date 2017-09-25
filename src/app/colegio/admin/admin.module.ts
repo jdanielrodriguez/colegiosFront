@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from "@angular/forms";
-import { DataTablesModule } from 'angular-datatables';
 import { DataTableModule } from "angular2-datatable";
 
 import { AdminRoutingModule } from './admin.routing';
@@ -60,7 +59,6 @@ import { CargosComponent } from './cargos/cargos.component';
   imports: [
     CommonModule,
     FormsModule,
-    DataTablesModule,
     DataTableModule, 
     ChartsModule,
     SimpleNotificationsModule.forRoot(),  

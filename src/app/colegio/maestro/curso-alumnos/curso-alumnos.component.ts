@@ -16,9 +16,9 @@ export class CursoAlumnosComponent implements OnInit {
   @Input() name:any;
   selectedData:any
   Table:any
-  dtOptions: DataTables.Settings = {}
-  dtTrigger: Subject<any> = new Subject<any>();
   title:string=""
+  public rowsOnPage = 5;
+  public search:any
   constructor(
     private _service: NotificationsService,
     private route: ActivatedRoute,
@@ -33,25 +33,7 @@ export class CursoAlumnosComponent implements OnInit {
     .subscribe(response => { 
                       this.title+=response
                   });
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      language: {
-        emptyTable: 'Tabla limpia',
-        info: 'Mostrando página _PAGE_ de _PAGES_',
-        infoEmpty: 'No hay registros disponibles',
-        infoFiltered: '(filtrado de _MAX_ registros totales)',
-        zeroRecords: 'Nada para mostrar, lo sentimos',
-        search: 'Buscar',
-        lengthMenu: 'Mostranto _MENU_ registro por página',
-        paginate: {
-          first: 'Primero',
-          last: 'Ultimo',
-          next: 'Siguiente',
-          previous: 'Anterior'
-        }
-
-      }
-    };
+   
     this.cargarAll()
   }
 charge(name:string):void{
@@ -61,12 +43,10 @@ charge(name:string):void{
     this.location.back();
   }
   cargarAll(){
-      this.dtTrigger = new Subject<any>();
       this.route.params
                   .switchMap((params: Params) => this.mainService.getAll(+params['id']))
                   .subscribe(response => { 
                       this.Table = response
-                                      this.dtTrigger.next()                          
                                       $("#editModal .close").click();
                                       $("#insertModal .close").click();
                                       console.clear 
