@@ -26,19 +26,19 @@
                                 {{((Data.subjects.name!=null)?Data.subjects.name:'')}}
                               </h4>
                               <h6 class="card-subtitle mb-2 text-muted" style="margin-top:0px">
-                                  {{((Data.grades.grades.name!=null)?Data.grades.grades.name:'')}}
+                                  {{((Data.grades.cycles_studying_days.cycles.description!=null)?Data.grades.cycles_studying_days.cycles.description:'')+'-'}}                                
+                                  {{((Data.grades.cycles_studying_days.studying_days.description!=null)?Data.grades.cycles_studying_days.studying_days.description:'')}}   
                               </h6>
                           </div>
                             <p class="card-text">
-                                {{((Data.subjects.description!=null)?Data.subjects.description:'')}} 
+                                {{((Data.grades.grades.name!=null)?Data.grades.grades.name:'')}}
                               </p>
                               <p class="card-text">
                               {{((Data.subjects.comment!=null)?Data.subjects.comment:'')}}                                
                                 </p>
                           </div>
                           <div class="card-footer text-muted">
-                              {{((Data.grades.cycles_studying_days.cycles.description!=null)?Data.grades.cycles_studying_days.cycles.description:'')+'-'}}                                
-                              {{((Data.grades.cycles_studying_days.studying_days.description!=null)?Data.grades.cycles_studying_days.studying_days.description:'')}}                                
+                              {{((Data.subjects.description!=null)?Data.subjects.description:'')}} 
                             </div>
                         </div>
                     </div> 

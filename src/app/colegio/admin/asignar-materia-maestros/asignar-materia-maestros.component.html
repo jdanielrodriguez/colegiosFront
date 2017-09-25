@@ -31,15 +31,23 @@
                              [mfRowsOnPage]="rowsOnPage">
                       <thead>
                         <tr>
-                            <th>Materia</th>
-                            <th>Grado</th>
-                            <th>Ciclo</th>
-                            <th>Jornada</th>
-                            <th>Inicio</th>
-                            <th>Final</th>
-                            <th>Matricula</th>
-                            <th>Inscripcion</th>
-                            <th></th>
+                            <th style="width:10%;">
+                                <mfDefaultSorter by="subjects.name">Materia</mfDefaultSorter></th>
+                            <th style="width:10%;">
+                                <mfDefaultSorter by="grades.grades.name">Grado</mfDefaultSorter></th>
+                            <th style="width:10%;">
+                                <mfDefaultSorter by="grades.cycles_studying_days.cycles">Ciclo</mfDefaultSorter></th>
+                            <th style="width:10%;">
+                                <mfDefaultSorter by="grades.cycles_studying_days.studying_days">Jornada</mfDefaultSorter></th>
+                            <th style="width:10%;">
+                                <mfDefaultSorter by="grades.cycles_studying_days.begin">Inicio</mfDefaultSorter></th>
+                            <th style="width:10%;">
+                                <mfDefaultSorter by="grades.cycles_studying_days.end">Final</mfDefaultSorter></th>
+                            <th style="width:10%;">
+                                <mfDefaultSorter by="grades.cycles_studying_days.tuiton">Matricula</mfDefaultSorter></th>
+                            <th style="width:10%;">
+                                <mfDefaultSorter by="grades.cycles_studying_days.inscription">Inscripcion</mfDefaultSorter></th>
+                            <th style="width:5%;"></th>
                         </tr>
                     </thead>
                     <tbody>

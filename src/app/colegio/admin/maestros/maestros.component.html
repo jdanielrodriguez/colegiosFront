@@ -31,12 +31,17 @@
                              [mfRowsOnPage]="rowsOnPage">
                         <thead>
                             <tr>
-                                <th>Nombre</th>
-                                <th>Direccion</th>
-                                <th>Telefono</th>
-                                <th>Celular</th>
-                                <th>Calificacion</th>
-                                <th></th>
+                                <th style="width:20%;">
+                                    <mfDefaultSorter by="firstname">Nombre</mfDefaultSorter></th>
+                                <th style="width:20%;">
+                                    <mfDefaultSorter by="address">Direccion</mfDefaultSorter></th>
+                                <th style="width:20%;">
+                                    <mfDefaultSorter by="phone">Telefono</mfDefaultSorter></th>
+                                <th style="width:10%;">
+                                    <mfDefaultSorter by="cellphone">Celular</mfDefaultSorter></th>
+                                <th style="width:10%;">
+                                    <mfDefaultSorter by="qualification">Calificacion</mfDefaultSorter></th>
+                                <th style="width:20%;"></th>
                             </tr>
                         </thead>
                         <tbody>

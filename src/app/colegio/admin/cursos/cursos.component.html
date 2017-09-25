@@ -31,11 +31,15 @@
                              [mfRowsOnPage]="rowsOnPage">
                         <thead>
                             <tr>
-                                <th>Nombre</th>
-                                <th>Description</th>
-                                <th>Comentario</th>
-                                <th>Matricula</th>
-                                <th></th>
+                                <th style="width:20%;">
+                                    <mfDefaultSorter by="name">Nombre</mfDefaultSorter></th>
+                                <th style="width:20%;">
+                                    <mfDefaultSorter by="description">Description</mfDefaultSorter></th>
+                                <th style="width:20%;">
+                                    <mfDefaultSorter by="comment">Comentario</mfDefaultSorter></th>
+                                <th style="width:20%;">
+                                    <mfDefaultSorter by="tuiton">Matricula</mfDefaultSorter></th>
+                                <th style="width:15%;"></th>
                             </tr>
                         </thead>
                         <tbody>

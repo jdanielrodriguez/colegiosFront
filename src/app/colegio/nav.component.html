@@ -291,16 +291,10 @@
     <li> <a routerLinkActive="active"
       [routerLink]="[ './maestro/dashboard' ]" class="waves-effect"><i class="icon-speedometer fa-fw"></i> Dashboard</a>
     </li>
-    <li data-toggle="collapse" href="#Users"> <a  class="waves-effect"><i class=" fa fa-user fa-fw"></i> Cursos<span class="fa arrow"></span>  </a>
-    </li><ul class="collapse nav nav-second-level" id="Users">
-        <li> <a routerLinkActive="active"
-          [routerLink]="[ './maestro/cursos' ]" class="waves-effect"><i class="icon-user fa-fw"></i> Usuarios</a>
-        </li>
-        <li> <a routerLinkActive="active"
-          [routerLink]="[ './maestro/curso-alumnos/2' ]" class="waves-effect"><i class="icon-user fa-fw"></i> Tipos de Usuarios</a>
-        </li>
-      </ul>
-    
+    <li> <a routerLinkActive="active"
+      [routerLink]="[ './maestro/cursos' ]" class="waves-effect"><i class="fa fa-edit fa-fw"></i> Cursos</a>
+    </li>
+
       <li data-toggle="collapse" href="#Charts"> <a class="waves-effect"><i class="ti-pie-chart fa-fw"></i> Charts<span class="fa arrow"></span></a>
           <ul id="Charts" class="collapse nav nav-second-level">
               <li> <a href="flot.html">Flot Charts</a> </li>
