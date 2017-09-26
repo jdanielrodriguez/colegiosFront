@@ -282,7 +282,11 @@ export class InscripcionJornadaComponent implements OnInit {
     delete(formValueDel){
       $('#Loading').css('display','block')
       $('#Loading').addClass('in')
-      this.childsId.splice(this.droppedItemsId,this.droppedItemsId.length)
+      this.droppedItemsId.forEach(element => {
+        this.childsId.splice(this.childsId.findIndex(dat => {
+          return dat.id==element.id
+        }),1)
+      })
       let formValue = {
         "master":this.selectedDataId,
         "inscription": this.droppedItemsId

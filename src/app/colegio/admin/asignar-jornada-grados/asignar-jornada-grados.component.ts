@@ -67,7 +67,7 @@ export class AsignarJornadaGradosComponent implements OnInit {
     onItemRemove(e: any) {
         // Get the dropped data here 
           
-           this.childsId.push({"id":e.dragData.id});
+           //this.childsId.push({"id":e.dragData.id});
           // this.childs.push(e.dragData);
           this.selectedData.splice(this.selectedData.findIndex(dat=>{
             return dat.id==e.dragData.id
@@ -80,6 +80,7 @@ export class AsignarJornadaGradosComponent implements OnInit {
         
     }
     cargarFree(){
+      this.childsId.length = 0;
       this.ChildsService.getAll()
                         .then(response => {
                           this.childs = response
@@ -153,8 +154,14 @@ export class AsignarJornadaGradosComponent implements OnInit {
     delete(formValueDel){
       $('#Loading').css('display','block')
       $('#Loading').addClass('in')
+
+      this.droppedItemsId.forEach(element => {
+        this.childsId.splice(this.childsId.findIndex(dat => {
+          return dat.id==element.id
+        }),1)
+      })
       
-      this.childsId.splice(this.droppedItemsId,this.droppedItemsId.length)
+
       
       let formValue = {
         "master":this.selectedParent,
