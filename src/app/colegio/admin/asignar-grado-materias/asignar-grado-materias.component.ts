@@ -36,6 +36,7 @@ export class AsignarGradoMateriasComponent implements OnInit {
     ngOnInit() {
       
       this.cargarAll()
+      this.childsId.length = 0;
       this.cargarFree()
       this.ParentsService.getBussy()
                         .then(response => {
@@ -73,7 +74,7 @@ export class AsignarGradoMateriasComponent implements OnInit {
     onItemRemove(e: any) {
         // Get the dropped data here 
           
-           this.childsId.push({"id":e.dragData.id});
+           //this.childsId.push({"id":e.dragData.id});
           // this.childs.push(e.dragData);
           this.selectedData.splice(this.selectedData.findIndex(dat=>{
             return dat.id==e.dragData.id
@@ -86,6 +87,7 @@ export class AsignarGradoMateriasComponent implements OnInit {
         
     }
     cargarFree(){
+      this.childsId.length = 0;
       this.ChildsService.getAll()
                         .then(response => {
                           this.childs = response
@@ -183,6 +185,7 @@ export class AsignarGradoMateriasComponent implements OnInit {
     }
     cargarChild(id:number){
       this.selectedGrandParent=id
+      this.childsId.length = 0;
       this.cargarFree()
       this.mainService.getMyChilds(id)
                         .then(response => {
@@ -226,6 +229,7 @@ export class AsignarGradoMateriasComponent implements OnInit {
     delete(formValueDel){
       $('#Loading').css('display','block')
       $('#Loading').addClass('in')
+      this.childsId.splice(this.droppedItemsId,this.droppedItemsId.length)
       let formValue = {
         "grade":this.selectedDataId,
         "subjects": this.droppedItemsId

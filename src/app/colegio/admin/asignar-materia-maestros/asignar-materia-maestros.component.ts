@@ -80,7 +80,7 @@ export class AsignarMateriaMaestrosComponent implements OnInit {
     onItemRemove(e: any) {
         // Get the dropped data here 
           
-           this.childsId.push({"id":e.dragData.id});
+           //this.childsId.push({"id":e.dragData.id});
           // this.childs.push(e.dragData);
           this.selectedDataSigned.splice(this.selectedData.findIndex(dat=>{
             return dat.id==e.dragData.id
@@ -285,6 +285,7 @@ export class AsignarMateriaMaestrosComponent implements OnInit {
       
       $('#Loading').css('display','block')
       $('#Loading').addClass('in')
+      this.childsId.splice(this.droppedItemsId,this.droppedItemsId.length)
       let formValue = {
         "subject":this.selectedDataChildId,
         "teachers": this.droppedItemsId

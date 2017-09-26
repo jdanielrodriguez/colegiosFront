@@ -153,6 +153,9 @@ export class AsignarJornadaGradosComponent implements OnInit {
     delete(formValueDel){
       $('#Loading').css('display','block')
       $('#Loading').addClass('in')
+      
+      this.childsId.splice(this.droppedItemsId,this.droppedItemsId.length)
+      
       let formValue = {
         "master":this.selectedParent,
         "grades": this.droppedItemsId
@@ -162,8 +165,8 @@ export class AsignarJornadaGradosComponent implements OnInit {
         "master":this.selectedParent,
         "grades": this.childsId
       }
-      // console.log(formValue);
-      // console.log(formValueDel);
+      //  console.log(formValue);
+      //  console.log(formValueDel);
       
       
       if(this.selectedParent){   

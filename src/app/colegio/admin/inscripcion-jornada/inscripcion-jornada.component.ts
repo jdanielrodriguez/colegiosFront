@@ -49,6 +49,7 @@ export class InscripcionJornadaComponent implements OnInit {
     ngOnInit() {
       
       this.cargarAll()
+      this.childsId.length = 0;
       this.cargarFree()
       this.ParentsService.getBussy()
                         .then(response => {
@@ -97,7 +98,7 @@ export class InscripcionJornadaComponent implements OnInit {
   onItemRemove(e: any) {
       // Get the dropped data here 
       this.selectedDate.id=e.dragData.id
-         this.childsId.push({"id":e.dragData.id});
+         //this.childsId.push({"id":e.dragData.id});
         // this.childs.push(e.dragData);
         this.selectedData.splice(this.selectedData.findIndex(dat=>{
           return dat.id==e.dragData.id
@@ -121,6 +122,7 @@ export class InscripcionJornadaComponent implements OnInit {
   
       }
     cargarFree(){
+      this.childsId.length = 0;
       this.ChildsService.getAll()
                         .then(response => {
                           this.childs = response
@@ -154,6 +156,7 @@ export class InscripcionJornadaComponent implements OnInit {
         tuiton:values[4],
         id:values[0]
       }
+      this.childsId.length = 0;
       this.selectedGrandParent=id2
       this.cargarFree()
       this.mainService.getMyChilds(values[0])
@@ -235,6 +238,7 @@ export class InscripcionJornadaComponent implements OnInit {
         id:values[0]
       }
       this.selectedGrandParent=id
+      this.childsId.length = 0;
       this.cargarFree()
       this.mainService.getMyChilds(values[0])
                         .then(response => {
@@ -278,6 +282,7 @@ export class InscripcionJornadaComponent implements OnInit {
     delete(formValueDel){
       $('#Loading').css('display','block')
       $('#Loading').addClass('in')
+      this.childsId.splice(this.droppedItemsId,this.droppedItemsId.length)
       let formValue = {
         "master":this.selectedDataId,
         "inscription": this.droppedItemsId
