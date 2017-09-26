@@ -1,11 +1,16 @@
 <div class="row bg-title">
-  <div class="col-lg-12">
+  <div class="col-lg-10">
       <h4 class="page-title">Materia</h4>
       <ol class="breadcrumb">
           <li><a href="#">Maestro</a></li>
           <li><a href="#" (click)="goBack()">Cursos</a></li>
           <li class="active">{{title}}</li>
       </ol>
+      
+  </div>
+  <div class="col-lg-2">
+    
+      <a class="btn btn-info m-t-30" (click)="goBack()"><i class="fa fa-arrow-left fa-arrows"></i> Regresar</a>
   </div>
   <!-- /.col-lg-12 -->
 </div>
@@ -50,7 +55,7 @@
                                 <td>{{((data.cellphone!=null)?data.cellphone:'')}}</td>
                                 <td>
 
-                                  <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editModal" (click)="cargarSingle(data.id)" style="cursor:pointer;"><i class="fa fa-calendar"></i> Detalle</button>
+                                  <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editModal" (click)="cargarSingle(data.id,idSubject)" style="cursor:pointer;"><i class="fa fa-calendar"></i> Detalle</button>
                                   
                                 </td>
                             </tr>

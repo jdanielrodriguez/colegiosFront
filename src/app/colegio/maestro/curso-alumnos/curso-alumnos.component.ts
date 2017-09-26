@@ -17,6 +17,7 @@ export class CursoAlumnosComponent implements OnInit {
   selectedData:any
   Table:any
   title:string=""
+  idSubject:any
   public rowsOnPage = 5;
   public search:any
   constructor(
@@ -33,7 +34,11 @@ export class CursoAlumnosComponent implements OnInit {
     .subscribe(response => { 
                       this.title+=response
                   });
-   
+    this.route.params
+    .switchMap((params: Params) => (params['id']))
+    .subscribe(response => { 
+                      this.idSubject=response
+                  });
     this.cargarAll()
   }
 charge(name:string):void{
@@ -53,8 +58,8 @@ charge(name:string):void{
                   });
       
     }
-    cargarSingle(id:number){
-      this.mainService.getSingle(id)
+    cargarSingle(id:number,id2:number){
+      this.mainService.getSingle(id,id2)
                         .then(response => {
                           this.selectedData = response;
                         }).catch(error => {
