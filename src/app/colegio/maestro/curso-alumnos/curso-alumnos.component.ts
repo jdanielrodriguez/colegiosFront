@@ -3,6 +3,8 @@ import {ActivatedRoute, Params, Router } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { CursoAlumnosService } from "./../_services/curso-alumnos.service";
+import { AsistenciasService } from "./../_services/asistencias.service";
+import { TareasService } from "./../_services/tareas.service";
 import { NotificationsService } from 'angular2-notifications';
 import { Subject } from 'rxjs/Rx';
 import 'rxjs/add/operator/switchMap';
@@ -20,15 +22,23 @@ export class CursoAlumnosComponent implements OnInit {
   idSubject:any
   public rowsOnPage = 5;
   public search:any
+  today:any
+  date:any
+  view:number=1;
   constructor(
     private _service: NotificationsService,
     private route: ActivatedRoute,
     private location:Location,
     private router:Router,
-    private mainService:CursoAlumnosService
+    private mainService:CursoAlumnosService,
+    private HChildService:TareasService,
+    private childService:AsistenciasService
   ) { }
 
   ngOnInit() {
+    let date = new Date();
+    this.today = date.getFullYear()+'-'+(((date.getMonth()+1)<10)?'0'+(date.getMonth()+1):(date.getMonth()+1))+'-'+(((date.getDate())<10)?'0'+(date.getDate()):(date.getDate()))
+    this.date = this.today
     this.route.params
     .switchMap((params: Params) => (params['name']))
     .subscribe(response => { 
@@ -108,6 +118,81 @@ charge(name:string):void{
                           this.create('Estudiante Ingresado')
                           $('#Loading').css('display','none')
                           
+                        }).catch(error => {
+                          console.clear     
+                          this.createError(error) 
+                        })
+      
+      
+    }
+    childInsert(id:number,asiste:boolean){
+      $('#Loading').css('display','block')
+      $('#Loading').addClass('in')
+      let formValue:any = {
+        assistance : asiste,
+        subject_student: id
+      }
+      this.childService.create(formValue)
+                        .then(response => {
+                          console.clear 
+                          this.create('Asistencia Ingresada')
+                          $('#Loading').css('display','none')
+                          $("#editModal .close").click();
+                          $("#insertModal .close").click();
+                          this.cargarAll()
+                        }).catch(error => {
+                          console.clear     
+                          this.createError(error) 
+                        })
+      
+      
+    }
+    childUpdate(id:number,asiste:boolean){
+      $('#Loading').css('display','block')
+      $('#Loading').addClass('in')
+      let formValue:any = {
+        assistance : asiste,
+        id: id
+      }
+      this.childService.update(formValue)
+                        .then(response => {
+                          console.clear 
+                          this.create('Asistencia Ingresada')
+                          $('#Loading').css('display','none')
+                          $("#editModal .close").click();
+                          $("#insertModal .close").click();
+                        }).catch(error => {
+                          console.clear     
+                          this.createError(error) 
+                        })
+      
+      
+    }
+
+    childsInsert(value:any){
+      $('#Loading').css('display','block')
+      $('#Loading').addClass('in')
+      let formValue:any = {
+        name : value.name,
+        description : value.description,
+        homework_note : value.homework_note,
+        date_end : value.date_end,
+        students_subjects: []
+      }
+      this.Table.forEach(element => {
+        formValue.students_subjects.push(
+          {id:element.id}
+        )
+      });
+      
+      this.HChildService.createAll(formValue)
+                        .then(response => {
+                          console.clear 
+                          this.create('Tarea Ingresada')
+                          $('#Loading').css('display','none')
+                          $("#editModal .close").click();
+                          $("#insertModal .close").click();
+                          this.cargarAll()
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 
