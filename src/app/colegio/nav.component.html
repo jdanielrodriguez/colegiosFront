@@ -292,8 +292,11 @@
       [routerLink]="[ './maestro/dashboard' ]" class="waves-effect"><i class="icon-speedometer fa-fw"></i> Dashboard</a>
     </li>
     <li> <a routerLinkActive="active"
-      [routerLink]="[ './maestro/cursos' ]" class="waves-effect"><i class="fa fa-edit fa-fw"></i> Cursos</a>
+      [routerLink]="[ './maestro/cursos' , 1 ]" class="waves-effect"><i class="fa fa-edit fa-fw"></i> Alumnos</a>
     </li>
+    <li> <a routerLinkActive="active"
+        [routerLink]="[ './maestro/cursos' , 2 ]" class="waves-effect"><i class="fa fa-edit fa-fw"></i> Tareas</a>
+      </li>
 
       <li data-toggle="collapse" href="#Charts"> <a class="waves-effect"><i class="ti-pie-chart fa-fw"></i> Charts<span class="fa arrow"></span></a>
           <ul id="Charts" class="collapse nav nav-second-level">

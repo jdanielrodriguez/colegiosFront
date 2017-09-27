@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import {ActivatedRoute, Params, Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 import { CursosService } from "../_services/cursos.service";
 import { NotificationsService } from 'angular2-notifications';
 import { Subject } from 'rxjs/Rx';
+import 'rxjs/add/operator/switchMap';
 
 @Component({
   selector: 'app-cursos',
@@ -10,15 +13,25 @@ import { Subject } from 'rxjs/Rx';
   styleUrls: ['./cursos.component.css']
 })
 export class CursosComponent implements OnInit {
+  @Input() id:any;
   Table:any
   selectedData:any
   Id:any = localStorage.getItem('currentId');
+  tipo:any
   constructor(
     private _service: NotificationsService,
+    private route: ActivatedRoute,
+    private location:Location,
+    private router:Router,
     private mainService: CursosService
   ) { }
   
     ngOnInit() {
+      this.route.params
+      .switchMap((params: Params) => (params['op']))
+      .subscribe(response => { 
+                        this.tipo=response
+                    });
       this.cargarAll()
     }
     cargarAll(){

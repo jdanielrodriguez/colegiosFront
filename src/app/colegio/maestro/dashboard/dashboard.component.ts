@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit {
     this.calendarOptions = {
       fixedWeekCount : false,
       height:600,
-      defaultDate: date.getFullYear()+'-'+(((date.getMonth()+1)<10)?'0'+(date.getMonth()+1):(date.getMonth()+1))+'-'+(((date.getDay()+1)<10)?'0'+(date.getDay()+1):(date.getDay()+1)),
+      defaultDate: date.getFullYear()+'-'+(((date.getMonth()+1)<10)?'0'+(date.getMonth()+1):(date.getMonth()+1))+'-'+(((date.getDate())<10)?'0'+(date.getDate()):(date.getDate())),
       editable: false,
       dayNames: ['Domingo', 'Lunes', 'Martes', 'Miercoles',
       'Jueves', 'Viernes', 'Sabado'],
