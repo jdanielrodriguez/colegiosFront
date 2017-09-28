@@ -168,7 +168,28 @@ charge(name:string):void{
       
       
     }
-
+    secondChildUpdate(id:number){
+      $('#Loading').css('display','block')
+      $('#Loading').addClass('in')
+      let nota = $('#nota'+id).val()
+      let formValue:any = {
+        student_note : nota,
+        id: id
+      }
+      this.HChildService.update(formValue)
+                        .then(response => {
+                          console.clear 
+                          this.create('Asistencia Ingresada')
+                          $('#Loading').css('display','none')
+                          $("#editModal .close").click();
+                          $("#insertModal .close").click();
+                        }).catch(error => {
+                          console.clear     
+                          this.createError(error) 
+                        })
+      
+      
+    }
     childsInsert(value:any){
       $('#Loading').css('display','block')
       $('#Loading').addClass('in')
