@@ -31,9 +31,10 @@ export class TareasComponent implements OnInit {
     private route: ActivatedRoute,
     private location:Location,
     private router:Router,
-    private mainService:CursoAlumnosService,
+    private mainService:TareasService,
     private HChildService:TareasService,
-    private childService:AsistenciasService
+    private childService:AsistenciasService,
+    private parentService:CursoAlumnosService
   ) { }
 
   ngOnInit() {
@@ -62,36 +63,42 @@ charge(name:string):void{
       this.route.params
                   .switchMap((params: Params) => this.mainService.getAll(+params['id']))
                   .subscribe(response => { 
-                      this.Table = response
+                      this.Table = response.homework
                                       $("#editModal .close").click();
                                       $("#insertModal .close").click();
                                       console.clear 
                   });
       
     }
-    cargarSingle(id:number,id2:number){
-      this.mainService.getSingle(id,id2)
+    cargarSingle(data:any,id:number){
+      this.selectedData = {
+        homework: data,
+        students: []
+      }
+      this.parentService.getAll(id)
                         .then(response => {
-                          this.selectedData = response;
+                          this.selectedData.students = response;
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 
                         })
+          console.log(this.selectedData);
+          
     }
     update(formValue:any){
       $('#Loading').css('display','block')
       $('#Loading').addClass('in')
-      //console.log(data)
-      this.mainService.update(formValue)
-                        .then(response => {
-                          this.cargarAll()
-                          console.clear 
-                          this.create('Estudiante Actualizado exitosamente')
-                          $('#Loading').css('display','none')
-                        }).catch(error => {
-                          console.clear     
-                          this.createError(error) 
-                        })
+      console.log(formValue)
+      // this.mainService.update(formValue)
+      //                   .then(response => {
+      //                     this.cargarAll()
+      //                     console.clear 
+      //                     this.create('Estudiante Actualizado exitosamente')
+      //                     $('#Loading').css('display','none')
+      //                   }).catch(error => {
+      //                     console.clear     
+      //                     this.createError(error) 
+      //                   })
       
     }
     delete(id:string){
@@ -112,7 +119,7 @@ charge(name:string):void{
     insert(formValue:any){
       $('#Loading').css('display','block')
       $('#Loading').addClass('in')
-      this.mainService.create(formValue)
+      this.mainService.createAll(formValue)
                         .then(response => {
                           this.cargarAll()
                           console.clear 
