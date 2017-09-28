@@ -5,6 +5,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { CursosComponent } from './cursos/cursos.component';
 import { CursoAlumnosComponent } from './curso-alumnos/curso-alumnos.component';
 import { TareasComponent } from './tareas/tareas.component';
+import { AsistenciaComponent } from './asistencia/asistencia.component';
+import { DetalleAlumnoComponent } from './detalle-alumno/detalle-alumno.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },    
@@ -13,6 +15,8 @@ const routes: Routes = [
     { path: 'cursos/:op', component: CursosComponent },
     { path: 'curso-alumnos/:id/:name', component: CursoAlumnosComponent },
     { path: 'tareas/:id/:name', component: TareasComponent },
+    { path: 'detalle-alumno/:id/:name', component: DetalleAlumnoComponent },
+    { path: 'asistencia/:id/:name', component: AsistenciaComponent },
     { path: 'files', component: MaestroComponent }
   ]},
 { path: 'frutas', component: MaestroComponent },
