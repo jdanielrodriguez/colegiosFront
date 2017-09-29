@@ -37,13 +37,13 @@
                         <thead>
                             <tr>
                                 <th style="width:20%;">
-                                    <mfDefaultSorter by="students.firstname">Nombre</mfDefaultSorter></th>
+                                    <mfDefaultSorter by="name">Nombre</mfDefaultSorter></th>
                                 <th style="width:20%;">
-                                    <mfDefaultSorter by="students.address">Descripcion</mfDefaultSorter></th>
+                                    <mfDefaultSorter by="description">Descripcion</mfDefaultSorter></th>
                                 <th style="width:20%;">
-                                    <mfDefaultSorter by="students.phone">Valor</mfDefaultSorter></th>
+                                    <mfDefaultSorter by="homework_note">Valor</mfDefaultSorter></th>
                                 <th style="width:20%;">
-                                    <mfDefaultSorter by="students.cellphone">Fecha Final</mfDefaultSorter></th>
+                                    <mfDefaultSorter by="date_end">Fecha Final</mfDefaultSorter></th>
                                 <th style="width:20%;"></th>
                             </tr>
                         </thead>
@@ -208,8 +208,13 @@
                               </small>
                           </div>
                   </div>
-                  <input type="hidden" class="form-control" id="id" name="id" required
-                  ngModel #id="ngModel" [(ngModel)]="selectedData.homework.subject_teacher">
+                  <input type="hidden" class="form-control" id="dateid" name="dateid" required
+                  ngModel #dateid="ngModel" [(ngModel)]="dateId">
+                  <input type="hidden" class="form-control" id="nameid" name="nameid" required
+                  ngModel #nameid="ngModel" [(ngModel)]="nameId">
+                  <input type="hidden" class="form-control" id="valueid" name="valueid" required
+                  ngModel #valueid="ngModel" [(ngModel)]="valueId">
+
           
        
                   <div class="form-group col-xs-12 text-right m-b-15">
@@ -218,28 +223,31 @@
                   </div>
 
                  
-                  <table *ngIf="selectedData.students && view==1" class="table table-hover table-responsive" [mfData]="selectedData.students | filter : search" #mf="mfDataTable"
+                  <table *ngIf="selectedData.students" class="table table-hover table-responsive" [mfData]="selectedData.students | filter : search" #mf="mfDataTable"
                              [mfRowsOnPage]="rowsOnPage">
                     <thead>
                         <tr>
                             <th style="width:20%;">
-                                <mfDefaultSorter by="assistance_date">Fecha</mfDefaultSorter></th>
+                                <mfDefaultSorter by="students.firstname">Nombre</mfDefaultSorter></th>
                             <th style="width:20%;">
-                                <mfDefaultSorter by="assistance">Asistio</mfDefaultSorter></th>
+                                <mfDefaultSorter by="students.address">Direccion</mfDefaultSorter></th>
                             <th style="width:20%;">
-                                <mfDefaultSorter by="assistance">Asistio</mfDefaultSorter></th>
-                            <th style="width:15%;"></th>
+                                <mfDefaultSorter by="students.phone">Telefono</mfDefaultSorter></th>
+                            <th style="width:20%;">
+                                <mfDefaultSorter by="">Nota Obtenida</mfDefaultSorter></th>
+                            <th style="width:10%;"></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr  *ngFor="let data of mf.data">
-                            <td>{{((data.students.firstname!=null)?data.students.firstname:'')}}</td>
-                          <td>{{((data.assistance!=0)?'Si Asistio':'No Asistio')}}</td>
+                          <td>{{((data.students.firstname!=null)?data.students.firstname+' ':'')+((data.students.lastname!=null)?data.students.lastname:'')}}</td>
+                          <td>{{((data.students.address!=null)?data.students.address:'')}}</td>
+                          <td>{{((data.students.phone!=null)?data.students.phone:'')}}</td>
+                          <td><span *ngFor="let home of data.homework"><input *ngIf="home.name==nameId && home.date_end==dateId" type="number" class="form-control" id="{{'nota'+home.id}}" [(ngModel)]="home.student_note" [ngModelOptions]="{standalone: true}"></span></td>
                           <td>
-
-                            <button type="button" class="btn btn-success btn-circle btn-lg" (click)='childUpdate(data.id,true)' style="cursor:pointer;"><i class="fa fa-check"></i> </button>
-                            <button type="button" class="btn btn-danger  btn-circle btn-lg" (click)="childUpdate(data.id,false)" style="cursor:pointer;"><i class="fa fa-times"></i> </button>
-                            
+                            <span *ngFor="let home of data.homework">
+                            <button *ngIf="home.name==nameId && home.date_end==dateId" type="button" class="btn btn-success btn-circle btn-lg" (click)='secondChildUpdate(home.id)' style="cursor:pointer;"><i class="fa fa-check"></i> </button>
+                          </span>
                           </td>
                       </tr>
                     </tbody>

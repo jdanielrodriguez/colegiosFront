@@ -21,7 +21,7 @@ export class CursoAlumnosComponent implements OnInit {
   title:string=""
   idSubject:any
   public rowsOnPage = 5;
-  public search:any
+  public search:any 
   today:any
   date:any
   view:number=1;
@@ -211,8 +211,7 @@ charge(name:string):void{
                           console.clear 
                           this.create('Tarea Ingresada')
                           $('#Loading').css('display','none')
-                          $("#editModal .close").click();
-                          $("#insertModal .close").click();
+                          
                           this.cargarAll()
                         }).catch(error => {
                           console.clear     

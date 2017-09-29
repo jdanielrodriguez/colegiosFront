@@ -25,7 +25,9 @@ export class TareasComponent implements OnInit {
   public search:any
   today:any
   date:any
-  view:number=1;
+  nameId:any
+  valueId:any
+  dateId:any
   constructor(
     private _service: NotificationsService,
     private route: ActivatedRoute,
@@ -75,6 +77,9 @@ charge(name:string):void{
         homework: data,
         students: []
       }
+      this.nameId=data.name
+      this.valueId=data.homework_note
+      this.dateId=data.date_end
       this.parentService.getAll(id)
                         .then(response => {
                           this.selectedData.students = response;
@@ -82,23 +87,21 @@ charge(name:string):void{
                           console.clear     
                           this.createError(error) 
                         })
-          console.log(this.selectedData);
-          
     }
     update(formValue:any){
       $('#Loading').css('display','block')
       $('#Loading').addClass('in')
-      console.log(formValue)
-      // this.mainService.update(formValue)
-      //                   .then(response => {
-      //                     this.cargarAll()
-      //                     console.clear 
-      //                     this.create('Estudiante Actualizado exitosamente')
-      //                     $('#Loading').css('display','none')
-      //                   }).catch(error => {
-      //                     console.clear     
-      //                     this.createError(error) 
-      //                   })
+      //  console.log(formValue)
+      this.mainService.updateAll(formValue)
+                        .then(response => {
+                          this.cargarAll()
+                          console.clear 
+                          this.create('Estudiante Actualizado exitosamente')
+                          $('#Loading').css('display','none')
+                        }).catch(error => {
+                          console.clear     
+                          this.createError(error) 
+                        })
       
     }
     delete(id:string){
@@ -184,13 +187,12 @@ charge(name:string):void{
         student_note : nota,
         id: id
       }
-      this.HChildService.update(formValue)
+      this.mainService.update(formValue)
                         .then(response => {
                           console.clear 
-                          this.create('Asistencia Ingresada')
+                          this.create('Nota Ingresada')
                           $('#Loading').css('display','none')
-                          $("#editModal .close").click();
-                          $("#insertModal .close").click();
+                          
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 
@@ -208,24 +210,37 @@ charge(name:string):void{
         date_end : value.date_end,
         students_subjects: []
       }
-      this.Table.forEach(element => {
-        formValue.students_subjects.push(
-          {id:element.id}
-        )
-      });
-      
-      this.HChildService.createAll(formValue)
+      this.selectedData = {
+        homework: formValue,
+        students: []
+      }
+      this.parentService.getAll(this.idSubject)
                         .then(response => {
-                          console.clear 
-                          this.create('Tarea Ingresada')
-                          $('#Loading').css('display','none')
-                          $("#editModal .close").click();
-                          $("#insertModal .close").click();
-                          this.cargarAll()
+                          this.selectedData.students = response;
+                          this.selectedData.students.forEach(element => {
+                            formValue.students_subjects.push(
+                              {id:element.id}
+                            )
+                          });
+                          this.mainService.createAll(formValue)
+                                            .then(response => {
+                                              console.clear 
+                                              this.create('Tarea Ingresada')
+                                              $('#Loading').css('display','none')
+                                              $("#editModal .close").click();
+                                              $("#insertModal .close").click();
+                                              this.cargarAll()
+                                            }).catch(error => {
+                                              console.clear     
+                                              this.createError(error) 
+                                            })
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 
                         })
+      
+      
+      
       
       
     }

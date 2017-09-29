@@ -69,6 +69,17 @@ return Promise.reject(error.message || error)
                         .catch(this.handleError) 
     }
 
+    updateAll(form):Promise<any> {
+      let url = `${this.basePath}/api/homeworks/update`
+        return this.http.post(url,form)
+                        .toPromise()
+                          .then(response => {
+                            //console.log(response.json())
+                            return response.json()
+                          })
+                          .catch(this.handleError) 
+      }
+
     getSingle(id:number,id2:number):Promise<any> {
     let url = `${this.basePath}/api/homeworks/${id2}/students/${id}`
       return this.http.get(url)

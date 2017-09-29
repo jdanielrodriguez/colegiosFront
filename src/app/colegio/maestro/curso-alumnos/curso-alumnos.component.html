@@ -28,7 +28,7 @@
                         <button type="button" class="btn btn-lg btn-info" data-toggle="modal" data-target="#insertModal" style="cursor:pointer;"><i class="fa fa-plus"></i>Agregar Tarea</button>
                       </div>
                       <div class="col-md-3 col-xs-offset-5">
-                          <input type="text" class="form-control" placeholder="Busqueda" [(ngModel)]="search" [ngModelOptions]="{standalone: true}">
+                          <!-- <input type="text" class="form-control" placeholder="Busqueda" [(ngModel)]="search" [ngModelOptions]="{standalone: true}"> -->
                         </div>   
                       
                     </div> 
@@ -273,15 +273,15 @@
                     <thead>
                         <tr>
                             <th style="width:20%;">
-                                <mfDefaultSorter by="assistance_date">Nombre</mfDefaultSorter></th>
+                                <mfDefaultSorter by="name">Nombre</mfDefaultSorter></th>
                             <th style="width:20%;">
-                                <mfDefaultSorter by="assistance">Descripcion</mfDefaultSorter></th>
+                                <mfDefaultSorter by="description">Descripcion</mfDefaultSorter></th>
                             <th style="width:10%;">
-                                <mfDefaultSorter by="assistance">Valor</mfDefaultSorter></th>
+                                <mfDefaultSorter by="homework_note">Valor</mfDefaultSorter></th>
                             <th style="width:15%;">
-                                <mfDefaultSorter by="assistance">Fecha de Cierre</mfDefaultSorter></th>
+                                <mfDefaultSorter by="date_end">Fecha de Cierre</mfDefaultSorter></th>
                             <th style="width:20%;">
-                                <mfDefaultSorter by="assistance">Nota Obtenida</mfDefaultSorter></th>
+                                <mfDefaultSorter by="student_note">Nota Obtenida</mfDefaultSorter></th>
                             <th style="width:25%;"></th>
                         </tr>
                     </thead>
