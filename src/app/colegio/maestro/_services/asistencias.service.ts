@@ -25,8 +25,8 @@ return Promise.reject(error.message || error)
 }
 
     getAll(id:number):Promise<any> {
-    let url = `${this.basePath}/api/studentsassistance`
-      return this.http.get(url)
+    let url = `${this.basePath}/api/subjects/${id}/assistance`
+    return this.http.get(url)
                       .toPromise()
                         .then(response => {
                           //console.log(response.json())

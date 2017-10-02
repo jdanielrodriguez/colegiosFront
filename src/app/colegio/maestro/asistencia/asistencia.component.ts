@@ -31,7 +31,7 @@ export class AsistenciaComponent implements OnInit {
     private route: ActivatedRoute,
     private location:Location,
     private router:Router,
-    private mainService:TareasService,
+    private mainService:AsistenciasService,
     private HChildService:TareasService,
     private childService:AsistenciasService,
     private parentService:CursoAlumnosService
@@ -63,7 +63,7 @@ charge(name:string):void{
       this.route.params
                   .switchMap((params: Params) => this.mainService.getAll(+params['id']))
                   .subscribe(response => { 
-                      this.Table = response.homework
+                      this.Table = response.assistance
                                       $("#editModal .close").click();
                                       $("#insertModal .close").click();
                                       console.clear 
@@ -117,7 +117,7 @@ charge(name:string):void{
     insert(formValue:any){
       $('#Loading').css('display','block')
       $('#Loading').addClass('in')
-      this.mainService.createAll(formValue)
+      this.mainService.create(formValue)
                         .then(response => {
                           this.cargarAll()
                           console.clear 
@@ -217,7 +217,7 @@ charge(name:string):void{
                               {id:element.id}
                             )
                           });
-                          this.mainService.createAll(formValue)
+                          this.mainService.create(formValue)
                                             .then(response => {
                                               console.clear 
                                               this.create('Tarea Ingresada')
