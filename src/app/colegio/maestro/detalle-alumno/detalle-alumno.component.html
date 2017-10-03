@@ -55,9 +55,7 @@
                                 <td>{{((data.students.cellphone!=null)?data.students.cellphone:'')}}</td>
                                 <td>
 
-                                  <button *ngIf="!data.assistance[0] || data.assistance[0].assistance_date != today" type="button" class="btn btn-success btn-circle" style="cursor:pointer;" (click)="childInsert(data.id,true)"><i class="fa fa-check"></i> </button>
-                                  <button *ngIf="!data.assistance[0] || data.assistance[0].assistance_date != today" type="button" class="btn btn-danger btn-circle" style="cursor:pointer;" (click)="childInsert(data.id,false)"><i class="fa fa-times"></i> </button>
-                                  <button type="button" class="btn btn-warning circle" data-toggle="modal" data-target="#editModal" (click)="cargarSingle(data.students.id,idSubject)" style="cursor:pointer;"><i class="fa fa-table"></i> Detalle</button>
+                                 <a href="{{url}}" target="_blank" class="btn btn-warning circle"  (click)="cargarReporte(data.students.id,idSubject)" style="cursor:pointer;"><i class="fa fa-table"></i> Detalle</a>
                                   
                                 </td>
                             </tr>

@@ -35,8 +35,7 @@ return Promise.reject(error.message || error)
                         .catch(this.handleError) 
     }
 
-
-    create(form):Promise<any> {
+   create(form):Promise<any> {
     let url = `${this.basePath}/api/studyingdaysgrades`
       return this.http.post(url,form)
                       .toPromise()
@@ -79,4 +78,14 @@ return Promise.reject(error.message || error)
                         })
                         .catch(this.handleError)  
     }
+    getReport(id:number,id2:number):Promise<any> {
+      let url = `${this.basePath}/api/subjects/${id2}/students/${id}/report`
+        return this.http.get(url)
+                        .toPromise()
+                          .then(response => {
+                            //console.log(response.json())
+                            return response.json()
+                          })
+                          .catch(this.handleError)  
+      }
 }

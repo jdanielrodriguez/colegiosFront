@@ -8,6 +8,8 @@ import { TareasService } from "./../_services/tareas.service";
 import { NotificationsService } from 'angular2-notifications';
 import { Subject } from 'rxjs/Rx';
 import 'rxjs/add/operator/switchMap';
+import { path } from "../../../config.module";
+
 @Component({
   selector: 'app-detalle-alumno',
   templateUrl: './detalle-alumno.component.html',
@@ -25,6 +27,9 @@ export class DetalleAlumnoComponent implements OnInit {
   today:any
   date:any
   view:number=1;
+  private basePath:string = path.path
+  url:String
+  
   constructor(
     private _service: NotificationsService,
     private route: ActivatedRoute,
@@ -76,6 +81,10 @@ charge(name:string):void{
                           console.clear     
                           this.createError(error) 
                         })
+    }
+    cargarReporte(id:number,id2:number){
+      this.url = `${this.basePath}/api/subjects/${id2}/students/${id}/report`
+      
     }
     update(formValue:any){
       $('#Loading').css('display','block')
