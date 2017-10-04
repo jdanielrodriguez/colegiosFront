@@ -25,6 +25,7 @@ import { CursosService } from "./_services/cursos.service";
 import { CursoAlumnosService } from "./_services/curso-alumnos.service";
 import { AsistenciasService } from './_services/asistencias.service';
 import { TareasService } from './_services/tareas.service';
+import { TeachersService } from '../admin/_services/teachers.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -50,6 +51,7 @@ import { TareasService } from './_services/tareas.service';
   ],
   providers: [
     EventsService,
+    TeachersService,
     CursosService,
     CursoAlumnosService,
     AsistenciasService,

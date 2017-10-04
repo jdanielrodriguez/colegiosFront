@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EventsService } from "./../../admin/_services/events.service";
+import { TeachersService } from "./../../admin/_services/teachers.service";
 
 import { NotificationsService } from 'angular2-notifications';
 
@@ -9,14 +10,17 @@ import { NotificationsService } from 'angular2-notifications';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  myId = localStorage.getItem('currentId');
   calendarOptions:Object
   Eventos:any = []
   constructor(
     private _service: NotificationsService,
-    private mainService: EventsService
+    private mainService: EventsService,
+    private secondMainService: TeachersService
   ) { }
 
   ngOnInit() {
+    
     this.cargarEventos();
     let date = new Date();
     this.calendarOptions = {
@@ -50,7 +54,28 @@ export class DashboardComponent implements OnInit {
                                 textColor: element.color
                               }
                             )
+                            
                           });
+                          this.secondMainService.getHomeWork(this.myId)
+                                            .then(responseq => {
+                                              responseq.forEach(element => {
+                                                element.homework.forEach(element2 => {
+                                                  this.Eventos.push(
+                                                    {
+                                                      title: element2.name,
+                                                      start: element2.date_end,
+                                                      end: element2.date_end,
+                                                      backgroundColor: 'yellow',
+                                                      textColor: 'red'
+                                                    }
+                                                  )
+                                                })
+                                              });
+                                              console.clear 
+                                            }).catch(error => {
+                                              console.clear     
+                                              this.createError(error) 
+                                            })
                           console.clear 
                         }).catch(error => {
                           console.clear     
