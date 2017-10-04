@@ -16,6 +16,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { CalendarModule } from 'ap-angular2-fullcalendar';
 import { EventsService } from '../admin/_services/events.service';
 import { LoaderComponent } from './loader/loader.component';
+import { TutorsService } from '../admin/_services/tutors.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -34,7 +35,8 @@ import { LoaderComponent } from './loader/loader.component';
     DashboardComponent, LoaderComponent
   ],
   providers: [
-    EventsService
+    EventsService,
+    TutorsService
   ]
 })
 export class TutorModule { }
