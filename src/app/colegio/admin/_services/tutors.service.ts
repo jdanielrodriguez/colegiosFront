@@ -92,4 +92,16 @@ return Promise.reject(error.message || error)
                         })
                         .catch(this.handleError)                  
     }
+
+    getHomeWork(id:any):Promise<any> {
+      let url = `${this.basePath}/api/tutors/${id}/homeworks`
+    
+        return this.http.get(url)
+                        .toPromise()
+                          .then(response => {
+                            //console.log(response.json())
+                            return response.json()
+                          })
+                          .catch(this.handleError)                  
+      }
 }
