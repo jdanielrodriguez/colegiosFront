@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EventsService } from "./../../admin/_services/events.service";
 
 import { NotificationsService } from 'angular2-notifications';
+import { StudentsService } from '../../admin/_services/students.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,11 +10,13 @@ import { NotificationsService } from 'angular2-notifications';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  myId = localStorage.getItem('currentIdStudent');
   calendarOptions:Object
   Eventos:any = []
   constructor(
     private _service: NotificationsService,
-    private mainService: EventsService
+    private mainService: EventsService,
+    private secondMainService: StudentsService
   ) { }
 
   ngOnInit() {
@@ -50,12 +53,42 @@ export class DashboardComponent implements OnInit {
                                 textColor: element.color
                               }
                             )
+                            
                           });
+                          this.secondMainService.getHomeWork(this.myId)
+                                            .then(responseq => {
+                                              responseq.forEach(element => {
+                                                element.homework.forEach(element2 => {
+                                                  let color:string ="red"
+                                                  let back:string = "yellow"
+
+                                                  if(element2.set_date!=null){
+                                                    color = "yellow"
+                                                    back = "red"
+                                                  }
+
+                                                  this.Eventos.push(
+                                                    {
+                                                      title: element2.name,
+                                                      start: element2.date_end,
+                                                      end: element2.date_end,
+                                                      backgroundColor: back,
+                                                      textColor: color
+                                                    }
+                                                  )
+                                                })
+                                              });
+                                              console.clear 
+                                            }).catch(error => {
+                                              console.clear     
+                                              this.createError(error) 
+                                            })
                           console.clear 
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 
                         })
+                        
   }
 
     public options = {
@@ -77,5 +110,5 @@ export class DashboardComponent implements OnInit {
       this._service.error('¡Error!',error)
 
   }
-
 }
+

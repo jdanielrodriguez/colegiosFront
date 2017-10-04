@@ -10,7 +10,7 @@ import { NotificationsService } from 'angular2-notifications';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  myId = localStorage.getItem('currentId');
+  myId = localStorage.getItem('currentIdTeacher');
   calendarOptions:Object
   Eventos:any = []
   constructor(
