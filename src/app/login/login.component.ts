@@ -67,6 +67,19 @@ closeResult: string;
         localStorage.setItem('currentLastName', response.lastname);
         localStorage.setItem('currentId', response.id);
 
+        if(response.tutors!=null){
+          localStorage.setItem('currentIdTutor', response.tutors.id);
+          localStorage.setItem('currentAuthTutor', response.tutors.autorization);
+        }
+
+        if(response.teachers!=null){
+          localStorage.setItem('currentIdTeacher', response.teachers.id);
+        }
+
+        if(response.students!=null){
+          localStorage.setItem('currentIdStudent', response.students.id);
+        }
+
         if(response.student){
           type = 'estudiante'
         }else
