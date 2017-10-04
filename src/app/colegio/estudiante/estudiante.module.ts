@@ -18,6 +18,8 @@ import { LoaderComponent } from './loader/loader.component';
 import { StudentsService } from '../admin/_services/students.service';
 import { CursosComponent } from './cursos/cursos.component';
 import { CursoDetalleComponent } from './curso-detalle/curso-detalle.component';
+import { CursosService } from './_services/cursos.service';
+import { CursoDetalleService } from './_services/curso-detalle.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -41,6 +43,8 @@ import { CursoDetalleComponent } from './curso-detalle/curso-detalle.component';
   providers: [
     EventsService,
     StudentsService, 
+    CursosService,
+    CursoDetalleService
   ]
 })
 export class EstudianteModule { }
