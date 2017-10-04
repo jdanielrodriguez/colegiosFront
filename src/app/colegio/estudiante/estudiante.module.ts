@@ -15,6 +15,11 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { CalendarModule } from 'ap-angular2-fullcalendar';
 import { EventsService } from '../admin/_services/events.service';
 import { LoaderComponent } from './loader/loader.component';
+import { StudentsService } from '../admin/_services/students.service';
+import { CursosComponent } from './cursos/cursos.component';
+import { CursoDetalleComponent } from './curso-detalle/curso-detalle.component';
+import { CursosService } from './_services/cursos.service';
+import { CursoDetalleService } from './_services/curso-detalle.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -30,10 +35,16 @@ import { LoaderComponent } from './loader/loader.component';
   ],
   declarations: [
     EstudianteComponent, 
-    DashboardComponent, LoaderComponent
+    DashboardComponent, 
+    LoaderComponent, 
+    CursosComponent, 
+    CursoDetalleComponent
   ],
   providers: [
-    EventsService
+    EventsService,
+    StudentsService, 
+    CursosService,
+    CursoDetalleService
   ]
 })
 export class EstudianteModule { }
