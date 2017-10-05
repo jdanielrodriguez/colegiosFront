@@ -62,7 +62,7 @@ charge(name:string):void{
       this.route.params
                   .switchMap((params: Params) => this.mainService.getAll(+params['id']))
                   .subscribe(response => { 
-                      this.Table = response
+                      this.Table = response.homework
                                       $("#editModal .close").click();
                                       $("#insertModal .close").click();
                                       console.clear 

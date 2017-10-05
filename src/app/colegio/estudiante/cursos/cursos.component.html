@@ -18,26 +18,26 @@
                     <div class="row">
                       <div class="col-md-3 "  *ngFor="let Data of Table">
                             
-                       <div class="card text-center alert alert-success " style="cursor:pointer;"  [routerLink]="[ '../../curso-detalle' , Data.id , Data.subjects.name ]">
+                       <div class="card text-center alert alert-success " style="cursor:pointer;"  [routerLink]="[ '../../curso-detalle' , Data.id , Data.subjects.subjects.name]">
                             <div class="card-body">
                               <div class=" alert alert-info" style="padding-bottom:0px;margin-bottom:0px;">
                                 <h4 class="card-title"  style="margin-bottom:0px">
-                                  {{((Data.subjects.name!=null)?Data.subjects.name:'')}}
+                                  {{((Data.subjects.subjects.name!=null)?Data.subjects.subjects.name:'')}}
                                 </h4>
                                 <h6 class="card-subtitle mb-2 text-muted" style="margin-top:0px">
-                                    {{((Data.grades.cycles_studying_days.cycles.description!=null)?Data.grades.cycles_studying_days.cycles.description:'')+'-'}}                                
-                                    {{((Data.grades.cycles_studying_days.studying_days.description!=null)?Data.grades.cycles_studying_days.studying_days.description:'')}}   
+                                    {{((Data.subjects.grades.cycles_studying_days.cycles.description!=null)?Data.subjects.grades.cycles_studying_days.cycles.description:'')+'-'}}                                
+                                    {{((Data.subjects.grades.cycles_studying_days.studying_days.description!=null)?Data.subjects.grades.cycles_studying_days.studying_days.description:'')}}   
                                 </h6>
                             </div>
                               <p class="card-text">
-                                  {{((Data.grades.grades.name!=null)?Data.grades.grades.name:'')}}
+                                  {{((Data.subjects.grades.grades.name!=null)?Data.subjects.grades.grades.name:'')}}
                                 </p>
                                 <p class="card-text">
-                                {{((Data.subjects.comment!=null)?Data.subjects.comment:'')}}                                
+                                {{((Data.subjects.subjects.comment!=null)?Data.subjects.subjects.comment:'')}}                                
                                   </p>
                             </div>
                             <div class="card-footer text-muted">
-                                {{((Data.subjects.description!=null)?Data.subjects.description:'')}} 
+                                {{((Data.subjects.subjects.description!=null)?Data.subjects.subjects.description:'')}} 
                               </div>
                           </div>
                       </div>

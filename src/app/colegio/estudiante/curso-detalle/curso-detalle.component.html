@@ -25,7 +25,6 @@
                     <h3>Data Table</h3>
                     <div class="row">
                       <div class="col-md-4 text-center">
-                        <button type="button" class="btn btn-lg btn-info" data-toggle="modal" data-target="#insertModal" style="cursor:pointer;"><i class="fa fa-plus"></i>Agregar Tarea</button>
                       </div>
                       <div class="col-md-3 col-xs-offset-5">
                           <input type="text" class="form-control" placeholder="Busqueda" [(ngModel)]="search" [ngModelOptions]="{standalone: true}">
@@ -37,25 +36,28 @@
                         <thead>
                             <tr>
                                 <th style="width:20%;">
-                                    <mfDefaultSorter by="students.firstname">Nombre</mfDefaultSorter></th>
+                                    <mfDefaultSorter by="name">Nombre</mfDefaultSorter></th>
                                 <th style="width:20%;">
-                                    <mfDefaultSorter by="students.address">Direccion</mfDefaultSorter></th>
+                                    <mfDefaultSorter by="description">Descripcion</mfDefaultSorter></th>
                                 <th style="width:20%;">
-                                    <mfDefaultSorter by="students.phone">Telefono</mfDefaultSorter></th>
+                                    <mfDefaultSorter by="homework_note">Fecha</mfDefaultSorter></th>
                                 <th style="width:20%;">
-                                    <mfDefaultSorter by="students.cellphone">Celular</mfDefaultSorter></th>
+                                    <mfDefaultSorter by="homework_note">Valor</mfDefaultSorter></th>
+                                <th style="width:20%;">
+                                    <mfDefaultSorter by="student_note">Nota</mfDefaultSorter></th>
                                 <th style="width:20%;"></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let data of mf.data">
-                                <td>{{((data.students.firstname!=null)?data.students.firstname+' ':'')+((data.students.lastname!=null)?data.students.lastname:'')}}</td>
-                                <td>{{((data.students.address!=null)?data.students.address:'')}}</td>
-                                <td>{{((data.students.phone!=null)?data.students.phone:'')}}</td>
-                                <td>{{((data.students.cellphone!=null)?data.students.cellphone:'')}}</td>
+                                <td>{{((data.name!=null)?data.name:'')}}</td>
+                                <td>{{((data.description!=null)?data.description:'')}}</td>
+                                <td>{{((data.date_end!=null)?data.date_end:'')}}</td>
+                                <td>{{((data.homework_note!=null)?data.homework_note:'')}}</td>
+                                <td>{{((data.student_note!=null)?data.student_note:'')}}</td>
                                 <td>
 
-                                 <a href="{{url}}" target="_blank" class="btn btn-warning circle"  (click)="cargarReporte(data.students.id,idSubject)" style="cursor:pointer;"><i class="fa fa-table"></i> Detalle</a>
+                                 <a href="{{url}}" target="_blank" class="btn btn-warning circle"  (click)="cargarReporte(data.id,idSubject)" style="cursor:pointer;"><i class="fa fa-table"></i> Detalle</a>
                                   
                                 </td>
                             </tr>
