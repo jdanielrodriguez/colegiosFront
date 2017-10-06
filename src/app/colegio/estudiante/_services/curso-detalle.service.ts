@@ -68,8 +68,8 @@ return Promise.reject(error.message || error)
                         .catch(this.handleError) 
     }
 
-    getSingle(id:number,id2:number):Promise<any> {
-    let url = `${this.basePath}/api/subjects/${id2}/students/${id}`
+    getSingle(id:number):Promise<any> {
+    let url = `${this.basePath}/api/homeworks/${id}`
       return this.http.get(url)
                       .toPromise()
                         .then(response => {

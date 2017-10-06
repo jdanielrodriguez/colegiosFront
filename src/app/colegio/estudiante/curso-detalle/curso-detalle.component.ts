@@ -7,6 +7,10 @@ import { NotificationsService } from 'angular2-notifications';
 import { Subject } from 'rxjs/Rx';
 import 'rxjs/add/operator/switchMap';
 import { path } from "../../../config.module";
+import { FileUploader } from 'ng2-file-upload';
+
+// const URL = '/api/';
+const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
 
 @Component({
   selector: 'app-curso-detalle',
@@ -35,7 +39,17 @@ export class CursoDetalleComponent implements OnInit {
     private router:Router,
     private mainService:CursoDetalleService
   ) { }
-
+  public uploader:FileUploader = new FileUploader({url: URL});
+  public hasBaseDropZoneOver:boolean = false;
+  public hasAnotherDropZoneOver:boolean = false;
+ 
+  public fileOverBase(e:any):void {
+    this.hasBaseDropZoneOver = e;
+  }
+ 
+  public fileOverAnother(e:any):void {
+    this.hasAnotherDropZoneOver = e;
+  }
   ngOnInit() {
     let date = new Date();
     this.today = date.getFullYear()+'-'+(((date.getMonth()+1)<10)?'0'+(date.getMonth()+1):(date.getMonth()+1))+'-'+(((date.getDate())<10)?'0'+(date.getDate()):(date.getDate()))
@@ -70,7 +84,7 @@ charge(name:string):void{
       
     }
     cargarSingle(id:number,id2:number){
-      this.mainService.getSingle(id,id2)
+      this.mainService.getSingle(id)
                         .then(response => {
                           this.selectedData = response;
                         }).catch(error => {

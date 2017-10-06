@@ -5,6 +5,7 @@ import { DataTableModule } from "angular2-datatable";
 
 import { EstudianteRoutingModule } from './estudiante.routing';
 import { EstudianteComponent } from './estudiante.component';
+import { FileUploadModule } from 'ng2-file-upload';
 
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { ChartsModule } from 'ng2-charts';
@@ -26,6 +27,7 @@ import { CursoDetalleService } from './_services/curso-detalle.service';
     FormsModule,
     DataTableModule, 
     ChartsModule,
+    FileUploadModule,
     SimpleNotificationsModule.forRoot(),  
     Ng2SearchPipeModule, 
     Ng2DragDropModule.forRoot(),
