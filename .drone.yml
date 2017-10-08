@@ -1,0 +1,4 @@
+pipeline:
+  build: johnpapa/angular-cli
+  commands:
+    - ng build
