@@ -16,7 +16,7 @@ export class CursosComponent implements OnInit {
   @Input() id:any;
   Table:any
   selectedData:any
-  Id:any = localStorage.getItem('currentId');
+  Id:any = localStorage.getItem('currentIdTeacher');
   tipo:any
   constructor(
     private _service: NotificationsService,

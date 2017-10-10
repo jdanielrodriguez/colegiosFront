@@ -2,17 +2,17 @@ import { Component, OnInit, Input } from '@angular/core';
 import {ActivatedRoute, Params, Router } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { CursosService } from "../_services/cursos.service";
+import { CursosAlumnoService } from "../_services/cursos-alumno.service";
 import { NotificationsService } from 'angular2-notifications';
 import { Subject } from 'rxjs/Rx';
 import 'rxjs/add/operator/switchMap';
 
 @Component({
-  selector: 'app-cursos',
-  templateUrl: './cursos.component.html',
-  styleUrls: ['./cursos.component.css']
+  selector: 'app-cursos-alumno',
+  templateUrl: './cursos-alumno.component.html',
+  styleUrls: ['./cursos-alumno.component.css']
 })
-export class CursosComponent implements OnInit {
+export class CursosAlumnoComponent implements OnInit {
   @Input() id:any;
   Table:any
   selectedData:any
@@ -23,7 +23,7 @@ export class CursosComponent implements OnInit {
     private route: ActivatedRoute,
     private location:Location,
     private router:Router,
-    private mainService: CursosService
+    private mainService: CursosAlumnoService
   ) { }
   
     ngOnInit() {
@@ -34,8 +34,11 @@ export class CursosComponent implements OnInit {
                     });
       this.cargarAll()
     }
+    goBack(): void {
+      this.location.back();
+    }
     cargarAll(){
-      this.mainService.getAll(this.Id)
+      this.mainService.getAll(this.tipo)
                         .then(response => {
                           this.Table = response
                           console.clear 
