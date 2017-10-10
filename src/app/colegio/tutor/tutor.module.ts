@@ -5,6 +5,7 @@ import { DataTableModule } from "angular2-datatable";
 
 import { TutorRoutingModule } from './tutor.routing';
 import { TutorComponent } from './tutor.component';
+import { FileUploadModule } from 'ng2-file-upload';
 
 
 import { SimpleNotificationsModule } from 'angular2-notifications';
@@ -17,12 +18,19 @@ import { CalendarModule } from 'ap-angular2-fullcalendar';
 import { EventsService } from '../admin/_services/events.service';
 import { LoaderComponent } from './loader/loader.component';
 import { TutorsService } from '../admin/_services/tutors.service';
+import { AlumnosComponent } from './alumnos/alumnos.component';
+import { CursosAlumnoComponent } from './cursos-alumno/cursos-alumno.component';
+import { TareasCursoComponent } from './tareas-curso/tareas-curso.component';
+import { AlumnosService } from './_services/alumnos.service';
+import { CursosAlumnoService } from './_services/cursos-alumno.service';
+import { TareasCursoService } from './_services/tareas-curso.service';
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     DataTableModule, 
     ChartsModule,
+    FileUploadModule,
     SimpleNotificationsModule.forRoot(),  
     Ng2SearchPipeModule, 
     Ng2DragDropModule.forRoot(),
@@ -32,11 +40,18 @@ import { TutorsService } from '../admin/_services/tutors.service';
   ],
   declarations: [
     TutorComponent, 
-    DashboardComponent, LoaderComponent
+    DashboardComponent, 
+    LoaderComponent, 
+    AlumnosComponent, 
+    CursosAlumnoComponent, 
+    TareasCursoComponent
   ],
   providers: [
     EventsService,
-    TutorsService
+    TutorsService,
+    CursosAlumnoService,
+    TareasCursoService,
+    AlumnosService
   ]
 })
 export class TutorModule { }
