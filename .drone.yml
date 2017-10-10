@@ -1,9 +1,9 @@
 pipeline:
   publish-api-docker:
     image: plugins/docker:latest
-    username: sahm27
-    password: sahm27021502.2
-    email: alexmejicanos@outlook.com
+    username: $DOCKER_USERNAME
+    password: $DOCKER_PASSWORD
+    email: $DOCKER_EMAIL
     repo: sahm27/admincolegios
     tags: latest
     dockerfile: ./Dockerfile
