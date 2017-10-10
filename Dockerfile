@@ -1,3 +1,19 @@
+FROM mhart/alpine-node:6 as builder
+
+COPY package.json package-lock.json ./
+
+RUN npm set progress=false && npm config set depth 0 && npm cache clean --force
+
+RUN npm install && mkdir /ng-app && cp -R ./node_modules ./ng-app
+
+WORKDIR /ng-app
+
+COPY . .
+
+RUN $(npm bin)/ng build --prod --build-optimizer
+
 FROM nginx:alpine
-COPY dist/* /usr/share/nginx/html/
+COPY --from=builder /ng-app/dist /usr/share/nginx/html
+
+CMD ["nginx", "-g", "daemon off;"]
 
