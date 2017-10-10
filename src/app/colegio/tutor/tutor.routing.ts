@@ -5,6 +5,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AlumnosComponent } from './alumnos/alumnos.component';
 import { CursosAlumnoComponent } from './cursos-alumno/cursos-alumno.component';
 import { TareasCursoComponent } from './tareas-curso/tareas-curso.component';
+import { CobrosComponent } from './cobros/cobros.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },    
@@ -13,6 +14,7 @@ const routes: Routes = [
     { path: 'alumnos/:op', component: AlumnosComponent },
     { path: 'cursos/:op/:name', component: CursosAlumnoComponent },
     { path: 'tareas/:id/:name', component: TareasCursoComponent },
+    { path: 'cobros/:id/:name', component: CobrosComponent },
   ]},
 { path: 'frutas', component: TutorComponent },
 ];

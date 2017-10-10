@@ -24,6 +24,8 @@ import { TareasCursoComponent } from './tareas-curso/tareas-curso.component';
 import { AlumnosService } from './_services/alumnos.service';
 import { CursosAlumnoService } from './_services/cursos-alumno.service';
 import { TareasCursoService } from './_services/tareas-curso.service';
+import { CobrosComponent } from './cobros/cobros.component';
+import { CobrosService } from './_services/cobros.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -44,13 +46,14 @@ import { TareasCursoService } from './_services/tareas-curso.service';
     LoaderComponent, 
     AlumnosComponent, 
     CursosAlumnoComponent, 
-    TareasCursoComponent
+    TareasCursoComponent, CobrosComponent
   ],
   providers: [
     EventsService,
     TutorsService,
     CursosAlumnoService,
     TareasCursoService,
+    CobrosService,
     AlumnosService
   ]
 })

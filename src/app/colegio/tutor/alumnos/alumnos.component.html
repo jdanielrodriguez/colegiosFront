@@ -54,6 +54,7 @@
                                 <td>
 
                                   <button type="button" class="btn btn-warning circle" data-toggle="modal" data-target="#editModal" (click)="cargarSingle(data.id,idSubject)" style="cursor:pointer;"><i class="fa fa-table"></i> Detalle</button>
+                                  <a [routerLink]="[ '../../cobros' , data.id, data.firstname+' '+data.lastname ]" class="btn btn-danger circle" style="cursor:pointer;"><i class="fa fa-dollar"></i> Cobros</a>
                                   <a [routerLink]="[ '../../cursos' , data.id, data.firstname+' '+data.lastname ]" class="btn btn-success circle" style="cursor:pointer;"><i class="fa fa-edit"></i> Cursos</a>
                                   
                                 </td>

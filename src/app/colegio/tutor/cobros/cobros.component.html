@@ -1,10 +1,10 @@
 <div class="row bg-title">
   <div class="col-lg-10">
-      <h4 class="page-title">Cursos</h4>
+      <h4 class="page-title">Cobros</h4>
       <ol class="breadcrumb">
           <li><a href="#">Tutor</a></li>
           <li><a href="#" (click)="goBack()">Alumnos</a></li>
-          <li><a href="#" (click)="goBack()">Cursos</a></li>
+          <li><a href="#">Cobros</a></li>
           <li class="active">{{title}}</li>
       </ol>
       
@@ -37,30 +37,26 @@
                         <thead>
                             <tr>
                                 <th style="width:20%;">
-                                    <mfDefaultSorter by="name">Nombre</mfDefaultSorter></th>
+                                    <mfDefaultSorter by="tuition">Tipo</mfDefaultSorter></th>
                                 <th style="width:20%;">
-                                    <mfDefaultSorter by="description">Descripcion</mfDefaultSorter></th>
+                                    <mfDefaultSorter by="charge_limit">Fecha Limite</mfDefaultSorter></th>
                                 <th style="width:20%;">
-                                    <mfDefaultSorter by="homework_note">Fecha</mfDefaultSorter></th>
+                                    <mfDefaultSorter by="quantity">Cantidad</mfDefaultSorter></th>
                                 <th style="width:20%;">
-                                    <mfDefaultSorter by="homework_note">Valor</mfDefaultSorter></th>
+                                    <mfDefaultSorter by="increase">Incremento</mfDefaultSorter></th>
                                 <th style="width:20%;">
-                                    <mfDefaultSorter by="student_note">Nota</mfDefaultSorter></th>
-                                <th style="width:20%;"></th>
+                                    <mfDefaultSorter by="state">Estado</mfDefaultSorter></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let data of mf.data">
-                                <td>{{((data.name!=null)?data.name:'')}}</td>
-                                <td>{{((data.description!=null)?data.description:'')}}</td>
-                                <td>{{((data.date_end!=null)?data.date_end:'')}}</td>
-                                <td>{{((data.homework_note!=null)?data.homework_note:'')}}</td>
-                                <td>{{((data.student_note!=null)?data.student_note:'')}}</td>
-                                <td>
-
-                                 <button type="button" class="btn btn-warning circle" data-toggle="modal" data-target="#editModal" (click)="cargarSingle(data.id,idSubject)" style="cursor:pointer;"><i class="fa fa-table"></i> Detalle</button>
-                                 
-                                </td>
+                                <td>{{((data.tuition==1)?'Matricula':'Inscripcion')}}</td>
+                                <td>{{((data.charge_limit!=null)?data.charge_limit:'')}}</td>
+                                <td>{{((data.quantity!=null)?data.quantity:'')}}</td>
+                                <td>{{((data.increase!=null)?data.increase:'')}}</td>
+                                <td *ngIf="data.state==1"> <span class="text-danger alert alert-warning">Por Pagar</span></td>
+                                <td *ngIf="data.state==0"> <span class="text-warning alert alert-success">Pagado</span></td>
+                               
                             </tr>
                             
                         </tbody>
