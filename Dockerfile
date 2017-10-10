@@ -9,4 +9,3 @@ RUN $(npm bin)/ng build --prod --build-optimizer
 FROM nginx:alpine
 COPY --from=builder /ng-app/dist /usr/share/nginx/html
 CMD ["nginx", "-g", "daemon off;"]
-

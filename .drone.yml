@@ -5,6 +5,5 @@ pipeline:
     password: ${DOCKER_PASSWORD}
     email: ${DOCKER_EMAIL}
     repo: sahm27/admincolegios
-    tags:
-      - latest
+    tags: latest
     dockerfile: ./Dockerfile
