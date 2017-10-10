@@ -1,6 +1,6 @@
 pipeline:
   publish-api-docker:
-    image: plugins/docker:1.12
+    image: plugins/docker:latest
     username: ${DOCKER_USERNAME}
     password: ${DOCKER_PASSWORD}
     email: ${DOCKER_EMAIL}
