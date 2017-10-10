@@ -1,4 +1,4 @@
-FROM mhart/alpine-node:6 as builder
+FROM node:6.11.4-alpine as builder
 
 COPY package.json package-lock.json ./
 
