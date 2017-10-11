@@ -4,6 +4,11 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { UsuariosService } from "../_services/usuarios.service";
 import { NotificationsService } from 'angular2-notifications';
 import { Subject } from 'rxjs/Rx';
+import { FileUploader } from 'ng2-file-upload';
+
+// const URL = '/api/';
+const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
+import { path } from "../../../config.module";
 
 @Component({
   selector: 'app-usuarios',
@@ -19,13 +24,34 @@ export class UsuariosComponent implements OnInit {
   public rowsOnPage = 5;
   public search:any
   Data:any
+  private basePath:string = path.path
+  
   constructor(
     private _service: NotificationsService,
     private route: ActivatedRoute,
     private router: Router,
     private userService: UsuariosService
   ) { }
-  
+  public uploader:FileUploader = new FileUploader({url:this.basePath+'/api/users/upload/1',
+                                                    isHTML5: true,
+                                                    method:'post',
+                                                    headers: [
+                                                    {name: 'Access-Control-Allow-Origin', value:'*'},
+                                                    {name: 'cache-control', value:'no-cache'},
+                                                    {name: 'server', value:'Apache/2.4.18 (Ubuntu)'},
+                                                    {name: 'x-ratelimit-limit', value:'60'},
+                                                    {name: 'x-ratelimit-remaining', value:'59'}
+                                                    ]});
+  public hasBaseDropZoneOver:boolean = false;
+  public hasAnotherDropZoneOver:boolean = false;
+ 
+  public fileOverBase(e:any):void {
+    this.hasBaseDropZoneOver = e;
+  }
+ 
+  public fileOverAnother(e:any):void {
+    this.hasAnotherDropZoneOver = e;
+  }
     ngOnInit() {
      
       this.cargarUsers()

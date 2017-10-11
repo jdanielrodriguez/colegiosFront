@@ -50,6 +50,7 @@ import { EventsService } from "./_services/events.service";
 import { InscriptionsService } from "./_services/_asignaciones/inscriptions.service";
 import { InscriptionsStudyingDayService } from "./_services/_asignaciones/inscriptions-studying-day.service";
 import { ChargesService } from "./_services/charges.service";
+import { FileUploadModule } from 'ng2-file-upload';
 
 import { LoaderComponent } from './loader/loader.component';
 import { CargosComponent } from './cargos/cargos.component';
@@ -61,6 +62,7 @@ import { CargosComponent } from './cargos/cargos.component';
     FormsModule,
     DataTableModule, 
     ChartsModule,
+    FileUploadModule,
     SimpleNotificationsModule.forRoot(),  
     Ng2SearchPipeModule, 
     Ng2DragDropModule.forRoot(),
