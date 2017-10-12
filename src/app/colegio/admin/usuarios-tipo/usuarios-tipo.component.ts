@@ -4,7 +4,8 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { UsersTypesService } from "../_services/users-types.service";
 import { NotificationsService } from 'angular2-notifications';
 
-import { Subject } from 'rxjs/Rx';
+declare var $: any
+
 @Component({
   selector: 'app-usuarios-tipo',
   templateUrl: './usuarios-tipo.component.html',
@@ -87,6 +88,7 @@ export class UsuariosTipoComponent implements OnInit {
                           console.clear 
                           this.create('Tipo de Usuario Ingresado')
                           $('#Loading').css('display','none')
+                          $('#insert-form')[0].reset()
                           
                         }).catch(error => {
                           console.clear     

@@ -5,7 +5,6 @@ import { EstudiantesTutoresService } from "../_services/_asignaciones/estudiante
 import { StudentsService } from "../_services/students.service";
 import { TutorsService } from "../_services/tutors.service";
 import { NotificationsService } from 'angular2-notifications';
-import { Subject } from 'rxjs/Rx';
 @Component({
   selector: 'app-asignar-estudiantes-tutores',
   templateUrl: './asignar-estudiantes-tutores.component.html',

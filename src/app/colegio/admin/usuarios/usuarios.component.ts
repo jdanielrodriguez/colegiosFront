@@ -3,12 +3,14 @@ import { Router, ActivatedRoute } from "@angular/router";
 
 import { UsuariosService } from "../_services/usuarios.service";
 import { NotificationsService } from 'angular2-notifications';
-import { Subject } from 'rxjs/Rx';
 import { FileUploader } from 'ng2-file-upload';
 
 // const URL = '/api/';
 const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
 import { path } from "../../../config.module";
+
+
+declare var $: any
 
 @Component({
   selector: 'app-usuarios',
@@ -242,7 +244,7 @@ export class UsuariosComponent implements OnInit {
           break;
         }
       }
-      let pass = this.generar(20)
+      let pass = this.generar(25)
       let data = {
         username: formValue.username,
         email: formValue.email,
@@ -254,13 +256,14 @@ export class UsuariosComponent implements OnInit {
         password: pass,
         tutor: tutor
       }
-      console.log(data)
+      // console.log(data)
       this.userService.create(data)
                         .then(response => {
                           this.cargarUsers()
                           console.clear 
                           this.create('Usuario Ingresado')
                           $('#Loading').css('display','none')
+                          $('#insert-form')[0].reset()
                           
                         }).catch(error => {
                           console.clear     

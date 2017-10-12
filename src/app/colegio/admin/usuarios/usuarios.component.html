@@ -123,7 +123,7 @@
                         <label for="type">{{foreignData.title}}</label>
                         <select name="foreign" class="form-control" id="foreign" required ngModel #foreign="ngModel" (change)="getForeign(foreign.value,type.value)">
                           <option value="null"></option>
-                          <option *ngFor="let foreign1 of foreignCombo" value="{{foreign.id}}">{{foreign1.firstname+' '+foreign1.lastname}}</option>
+                          <option *ngFor="let foreign1 of foreignCombo" value="{{foreign1.id}}">{{foreign1.firstname+' '+foreign1.lastname}}</option>
                         </select>
                   </div>
                     

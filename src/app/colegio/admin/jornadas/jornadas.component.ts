@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
 
 import { StudyingDaysService } from "../_services/studying-days.service";
-import { Subject } from 'rxjs/Rx';
 import { NotificationsService } from 'angular2-notifications';
+
+declare var $: any
+
 @Component({
   selector: 'app-jornadas',
   templateUrl: './jornadas.component.html',
@@ -86,6 +88,7 @@ export class JornadasComponent implements OnInit {
                           console.clear 
                           this.create('Jornada Ingresado')
                           $('#Loading').css('display','none')
+                          $('#insert-form')[0].reset()
                           
                         }).catch(error => {
                           console.clear     

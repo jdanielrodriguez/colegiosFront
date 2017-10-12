@@ -5,7 +5,6 @@ import { GradoMateriaService } from "../_services/_asignaciones/grado-materia.se
 import { SubjectsService } from "../_services/subjects.service";
 import { JornadaGradoService } from "../_services/_asignaciones/jornada-grado.service";
 import { NotificationsService } from 'angular2-notifications';
-import { Subject } from 'rxjs/Rx';
 @Component({
   selector: 'app-asignar-grado-materias',
   templateUrl: './asignar-grado-materias.component.html',

@@ -3,7 +3,9 @@ import { Router, ActivatedRoute } from "@angular/router";
 
 import { TutorsService } from "../_services/tutors.service";
 import { NotificationsService } from 'angular2-notifications';
-import { Subject } from 'rxjs/Rx';
+
+declare var $: any
+
 @Component({
   selector: 'app-tutores',
   templateUrl: './tutores.component.html',
@@ -86,6 +88,7 @@ export class TutoresComponent implements OnInit {
                           console.clear 
                           this.create('Tutor Ingresado')
                           $('#Loading').css('display','none')
+                          $('#insert-form')[0].reset()
                           
                         }).catch(error => {
                           console.clear     

@@ -3,7 +3,9 @@ import { Router, ActivatedRoute } from "@angular/router";
 
 import { TeachersService } from "../_services/teachers.service";
 import { NotificationsService } from 'angular2-notifications';
-import { Subject } from 'rxjs/Rx';
+
+declare var $: any
+
 @Component({
   selector: 'app-maestros',
   templateUrl: './maestros.component.html',
@@ -86,6 +88,7 @@ export class MaestrosComponent implements OnInit {
                           console.clear 
                           this.create('Maestro Ingresado')
                           $('#Loading').css('display','none')
+                          $('#insert-form')[0].reset()
                           
                         }).catch(error => {
                           console.clear     

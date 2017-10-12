@@ -5,7 +5,6 @@ import { JornadaGradoService } from "../_services/_asignaciones/jornada-grado.se
 import { GradesService } from "../_services/grades.service";
 import { CiclosJornadaService } from "../_services/_asignaciones/ciclos-jornada.service";
 import { NotificationsService } from 'angular2-notifications';
-import { Subject } from 'rxjs/Rx';
 @Component({
   selector: 'app-asignar-jornada-grados',
   templateUrl: './asignar-jornada-grados.component.html',

@@ -6,7 +6,6 @@ import { InscriptionsService } from "../_services/_asignaciones/inscriptions.ser
 import { JornadaGradoService } from "../_services/_asignaciones/jornada-grado.service";
 import { ChargesService } from "../_services/charges.service";
 import { NotificationsService } from 'angular2-notifications';
-import { Subject } from 'rxjs/Rx';
 
 
 @Component({

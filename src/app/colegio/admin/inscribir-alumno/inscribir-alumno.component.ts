@@ -4,7 +4,9 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { InscriptionsService } from "../_services/_asignaciones/inscriptions.service";
 import { EstudiantesTutoresService } from "../_services/_asignaciones/estudiantes-tutores.service";
 import { NotificationsService } from 'angular2-notifications';
-import { Subject } from 'rxjs/Rx';
+
+declare var $: any
+
 @Component({
   selector: 'app-inscribir-alumno',
   templateUrl: './inscribir-alumno.component.html',
@@ -111,6 +113,7 @@ export class InscribirAlumnoComponent implements OnInit {
                           console.clear 
                           this.create('Inscripcion Ingresado')
                           $('#Loading').css('display','none')
+                          //$('#insert-form')[0].reset()
                           
                         }).catch(error => {
                           console.clear     

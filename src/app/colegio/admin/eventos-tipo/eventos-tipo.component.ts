@@ -3,7 +3,9 @@ import { Router, ActivatedRoute } from "@angular/router";
 
 import { EventsTypeService } from "../_services/events-type.service";
 import { NotificationsService } from 'angular2-notifications';
-import { Subject } from 'rxjs/Rx';
+
+declare var $: any
+
 
 @Component({
   selector: 'app-eventos-tipo',
@@ -87,6 +89,7 @@ export class EventosTipoComponent implements OnInit {
                           console.clear 
                           this.create('Tipo de Usuario Ingresado')
                           $('#Loading').css('display','none')
+                          $('#insert-form')[0].reset()
                           
                         }).catch(error => {
                           console.clear     

@@ -3,7 +3,9 @@ import { Router, ActivatedRoute } from "@angular/router";
 
 import { GradesService } from "../_services/grades.service";
 import { NotificationsService } from 'angular2-notifications';
-import { Subject } from 'rxjs/Rx';
+
+declare var $: any
+
 @Component({
   selector: 'app-grados',
   templateUrl: './grados.component.html',
@@ -86,6 +88,7 @@ export class GradosComponent implements OnInit {
                           console.clear 
                           this.create('Grado Ingresado')
                           $('#Loading').css('display','none')
+                          $('#insert-form')[0].reset()
                           
                         }).catch(error => {
                           console.clear     

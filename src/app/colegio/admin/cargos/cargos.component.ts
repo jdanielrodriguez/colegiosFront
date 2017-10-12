@@ -3,7 +3,9 @@ import { Router, ActivatedRoute } from "@angular/router";
 
 import { ChargesService } from "../_services/charges.service";
 import { NotificationsService } from 'angular2-notifications';
-import { Subject } from 'rxjs/Rx';
+
+declare var $: any
+
 @Component({
   selector: 'app-cargos',
   templateUrl: './cargos.component.html',
@@ -90,6 +92,7 @@ export class CargosComponent implements OnInit {
                           console.clear 
                           this.create('Estudiante Ingresado')
                           $('#Loading').css('display','none')
+                          $('#insert-form')[0].reset()
                           
                         }).catch(error => {
                           console.clear     

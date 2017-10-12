@@ -3,7 +3,9 @@ import { Router, ActivatedRoute } from "@angular/router";
 
 import { CyclesService } from "../_services/cycles.service";
 import { NotificationsService } from 'angular2-notifications';
-import { Subject } from 'rxjs/Rx';
+
+declare var $: any
+
 @Component({
   selector: 'app-ciclos',
   templateUrl: './ciclos.component.html',
@@ -87,6 +89,7 @@ export class CiclosComponent implements OnInit {
                           console.clear 
                           this.create('Ciclo Ingresado')
                           $('#Loading').css('display','none')
+                          $('#insert-form')[0].reset()
                           
                         }).catch(error => {
                           console.clear     

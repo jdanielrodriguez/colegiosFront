@@ -5,7 +5,6 @@ import { CiclosJornadaService } from "../_services/_asignaciones/ciclos-jornada.
 import { CyclesService } from "../_services/cycles.service";
 import { StudyingDaysService } from "../_services/studying-days.service";
 import { NotificationsService } from 'angular2-notifications';
-import { Subject } from 'rxjs/Rx';
 
 @Component({
   selector: 'app-asignar-ciclo-jornada',

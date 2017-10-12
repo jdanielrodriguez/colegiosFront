@@ -4,7 +4,9 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { EventsService } from "../_services/events.service";
 import { EventsTypeService } from "../_services/events-type.service";
 import { NotificationsService } from 'angular2-notifications';
-import { Subject } from 'rxjs/Rx';
+
+declare var $: any
+
 
 @Component({
   selector: 'app-eventos',
@@ -122,6 +124,7 @@ export class EventosComponent implements OnInit {
                           console.clear 
                           this.create('Evento Ingresado')
                           $('#Loading').css('display','none')
+                          $('#insert-form')[0].reset()
                           
                         }).catch(error => {
                           console.clear     
