@@ -36,4 +36,15 @@ export class AuthService {
                     .catch(this.handleError)
   }
 
+  recovery(form:any):Promise<any>{
+    let url = `${this.basePath}/api/users/password/reset`
+    
+    return this.http.post(url,form)
+                      .toPromise()
+                      .then(response => {
+                        return response.json()
+                      })
+                      .catch(this.handleError)
+  }
+
 }
