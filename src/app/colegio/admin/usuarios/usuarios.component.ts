@@ -3,12 +3,6 @@ import { Router, ActivatedRoute } from "@angular/router";
 
 import { UsuariosService } from "../_services/usuarios.service";
 import { NotificationsService } from 'angular2-notifications';
-import { FileUploader } from 'ng2-file-upload';
-
-// const URL = '/api/';
-const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
-import { path } from "../../../config.module";
-
 
 declare var $: any
 
@@ -26,7 +20,6 @@ export class UsuariosComponent implements OnInit {
   public rowsOnPage = 5;
   public search:any
   Data:any
-  private basePath:string = path.path
   
   constructor(
     private _service: NotificationsService,
@@ -34,25 +27,33 @@ export class UsuariosComponent implements OnInit {
     private router: Router,
     private userService: UsuariosService
   ) { }
-  public uploader:FileUploader = new FileUploader({url:this.basePath+'/api/users/upload/1',
-                                                    isHTML5: true,
-                                                    method:'post',
-                                                    headers: [
-                                                    {name: 'Access-Control-Allow-Origin', value:'*'},
-                                                    {name: 'cache-control', value:'no-cache'},
-                                                    {name: 'server', value:'Apache/2.4.18 (Ubuntu)'},
-                                                    {name: 'x-ratelimit-limit', value:'60'},
-                                                    {name: 'x-ratelimit-remaining', value:'59'}
-                                                    ]});
-  public hasBaseDropZoneOver:boolean = false;
-  public hasAnotherDropZoneOver:boolean = false;
- 
-  public fileOverBase(e:any):void {
-    this.hasBaseDropZoneOver = e;
-  }
- 
-  public fileOverAnother(e:any):void {
-    this.hasAnotherDropZoneOver = e;
+  
+  subirImagenes(archivo){
+    var archivos=archivo.srcElement.files;
+    console.log(archivos);
+    
+    var i=0;
+    var size=archivos[i].size;
+    var type=archivos[i].type;
+        if(size<(2*(1024*1024))){
+          if(type=="image/png"){    
+        $("#imagen1").upload('http://localhost/colegios/BackEnd2/public/api/users/upload/1',
+            {
+              avatar: archivos[i]
+          },
+          function(respuesta) 
+          {
+            console.log(respuesta);
+            
+          }, 
+          function(progreso, valor) 
+          {
+                      
+            //$("#barra_de_progreso").val(valor);
+          }
+        );
+          }
+      }
   }
     ngOnInit() {
      
