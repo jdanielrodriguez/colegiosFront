@@ -78,6 +78,18 @@ return Promise.reject(error.message || error)
                         })
                         .catch(this.handleError)  
     }
+
+    deleteHomework(id:number):Promise<any> {
+    let url = `${this.basePath}/api/homeworks/upload/delete/${id}`
+      return this.http.get(url)
+                      .toPromise()
+                        .then(response => {
+                          //console.log(response.json())
+                          return response.json()
+                        })
+                        .catch(this.handleError)  
+    }
+
     getReport(id:number,id2:number):Promise<any> {
       let url = `${this.basePath}/api/subjects/${id2}/students/${id}/report`
         return this.http.get(url)

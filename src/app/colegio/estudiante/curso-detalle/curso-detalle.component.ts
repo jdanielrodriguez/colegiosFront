@@ -7,11 +7,7 @@ import { NotificationsService } from 'angular2-notifications';
 import { Subject } from 'rxjs/Rx';
 import 'rxjs/add/operator/switchMap';
 import { path } from "../../../config.module";
-import { FileUploader } from 'ng2-file-upload';
-
-// const URL = '/api/';
-const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
-
+declare var $: any
 @Component({
   selector: 'app-curso-detalle',
   templateUrl: './curso-detalle.component.html',
@@ -39,16 +35,78 @@ export class CursoDetalleComponent implements OnInit {
     private router:Router,
     private mainService:CursoDetalleService
   ) { }
-  public uploader:FileUploader = new FileUploader({url: URL});
-  public hasBaseDropZoneOver:boolean = false;
-  public hasAnotherDropZoneOver:boolean = false;
- 
-  public fileOverBase(e:any):void {
-    this.hasBaseDropZoneOver = e;
+  deleteHomework(id:number){
+    $('#Loading').css('display','block')
+    $('#Loading').addClass('in')
+      this.mainService.deleteHomework(id)
+                              .then(response => {
+                                this.selectedData = response;
+                                this.create('Entrega Eliminada exitosamente')
+                                $('#Loading').css('display','none')
+                              }).catch(error => {
+                                console.clear     
+                                this.createError(error) 
+                              })
   }
- 
-  public fileOverAnother(e:any):void {
-    this.hasAnotherDropZoneOver = e;
+  subirImagenes(archivo,form,id){
+    $('#Loading').css('display','block')
+    $('#Loading').addClass('in')
+    var archivos=archivo.srcElement.files;
+    let url = `${this.basePath}/api/homeworks/upload/${form.id}`
+    let bar:any
+    var i=0;
+    var size=archivos[i].size;
+    var type=archivos[i].type;
+        if(size<(10*(1024*1024))){
+        $("#"+id).upload(url,
+            {
+              avatar: archivos[i],
+              description: $('#descriptionUser').val()
+          },
+          function(respuesta) 
+          {
+            bar=respuesta
+            $('#imgAvatar').attr("href",'')
+            $('#imgAvatar').attr("href",respuesta.file)
+            $('#Loading').css('display','none')
+            $("#"+id).val('')
+            $("#barra_de_progreso").val(0)
+            
+            
+          }, 
+          function(progreso, valor) 
+          {
+                      
+            $("#barra_de_progreso").val(valor);
+          }
+        );
+      }
+      this.selectedData.file = '';
+  }
+  previsualizarImagenes(archivo,tipoAR,id){
+    var archivos=archivo.files;
+    var i=0;
+    var size=archivos[i].size;
+    var type=archivos[i].type;
+      var target=archivo.value;
+      if(size<(2*(1024*1024))){
+          if(type=="image/png"){    
+              if (archivo.files && archivo.files[0]) {
+              var reader = new FileReader();
+                      reader.onload = function (e) {
+                        console.log(e);
+                      }
+                      reader.readAsDataURL(archivos[i]);
+              }
+          }else{
+              $('#mensajeP2').html('La imagen debe ser de tipo PNG');
+              location.href="#mensajeP2";
+             
+          }
+      }else{
+          $('#mensajeP2').html('La imagen es muy pesada, se recomienda subir imagenes de menos de 2MB.');
+          location.href="#mensajeP2";
+      }
   }
   ngOnInit() {
     let date = new Date();
