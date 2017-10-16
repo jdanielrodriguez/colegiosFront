@@ -141,7 +141,7 @@
                       <input type="text" placeholder="Search..." class="form-control"> <a href=""><i class="fa fa-search"></i></a> </form>
               </li>
               <li class="dropdown">
-                  <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src="../assets/images/users/hritik.jpg" alt="user-img" width="36" class="img-circle"><b class="hidden-xs">{{((firstname!="null")?(firstname+' '):'')+((lastname!="null")?lastname:user)}}</b> </a>
+                  <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src="{{((picture!='null')?(picture):'https://d30y9cdsu7xlg0.cloudfront.net/png/17241-200.png')}}" alt="user-img" width="36" class="img-circle"><b class="hidden-xs">{{((firstname!="null")?(firstname+' '):'')+((lastname!="null")?lastname:user)}}</b> </a>
                   <ul class="dropdown-menu dropdown-user">
                       <li><a href="#"><i class="ti-user"></i> My Profile</a></li>
                       <li><a href="#"><i class="ti-wallet"></i> My Balance</a></li>

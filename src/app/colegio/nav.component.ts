@@ -9,6 +9,7 @@ export class NavComponent implements OnInit {
   user=localStorage.getItem('currentUser');
   firstname=localStorage.getItem('currentFirstName');
   lastname=localStorage.getItem('currentLastName');
+  picture=localStorage.getItem('currentPicture');
   id=localStorage.getItem('currentId');
   type=localStorage.getItem('currentType');
   click:boolean
