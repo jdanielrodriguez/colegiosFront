@@ -59,7 +59,13 @@ export class UsuariosComponent implements OnInit {
             $("#barra_de_progreso").val(valor);
           }
         );
+          }else{
+            this.createError("El tipo de imagen no es valido")
+            $('#Loading').css('display','none')
           }
+      }else{
+        this.createError("La imagen es demaciado grande")
+        $('#Loading').css('display','none')
       }
   }
   previsualizarImagenes(archivo,tipoAR,id){

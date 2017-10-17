@@ -23,6 +23,7 @@ import { AsignarMateriaMaestrosComponent } from "./asignar-materia-maestros/asig
 
 import { InscribirAlumnoComponent } from "./inscribir-alumno/inscribir-alumno.component";
 import { InscripcionJornadaComponent } from "./inscripcion-jornada/inscripcion-jornada.component";
+import { ProfileComponent } from "./../profile/profile.component";
 
 
 const routes: Routes = [
@@ -49,7 +50,7 @@ const routes: Routes = [
     { path: 'inscripcion-jornada', component: InscripcionJornadaComponent },
     { path: 'cargos', component: CargosComponent },
   ]},
-{ path: 'frutas', component: AdminComponent },
+  { path: '**', redirectTo: 'dashboard', pathMatch: 'full' }
 ];
 
 @NgModule({

@@ -13,6 +13,7 @@ const routes: Routes = [
   { path: 'colegio',loadChildren: 'app/colegio/colegio.module#ColegioModule', canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent, canActivate: [HomeGuard]},
   { path: 'recovery', component: RecoveryComponent, canActivate: [HomeGuard]},
+  { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 
 @NgModule({

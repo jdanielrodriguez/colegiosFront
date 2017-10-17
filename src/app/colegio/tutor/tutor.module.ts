@@ -46,7 +46,8 @@ import { CobrosService } from './_services/cobros.service';
     LoaderComponent, 
     AlumnosComponent, 
     CursosAlumnoComponent, 
-    TareasCursoComponent, CobrosComponent
+    TareasCursoComponent, 
+    CobrosComponent
   ],
   providers: [
     EventsService,

@@ -13,7 +13,8 @@ const routes: Routes = [
     { path: 'tutor',loadChildren: 'app/colegio/tutor/tutor.module#TutorModule', canActivate: [TutorGuard]},
     { path: 'maestro',loadChildren: 'app/colegio/maestro/maestro.module#MaestroModule', canActivate: [TeacherGuard]},
     { path: 'admin',loadChildren: 'app/colegio/admin/admin.module#AdminModule', canActivate: [AdminGuard]},
-  ]}
+  ]},
+  { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 
 @NgModule({

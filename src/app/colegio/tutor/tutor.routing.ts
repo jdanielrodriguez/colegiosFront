@@ -6,6 +6,7 @@ import { AlumnosComponent } from './alumnos/alumnos.component';
 import { CursosAlumnoComponent } from './cursos-alumno/cursos-alumno.component';
 import { TareasCursoComponent } from './tareas-curso/tareas-curso.component';
 import { CobrosComponent } from './cobros/cobros.component';
+import { ProfileComponent } from './../profile/profile.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },    
@@ -16,7 +17,7 @@ const routes: Routes = [
     { path: 'tareas/:id/:name', component: TareasCursoComponent },
     { path: 'cobros/:id/:name', component: CobrosComponent },
   ]},
-{ path: 'frutas', component: TutorComponent },
+  { path: '**', redirectTo: 'dashboard', pathMatch: 'full' }
 ];
 
 @NgModule({

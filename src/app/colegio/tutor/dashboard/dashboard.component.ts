@@ -3,6 +3,7 @@ import { EventsService } from "./../../admin/_services/events.service";
 
 import { NotificationsService } from 'angular2-notifications';
 import { TutorsService } from '../../admin/_services/tutors.service';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-dashboard',
@@ -78,6 +79,7 @@ export class DashboardComponent implements OnInit {
                                                   )
                                                 })
                                               });
+                                              $('#myCalendar').fullCalendar('renderEvents', this.Eventos, true);
                                               console.clear 
                                             }).catch(error => {
                                               console.clear     

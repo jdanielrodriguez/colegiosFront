@@ -47,7 +47,7 @@ import { TeachersService } from '../admin/_services/teachers.service';
     TareasComponent, 
     CursoAlumnosComponent, 
     AsistenciaComponent,
-    LoaderComponent
+    LoaderComponent    
   ],
   providers: [
     EventsService,

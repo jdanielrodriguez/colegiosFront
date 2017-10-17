@@ -88,7 +88,8 @@ import { CargosComponent } from './cargos/cargos.component';
     EventosComponent, 
     EventosTipoComponent, 
     InscribirAlumnoComponent, 
-    InscripcionJornadaComponent, CargosComponent
+    InscripcionJornadaComponent, 
+    CargosComponent
   ],
   providers: [
     UsuariosService,
