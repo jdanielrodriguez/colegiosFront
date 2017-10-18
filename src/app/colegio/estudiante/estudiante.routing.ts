@@ -4,7 +4,7 @@ import { EstudianteComponent } from "./estudiante.component";
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CursosComponent } from "./cursos/cursos.component";
 import { CursoDetalleComponent } from "./curso-detalle/curso-detalle.component";
-import { ProfileComponent } from './../admin/profile/profile.component';
+import { ProfileComponent } from './profile/profile.component';
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },    
   { path: '', component: EstudianteComponent, children: [

@@ -6,7 +6,7 @@ import { AlumnosComponent } from './alumnos/alumnos.component';
 import { CursosAlumnoComponent } from './cursos-alumno/cursos-alumno.component';
 import { TareasCursoComponent } from './tareas-curso/tareas-curso.component';
 import { CobrosComponent } from './cobros/cobros.component';
-import { ProfileComponent } from './../admin/profile/profile.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },    

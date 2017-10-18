@@ -26,7 +26,7 @@ import { CursoAlumnosService } from "./_services/curso-alumnos.service";
 import { AsistenciasService } from './_services/asistencias.service';
 import { TareasService } from './_services/tareas.service';
 import { TeachersService } from '../admin/_services/teachers.service';
-import { ProfileComponent } from "./../admin/profile/profile.component";
+import { ProfileComponent } from './profile/profile.component';
 @NgModule({
   imports: [
     CommonModule,
