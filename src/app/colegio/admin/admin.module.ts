@@ -53,6 +53,7 @@ import { ChargesService } from "./_services/charges.service";
 
 import { LoaderComponent } from './loader/loader.component';
 import { CargosComponent } from './cargos/cargos.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
@@ -89,7 +90,7 @@ import { CargosComponent } from './cargos/cargos.component';
     EventosTipoComponent, 
     InscribirAlumnoComponent, 
     InscripcionJornadaComponent, 
-    CargosComponent
+    CargosComponent, ProfileComponent
   ],
   providers: [
     UsuariosService,
