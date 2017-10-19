@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Router, ActivatedRoute } from "@angular/router";
+
+import { UsuariosService } from "./admin/_services/usuarios.service";
+import { NotificationsService } from 'angular2-notifications';
+
+declare var $: any
+
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
@@ -12,10 +19,19 @@ export class NavComponent implements OnInit {
   picture=localStorage.getItem('currentPicture');
   id=localStorage.getItem('currentId');
   type=localStorage.getItem('currentType');
+  state=localStorage.getItem('currentState');
   click:boolean
-  constructor() { }
+  constructor(
+    private _service: NotificationsService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private userService: UsuariosService
+  ) { }
 
   ngOnInit() {
+    if(this.state=='2'){
+      $('#ChangePass').modal();
+    }
   }
   hideNav(){
     if(!this.click){
@@ -33,6 +49,35 @@ export class NavComponent implements OnInit {
     }
     
   }
+  updatePass(formValue:any){
+    $('#Loading').css('display','block')
+    $('#Loading').addClass('in')
+    
+    
+    
+    let data = {
+      id: this.id,
+      old_pass: formValue.old_pass,
+      new_pass: formValue.new_pass,
+      new_pass_rep: formValue.new_pass2
+    }
+    //console.log(data)
+    this.userService.updatePass(data)
+                      .then(response => {
+                        console.clear 
+                        this.create('Usuario Actualizado exitosamente')
+                        $('#Loading').css('display','none')
+                        $("#ChangePass .close").click();
+                        $('#passChange-form')[0].reset()
+    
+                      }).catch(error => {
+                        console.clear     
+                        this.createError(error) 
+                        
+                        $('#Loading').css('display','none')
+                      })
+    
+  }
   logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
@@ -43,4 +88,23 @@ export class NavComponent implements OnInit {
     localStorage.removeItem('currentType');
     location.reload();
   }
+  public options = {
+               position: ["bottom", "right"],
+               timeOut: 2000,
+               lastOnBottom: false,
+               animate: "fromLeft",  
+               showProgressBar: false,
+               pauseOnHover: true,
+               clickToClose: true,
+               maxLength: 200
+           };
+  
+    create(success) {
+                this._service.success('¡Éxito!',success)
+
+    }
+    createError(error) {
+                this._service.error('¡Error!',error)
+
+    }
 }
