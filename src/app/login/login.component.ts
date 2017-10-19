@@ -67,6 +67,7 @@ closeResult: string;
         localStorage.setItem('currentLastName', response.lastname);
         localStorage.setItem('currentId', response.id);
         localStorage.setItem('currentPicture', response.picture);
+        localStorage.setItem('currentState', response.state);
 
         if(response.tutors!=null){
           localStorage.setItem('currentIdTutor', response.tutors.id);
