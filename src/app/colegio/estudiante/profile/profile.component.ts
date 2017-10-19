@@ -230,7 +230,8 @@ export class ProfileComponent implements OnInit {
                           $('#passChange-form')[0].reset()
       
                         }).catch(error => {
-                          console.clear     
+                          console.clear    
+                          $('#Loading').css('display','none') 
                           this.createError(error) 
                         })
       
