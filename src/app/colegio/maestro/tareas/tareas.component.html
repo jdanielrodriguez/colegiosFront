@@ -234,6 +234,8 @@
                             <th style="width:20%;">
                                 <mfDefaultSorter by="students.phone">Telefono</mfDefaultSorter></th>
                             <th style="width:20%;">
+                                <mfDefaultSorter by="student_note">Entrega</mfDefaultSorter></th>
+                            <th style="width:20%;">
                                 <mfDefaultSorter by="">Nota Obtenida</mfDefaultSorter></th>
                             <th style="width:10%;"></th>
                         </tr>
@@ -243,6 +245,7 @@
                           <td>{{((data.students.firstname!=null)?data.students.firstname+' ':'')+((data.students.lastname!=null)?data.students.lastname:'')}}</td>
                           <td>{{((data.students.address!=null)?data.students.address:'')}}</td>
                           <td>{{((data.students.phone!=null)?data.students.phone:'')}}</td>
+                          <td><span *ngFor="let home of data.homework"><a *ngIf="home.file && home.name==nameId && home.date_end==dateId" href="{{home.file!=null?home.file:'#'}}" id="imgAvatar" alt="Avatar"><img  src="https://image.flaticon.com/icons/svg/149/149335.svg" style="width:20px;height:20px;"/> {{((home.file!=null)?home.name:'No entregado')}}</a></span></td>
                           <td><span *ngFor="let home of data.homework"><input *ngIf="home.name==nameId && home.date_end==dateId" type="number" class="form-control" id="{{'nota'+home.id}}" [(ngModel)]="home.student_note" [ngModelOptions]="{standalone: true}"></span></td>
                           <td>
                             <span *ngFor="let home of data.homework">

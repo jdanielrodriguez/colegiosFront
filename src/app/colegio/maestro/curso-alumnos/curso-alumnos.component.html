@@ -293,7 +293,7 @@
                           <td>{{((data.description!=null)?data.description:'')}}</td>
                           <td>{{((data.homework_note!=null)?data.homework_note:'')}}</td>
                           <td>{{((data.date_end!=null)?data.date_end:'')}}</td>
-                          <td><a href="{{data.file!=null?data.file:''}}" id="imgAvatar" alt="Avatar"><img src="https://image.flaticon.com/icons/svg/149/149335.svg" style="width:20px;height:20px;"/> {{((data.name!=null)?data.name:'')}}</a></td>
+                          <td><a *ngIf="data.file" href="{{data.file!=null?data.file:'#'}}" id="imgAvatar" alt="Avatar"><img  src="https://image.flaticon.com/icons/svg/149/149335.svg" style="width:20px;height:20px;"/> {{((data.file!=null)?data.name:'No entregado')}}</a></td>
                           <td><input type="number" class="form-control" id="{{'nota'+data.id}}" [(ngModel)]="data.student_note" [ngModelOptions]="{standalone: true}"></td>
                           <td>
                             
