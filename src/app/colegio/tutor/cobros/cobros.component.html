@@ -50,7 +50,7 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let data of mf.data">
-                                <td>{{((data.tuition==1)?'Matricula':'Inscripcion')}}</td>
+                                <td>{{((data.tuition==0)?((data.inscription==0)?data.description:'Inscripcion'):'Matricula')}}</td>
                                 <td>{{((data.charge_limit!=null)?data.charge_limit:'')}}</td>
                                 <td>{{((data.quantity!=null)?data.quantity:'')}}</td>
                                 <td>{{((data.increase!=null)?data.increase:'')}}</td>

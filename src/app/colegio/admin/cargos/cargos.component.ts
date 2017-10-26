@@ -14,6 +14,7 @@ declare var $: any
 export class CargosComponent implements OnInit {
   Table:any
   selectedData:any
+  Date:any
   public rowsOnPage = 5;
   public search:any
   constructor(
@@ -24,7 +25,22 @@ export class CargosComponent implements OnInit {
   ) { }
   
     ngOnInit() {
-      
+      let date = new Date();
+      let month = date.getMonth()+1;
+      let month2;
+      let day;
+      if(month<10){
+        month2='0'+month;
+      }else{
+        month2=month
+      }
+
+      if(date.getDate()<10){
+        day='0'+date.getDate();
+      }else{
+        day=date.getDate()
+      }
+      this.Date= date.getFullYear()+'-'+month2+'-'+day;
       this.cargarAll()
     }
     cargarAll(){
@@ -101,7 +117,40 @@ export class CargosComponent implements OnInit {
       
       
     }
-    
+
+    insertSingle(formValue:any){
+      let data:any = {
+        tuition : 0,
+        inscription : 0,
+        charge_limit : formValue.charge_limit,
+        quantity : formValue.quantity,
+        increase : formValue.increase,
+        description : formValue.description,
+        idinscription : this.selectedData.id
+      }
+      
+      $('#Loading').css('display','block')
+      $('#Loading').addClass('in')
+      this.mainService.create(data)
+                        .then(response => {
+                          $('#insertSingleModal').modal('hide')
+                          $('#insert-single-form')[0].reset()
+                          this.cargarSingle(data.idinscription,"?option=porpagar")
+                          console.clear 
+                          this.create('Cargo Ingresado')
+                          $('#Loading').css('display','none')
+                          
+                          
+                        }).catch(error => {
+                          console.clear     
+                          this.createError(error) 
+                        })
+      
+      
+    }
+    cerrar(id:string){
+      $('#'+id).modal('hide')
+    }
   public options = {
                position: ["bottom", "right"],
                timeOut: 2000,
