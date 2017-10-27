@@ -88,6 +88,17 @@
           <div class="modal-body">
               <form id="insert-form"  #InsertForm="ngForm" (ngSubmit)="insert(InsertForm.value)">
                   <div class="form-group col-xs-12 m-b-15">
+                      <label for="grade">Grados</label>
+                      <select class="form-control" id="grade" name="grade" ngModel #grade="ngModel">
+                              <option *ngFor="let data of ParentCombo" value="{{data.id}}">{{((data.grades.name!=null)?data.grades.name:'')}}</option>
+                      </select>
+                        <div *ngIf="grade.invalid && (grade.dirty || grade.touched)"
+                              class="alert alert-danger" role="alert">
+                            <small *ngIf="grade.errors.required">
+                                La Grados es invalido
+                            </small>
+                        </div>
+                  </div> <div class="form-group col-xs-12 m-b-15">
                       <label for="description">Descripcion</label>
                       <input type="text" class="form-control" id="description" name="description" required
                               ngModel #description="ngModel" placeholder="description">
@@ -95,6 +106,39 @@
                               class="alert alert-danger" role="alert">
                             <small *ngIf="description.errors.required">
                                 La descripcion es invalido
+                            </small>
+                        </div>
+                  </div> 
+                  <div class="form-group col-xs-6 m-b-6">
+                      <label for="quantity">Cantidad</label>
+                      <input type="number" class="form-control" id="quantity" name="quantity" required
+                              ngModel #quantity="ngModel" placeholder="quantity">
+                        <div *ngIf="quantity.invalid && (quantity.dirty || quantity.touched)"
+                              class="alert alert-danger" role="alert">
+                            <small *ngIf="quantity.errors.required">
+                                La Cantidad es invalido
+                            </small>
+                        </div>
+                  </div> 
+                  <div class="form-group col-xs-6 m-b-6">
+                      <label for="increase">Incremento</label>
+                      <input type="number" class="form-control" id="increase" name="increase" required
+                              ngModel #increase="ngModel" placeholder="increase">
+                        <div *ngIf="increase.invalid && (increase.dirty || increase.touched)"
+                              class="alert alert-danger" role="alert">
+                            <small *ngIf="increase.errors.required">
+                                La Incremento es invalido
+                            </small>
+                        </div>
+                  </div> 
+                  <div class="form-group col-xs-12 m-b-15">
+                      <label for="charge_limit">Fecha Limite</label>
+                      <input type="date" class="form-control" id="charge_limit" name="charge_limit" required
+                              ngModel #charge_limit="ngModel" [(ngModel)]="Date">
+                        <div *ngIf="charge_limit.invalid && (charge_limit.dirty || charge_limit.touched)"
+                              class="alert alert-danger" role="alert">
+                            <small *ngIf="charge_limit.errors.required">
+                                La Fecha Limite es invalido
                             </small>
                         </div>
                   </div> 

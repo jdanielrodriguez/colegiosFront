@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
 
 import { ChargesService } from "../_services/charges.service";
+import { GradoMateriaService } from "../_services/_asignaciones/grado-materia.service";
 import { NotificationsService } from 'angular2-notifications';
 
 declare var $: any
@@ -13,6 +14,7 @@ declare var $: any
 })
 export class CargosComponent implements OnInit {
   Table:any
+  ParentCombo:any
   selectedData:any
   Date:any
   public rowsOnPage = 5;
@@ -21,7 +23,8 @@ export class CargosComponent implements OnInit {
     private _service: NotificationsService,
     private route: ActivatedRoute,
     private router: Router,
-    private mainService: ChargesService
+    private mainService: ChargesService,
+    private parentService: GradoMateriaService
   ) { }
   
     ngOnInit() {
@@ -42,6 +45,7 @@ export class CargosComponent implements OnInit {
       }
       this.Date= date.getFullYear()+'-'+month2+'-'+day;
       this.cargarAll()
+      this.cargarCombo()
     }
     cargarAll(){
       this.mainService.getAll()
@@ -49,6 +53,17 @@ export class CargosComponent implements OnInit {
                           this.Table = response
                           $("#editModal .close").click();
                           $("#insertModal .close").click();
+                          console.clear 
+                        }).catch(error => {
+                          console.clear     
+                          this.createError(error) 
+                        })
+    }
+
+    cargarCombo(){
+      this.parentService.getBussy()
+                        .then(response => {
+                          this.ParentCombo = response
                           console.clear 
                         }).catch(error => {
                           console.clear     
