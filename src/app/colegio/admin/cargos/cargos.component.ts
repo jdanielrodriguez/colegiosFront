@@ -117,7 +117,7 @@ export class CargosComponent implements OnInit {
     insert(formValue:any){
       $('#Loading').css('display','block')
       $('#Loading').addClass('in')
-      this.mainService.create(formValue)
+      this.mainService.createToAll(formValue)
                         .then(response => {
                           this.cargarAll()
                           console.clear 
