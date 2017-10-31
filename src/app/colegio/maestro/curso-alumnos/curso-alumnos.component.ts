@@ -139,6 +139,7 @@ charge(name:string):void{
                           $('#Loading').css('display','none')
                           $("#editModal .close").click();
                           $("#insertModal .close").click();
+                          //enviar notificacion
                           this.cargarAll()
                         }).catch(error => {
                           console.clear     

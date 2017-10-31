@@ -192,7 +192,7 @@ charge(name:string):void{
                           console.clear 
                           this.create('Nota Ingresada')
                           $('#Loading').css('display','none')
-                          
+                          //enviar correo
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 

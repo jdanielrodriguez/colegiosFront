@@ -89,8 +89,8 @@
               <form id="insert-form"  #InsertForm="ngForm" (ngSubmit)="insert(InsertForm.value)">
                   <div class="form-group col-xs-12 m-b-15">
                       <label for="grade">Grados</label>
-                      <select class="form-control" id="grade" name="grade" ngModel #grade="ngModel">
-                              <option *ngFor="let data of ParentCombo" value="{{data.id}}">{{((data.grades.name!=null)?data.grades.name:'')}}</option>
+                      <select class="form-control" id="grade" name="grade" ngModel #grade="ngModel" (change)="cargarChilds(grade.value)">
+                              <option *ngFor="let data of ParentCombo" value="{{data.grades.id+'@'+data.cycles_studying_days.id}}">{{((data.grades.name!=null)?data.grades.name:'')}}</option>
                       </select>
                         <div *ngIf="grade.invalid && (grade.dirty || grade.touched)"
                               class="alert alert-danger" role="alert">
