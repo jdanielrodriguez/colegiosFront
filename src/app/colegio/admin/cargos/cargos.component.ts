@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 
 import { ChargesService } from "../_services/charges.service";
 import { GradoMateriaService } from "../_services/_asignaciones/grado-materia.service";
+import { InscriptionsStudyingDayService } from "../_services/_asignaciones/inscriptions-studying-day.service";
 import { NotificationsService } from 'angular2-notifications';
 
 declare var $: any
@@ -16,6 +17,7 @@ export class CargosComponent implements OnInit {
   Table:any
   ParentCombo:any
   selectedData:any
+  childData:any
   Date:any
   public rowsOnPage = 5;
   public search:any
@@ -24,7 +26,8 @@ export class CargosComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private mainService: ChargesService,
-    private parentService: GradoMateriaService
+    private parentService: GradoMateriaService,
+    private childService: InscriptionsStudyingDayService
   ) { }
   
     ngOnInit() {
@@ -79,6 +82,22 @@ export class CargosComponent implements OnInit {
                           this.createError(error) 
                         })
     }
+    cargarChilds(id:any){
+      let id2 = id.split('@')
+      this.childService.getMyId(id2[1],id2[0])
+                        .then(response => {
+                          this.childService.getMyGrandChilds(response.id)
+                                            .then(response1 => {
+                                                this.childData = response1;
+                                            }).catch(error => {
+                                              console.clear     
+                                              this.createError(error) 
+                                            })
+                        }).catch(error => {
+                          console.clear     
+                          this.createError(error) 
+                        })
+    }
     update(id:any,state:any){
       $('#Loading').css('display','block')
       $('#Loading').addClass('in')
@@ -117,7 +136,17 @@ export class CargosComponent implements OnInit {
     insert(formValue:any){
       $('#Loading').css('display','block')
       $('#Loading').addClass('in')
-      this.mainService.createToAll(formValue)
+      let data:any = {
+        tuition: false,
+        inscription: false,
+        charge_limit: formValue.charge_limit,
+        description: formValue.description,
+        quantity: formValue.quantity,
+        increase: formValue.increase,
+        inscriptions: this.childData
+      }
+      
+      this.mainService.createToAll(data)
                         .then(response => {
                           this.cargarAll()
                           console.clear 
