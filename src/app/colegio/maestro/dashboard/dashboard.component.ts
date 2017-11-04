@@ -59,11 +59,13 @@ export class DashboardComponent implements OnInit {
                           });
                           this.secondMainService.getHomeWork(this.myId)
                                             .then(responseq => {
+                                              console.log(responseq);
+                                              
                                               responseq.forEach(element => {
                                                 element.homework.forEach(element2 => {
                                                   this.Eventos.push(
                                                     {
-                                                      title: element2.name,
+                                                      title: element.subjects.subjects.name+'\n'+element2.name,
                                                       start: element2.date_end,
                                                       end: element2.date_end,
                                                       backgroundColor: 'yellow',
