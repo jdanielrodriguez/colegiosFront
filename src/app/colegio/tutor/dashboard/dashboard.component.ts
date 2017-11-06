@@ -59,25 +59,22 @@ export class DashboardComponent implements OnInit {
                           this.secondMainService.getHomeWork(this.myId)
                                             .then(responseq => {
                                               responseq.forEach(element => {
-                                                element.homework.forEach(element2 => {
-                                                  let color:string ="red"
-                                                  let back:string = "yellow"
+                                                let color:string ="red"
+                                                let back:string = "yellow"
 
-                                                  if(element2.set_date!=null){
-                                                    color = "yellow"
-                                                    back = "red"
+                                                if(element.set_date!=null){
+                                                  color = "yellow"
+                                                  back = "red"
+                                                }
+                                                this.Eventos.push(
+                                                  {
+                                                    title: element.students.students.firstname+' '+element.students.students.lastname+'\n'+element.students.subjects.subjects.name+'\n'+element.name,
+                                                    start: element.date_end,
+                                                    end: element.date_end,
+                                                    backgroundColor: back,
+                                                    textColor: color
                                                   }
-
-                                                  this.Eventos.push(
-                                                    {
-                                                      title: element.students.firstname+' '+element.students.lastname+'-'+element2.name,
-                                                      start: element2.date_end,
-                                                      end: element2.date_end,
-                                                      backgroundColor: back,
-                                                      textColor: color
-                                                    }
-                                                  )
-                                                })
+                                                )
                                               });
                                               $('#myCalendar').fullCalendar('renderEvents', this.Eventos, true);
                                               console.clear 
