@@ -59,8 +59,6 @@ export class DashboardComponent implements OnInit {
                           });
                           this.secondMainService.getHomeWork(this.myId)
                                             .then(responseq => {
-                                              console.log(responseq);
-                                              
                                               responseq.forEach(element => {
                                                 element.homework.forEach(element2 => {
                                                   this.Eventos.push(

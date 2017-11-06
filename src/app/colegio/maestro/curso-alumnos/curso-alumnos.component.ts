@@ -5,6 +5,7 @@ import { Location } from '@angular/common';
 import { CursoAlumnosService } from "./../_services/curso-alumnos.service";
 import { AsistenciasService } from "./../_services/asistencias.service";
 import { TareasService } from "./../_services/tareas.service";
+import { NotificacionesService } from "./../_services/notificaciones.service";
 import { NotificationsService } from 'angular2-notifications';
 import { Subject } from 'rxjs/Rx';
 import 'rxjs/add/operator/switchMap';
@@ -32,7 +33,8 @@ export class CursoAlumnosComponent implements OnInit {
     private router:Router,
     private mainService:CursoAlumnosService,
     private HChildService:TareasService,
-    private childService:AsistenciasService
+    private childService:AsistenciasService,
+    private noticeService:NotificacionesService
   ) { }
 
   ngOnInit() {
@@ -132,14 +134,33 @@ charge(name:string):void{
         assistance : asiste,
         subject_student: id
       }
+      let form:any = {
+        id: localStorage.getItem('currentId'),
+        name: this.title
+      }
       this.childService.create(formValue)
                         .then(response => {
                           console.clear 
-                          this.create('Asistencia Ingresada')
-                          $('#Loading').css('display','none')
-                          $("#editModal .close").click();
-                          $("#insertModal .close").click();
-                          //enviar notificacion
+                         
+                          if(asiste){
+                            this.create('Asistencia Ingresada')
+                            $('#Loading').css('display','none')
+                            $("#editModal .close").click();
+                            $("#insertModal .close").click();
+                          }else{
+                          this.noticeService.createForAssistance(id,form)
+                                              .then(responseq => {
+                                                this.create('Asistencia Ingresada')
+                                                $('#Loading').css('display','none')
+                                                $("#editModal .close").click();
+                                                $("#insertModal .close").click();
+                                              })
+                                              .catch(error => {
+                                                $('#Loading').css('display','none')
+                                                console.clear     
+                                                this.createError(error)
+                                              })
+                          }
                           this.cargarAll()
                         }).catch(error => {
                           console.clear     
@@ -169,21 +190,35 @@ charge(name:string):void{
       
       
     }
-    secondChildUpdate(id:number){
+    secondChildUpdate(id:any){
       $('#Loading').css('display','block')
       $('#Loading').addClass('in')
-      let nota = $('#nota'+id).val()
+      let nota = $('#nota'+id.id).val()
       let formValue:any = {
         student_note : nota,
-        id: id
+        id: id.id
+      }
+
+      let form:any = {
+        id: localStorage.getItem('currentId'),
+        homework: id,
+        name: this.title
       }
       this.HChildService.update(formValue)
                         .then(response => {
-                          console.clear 
-                          this.create('Asistencia Ingresada')
-                          $('#Loading').css('display','none')
-                          $("#editModal .close").click();
-                          $("#insertModal .close").click();
+                          
+                          this.noticeService.createForHomeworks(this.selectedData.students.id,form)
+                                              .then(reponse => {
+                                                console.clear 
+                                                this.create('Asistencia Ingresada')
+                                                $('#Loading').css('display','none')
+                                                $("#editModal .close").click();
+                                                $("#insertModal .close").click();
+                                              })
+                                              .catch(error => {
+                                                console.clear     
+                                                this.createError(error) 
+                                              })
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 

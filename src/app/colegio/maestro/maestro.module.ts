@@ -25,6 +25,7 @@ import { CursosService } from "./_services/cursos.service";
 import { CursoAlumnosService } from "./_services/curso-alumnos.service";
 import { AsistenciasService } from './_services/asistencias.service';
 import { TareasService } from './_services/tareas.service';
+import { NotificacionesService } from './_services/notificaciones.service';
 import { TeachersService } from '../admin/_services/teachers.service';
 import { ProfileComponent } from './profile/profile.component';
 import { UsuariosService } from './../admin/_services/usuarios.service';
@@ -58,6 +59,7 @@ import { UsuariosService } from './../admin/_services/usuarios.service';
     TeachersService,
     CursosService,
     CursoAlumnosService,
+    NotificacionesService,
     AsistenciasService,
     TareasService
   ]
