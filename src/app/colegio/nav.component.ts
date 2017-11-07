@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
 
 import { UsuariosService } from "./admin/_services/usuarios.service";
+import { NotificacionesService } from "./maestro/_services/notificaciones.service";
 import { NotificationsService } from 'angular2-notifications';
 
 declare var $: any
@@ -21,18 +22,82 @@ export class NavComponent implements OnInit {
   type=localStorage.getItem('currentType');
   state=localStorage.getItem('currentState');
   click:boolean
+  notifications:any = []
+  nNotifications:number = 0;
   constructor(
     private _service: NotificationsService,
     private route: ActivatedRoute,
     private router: Router,
-    private userService: UsuariosService
+    private userService: UsuariosService,
+    private notificationsService: NotificacionesService
   ) { }
 
   ngOnInit() {
     if(this.state=='2'){
       $('#ChangePass').modal();
     }
+    if(this.type=="tutor"){
+      this.cargarNotifications();
+    }
   }
+  cargarNotifications()
+  {
+    this.nNotifications=0;
+    this.notifications.length =0;
+    let id=localStorage.getItem('currentIdTutor');
+    this.notificationsService.getTutorAll(+id)
+                      .then(response => {
+                        response.forEach(element => {
+                          if(element.state==3){
+                            this.nNotifications++;
+                          }
+                          if(element.state>=2){
+                            this.notifications.push(element);
+                          }
+                        });
+                        console.clear 
+                      }).catch(error => {
+                        console.clear     
+                        this.createError(error) 
+                        
+                        $('#Loading').css('display','none')
+                      })
+  }
+  updateNotifications(){
+    let id=localStorage.getItem('currentIdTutor');
+    let form:any = {
+      id: id,
+      state: 2
+    }
+    this.notificationsService.updateByTutor(form)
+                        .then(response => {
+                          this.cargarNotifications();
+                          console.clear 
+                        }).catch(error => {
+                          console.clear     
+                          this.createError(error) 
+                          
+                          $('#Loading').css('display','none')
+                        })
+  }
+
+  updateNotification(id){
+    let form:any = {
+      id: id,
+      state: 1
+    }
+    this.notificationsService.update(form)
+                        .then(response => {
+                          this.cargarNotifications();
+                          console.clear 
+                        }).catch(error => {
+                          console.clear     
+                          this.createError(error) 
+                          
+                          $('#Loading').css('display','none')
+                        })
+  }
+
   hideNav(){
     if(!this.click){
       $('#page-wrapper').css('margin-left','0px')

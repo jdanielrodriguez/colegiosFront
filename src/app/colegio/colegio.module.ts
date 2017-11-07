@@ -11,6 +11,7 @@ import { TutorGuard } from "./../_guards/tutor.guard";
 import { TeacherGuard } from "./../_guards/teacher.guard";
 import { AdminGuard } from "./../_guards/admin.guard";
 import { UsuariosService } from "./admin/_services/usuarios.service";
+import { NotificacionesService } from "./maestro/_services/notificaciones.service";
 @NgModule({
   imports: [
     CommonModule,
@@ -24,7 +25,8 @@ import { UsuariosService } from "./admin/_services/usuarios.service";
     TutorGuard,
     TeacherGuard,
     AdminGuard,
-    UsuariosService
+    UsuariosService,
+    NotificacionesService
   ]
 })
 export class ColegioModule { }

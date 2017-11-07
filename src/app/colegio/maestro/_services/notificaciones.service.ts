@@ -35,8 +35,19 @@ return Promise.reject(error.message || error)
                         .catch(this.handleError) 
     }
 
-    getMyAll(id:number):Promise<any> {
-    let url = `${this.basePath}/api/tutor/${id}/notifications`
+    getTutorAll(id:number):Promise<any> {
+    let url = `${this.basePath}/api/tutors/${id}/notifications`
+      return this.http.get(url)
+                      .toPromise()
+                        .then(response => {
+                          //console.log(response.json())
+                          return response.json()
+                        })
+                        .catch(this.handleError) 
+    }
+
+    getStudentAll(id:number):Promise<any> {
+    let url = `${this.basePath}/api/students/${id}/notifications`
       return this.http.get(url)
                       .toPromise()
                         .then(response => {
@@ -82,6 +93,28 @@ return Promise.reject(error.message || error)
     update(form):Promise<any> {
     let url = `${this.basePath}/api/notifications/${form.id}`
       return this.http.put(url,form)
+                      .toPromise()
+                        .then(response => {
+                          //console.log(response.json())
+                          return response.json()
+                        })
+                        .catch(this.handleError) 
+    }
+
+    updateByTutor(form):Promise<any> {
+    let url = `${this.basePath}/api/tutors/${form.id}/notifications`
+      return this.http.post(url,form)
+                      .toPromise()
+                        .then(response => {
+                          //console.log(response.json())
+                          return response.json()
+                        })
+                        .catch(this.handleError) 
+    }
+
+    updateByStudent(form):Promise<any> {
+    let url = `${this.basePath}/api/students/${form.id}/notifications`
+      return this.http.post(url,form)
                       .toPromise()
                         .then(response => {
                           //console.log(response.json())
