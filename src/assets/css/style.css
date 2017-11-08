@@ -633,7 +633,7 @@ pre {
 .top-left-part {
   width: 240px;
   float: left;
-  background: #303340;
+  background: #E91E63;
 }
 .top-left-part a {
   color: #ffffff;
@@ -648,7 +648,7 @@ pre {
 }
 .navbar-header {
   width: 100%;
-  background: #458ab6;
+  background: #E91E63;
   border: 0px;
 }
 .navbar-default {
@@ -798,13 +798,13 @@ pre {
   border-radius: 60px;
 }
 .btn-primary {
-  background: #45b6ab;
-  border: 1px solid #45b6ab;
+  background: #337ab7;
+  border: 1px solid #337ab7;
 }
 .btn-primary:hover {
-  background: #45b6ab;
+  background: #2995CA;
   opacity: 0.8;
-  border: 1px solid #45b6ab;
+  border: 1px solid #2995CA;
 }
 .btn-success {
   background: #99d683;
@@ -854,7 +854,7 @@ pre {
   background: rgba(120, 130, 140, 0.13);
 }
 .btn-primary.btn-outline {
-  color: #45b6ab;
+  color: #337ab7;
   background-color: #ffffff;
 }
 .btn-primary.btn-outline:hover {
@@ -967,8 +967,8 @@ pre {
 .open > .dropdown-toggle.btn-primary:hover,
 .btn-primary.focus,
 .btn-primary:focus {
-  background-color: #45b6ab;
-  border: 1px solid #45b6ab;
+  background-color: #337ab7;
+  border: 1px solid #337ab7;
 }
 .btn-success.active.focus,
 .btn-success.active:focus,
@@ -3459,7 +3459,7 @@ table.focus-on tbody tr.focused td {
   border-color: rgba(120, 130, 140, 0.13) !important;
 }
 .fc th.fc-widget-header {
-  background: #45b6ab;
+  background: #337ab7;
   color: #ffffff;
   font-size: 14px;
   line-height: 20px;
@@ -3481,7 +3481,8 @@ table.focus-on tbody tr.focused td {
 }
 .fc-unthemed .fc-today {
   border: 1px solid #e76462;
-  background: #fcf8e3!important;
+  background: #C2185B!important;
+  color: #FFFFFF;
 }
 .fc-state-highlight {
   background: #f0f0f0;
@@ -3610,7 +3611,7 @@ table.focus-on tbody tr.focused td {
   stroke: #90a4ae;
 }
 .sidebar {
-  background: #303340;
+  background: #DDDDDD;
   overflow-y: auto;
 }
 .sidebar .sidebar-nav.navbar-collapse {
@@ -3634,7 +3635,7 @@ table.focus-on tbody tr.focused td {
   background: rgba(0, 0, 0, 0.02);
 }
 #side-menu li a {
-  color: #888ea6;
+  color: #757575;
 }
 #side-menu > li > a {
   padding: 15px 30px 15px 15px;
@@ -3642,17 +3643,19 @@ table.focus-on tbody tr.focused td {
 #side-menu > li > a:hover,
 #side-menu > li > a:focus {
   background: rgba(0, 0, 0, 0.02);
+  color: #C2185B;
 }
 #side-menu > li > a.active {
-  background-color: #1b1d23;
-  color: #458ab6;
+  background-color: #BDBDBD;
+  color: #212121;
 }
 #side-menu ul > li > a:hover {
-  color: #458ab6;
+  color: #C2185B;
   background: none;
 }
 #side-menu ul > li > a.active {
-  color: #458ab6;
+  background-color: #BDBDBD;
+  color: #212121;
 }
 .sidebar .arrow {
   position: absolute;

@@ -59,12 +59,12 @@ export class DashboardComponent implements OnInit {
                           this.secondMainService.getHomeWork(this.myId)
                                             .then(responseq => {
                                               responseq.forEach(element => {
-                                                let color:string ="red"
-                                                let back:string = "yellow"
+                                                let color:string ="#ffffff"
+                                                let back:string = "#CC0000"
 
                                                 if(element.set_date!=null){
-                                                  color = "yellow"
-                                                  back = "red"
+                                                  color = "#ffffff"
+                                                  back = "#32A020"
                                                 }
                                                 this.Eventos.push(
                                                   {

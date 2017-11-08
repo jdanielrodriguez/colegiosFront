@@ -119,10 +119,12 @@
                         </select>
                         <label for="grades">Grados</label>
                         <select name="grades" *ngIf="parentCombo" class="form-control" id="grades" [(ngModel)]="selectedParent" required ngModel #grades="ngModel" (change)="cargarGrandChilds(grades.value)">
+                          <option value=""></option>
                           <option *ngFor="let Data of parentCombo" value="{{Data.id}}">{{((Data.name!=null)?Data.name:'')}}</option>
                         </select>
                         <label for="subjects">Materias</label>
                         <select name="subjects" *ngIf="selectedData" class="form-control" id="subjects" [(ngModel)]="selectedChild" required ngModel #subjects="ngModel" (change)="cargarChilds(subjects.value)">
+                          <option value=""></option>
                           <option *ngFor="let Data of selectedData" value="{{Data.id}}">{{((Data.name!=null)?Data.name:'')}}</option>
                         </select>
                            

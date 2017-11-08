@@ -15,7 +15,6 @@ import { NotificationsService } from 'angular2-notifications';
 export class AsignarMateriaMaestrosComponent implements OnInit {
   Table:any
   selectedData:any[]
-  $:any;
   selectedDataSigned:any=[]
   selectedDataId:any
   selectedDataChildId:any
@@ -81,7 +80,11 @@ export class AsignarMateriaMaestrosComponent implements OnInit {
           
            //this.childsId.push({"id":e.dragData.id});
           // this.childs.push(e.dragData);
+          console.log(e.dragData);
+          
           this.selectedDataSigned.splice(this.selectedData.findIndex(dat=>{
+            console.log(dat.id);
+            
             return dat.id==e.dragData.id
           }),1)
           this.droppedItemsId.splice(this.droppedItemsId.findIndex(dat=>{
@@ -319,11 +322,20 @@ export class AsignarMateriaMaestrosComponent implements OnInit {
                       }
       
     }
+    limpiar(){
+      this.selectedDataSigned.length=0
+      this.selectedDataId=null
+      this.droppedItems.length=0
+      this.selectedParent=null
+      this.selectedGrandParent=null
+      this.selectedChild=null
+    }
     insert(formValue:any){
       
       this.mainService.create(formValue)
                         .then(response => {
                           this.cargarAll()
+                          this.limpiar();
                           console.clear 
                           this.create('Grados Asignados')
                           $('#Loading').css('display','none')

@@ -66,8 +66,8 @@ export class DashboardComponent implements OnInit {
                                                       title: element.subjects.subjects.name+'\n'+element2.name,
                                                       start: element2.date_end,
                                                       end: element2.date_end,
-                                                      backgroundColor: 'yellow',
-                                                      textColor: 'red'
+                                                      backgroundColor: '#E91E63',
+                                                      textColor: '#ffffff'
                                                     }
                                                   )
                                                 })
