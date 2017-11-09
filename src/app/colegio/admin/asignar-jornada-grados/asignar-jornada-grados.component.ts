@@ -104,6 +104,12 @@ export class AsignarJornadaGradosComponent implements OnInit {
                           this.createError(error) 
                         })
     }
+    limpiar(){
+      this.selectedData.length=0
+      this.droppedItemsId.length=0
+      this.droppedItems.length=0
+      this.selectedParent=null
+    }
     cargarSingle(id:number){
       this.selectedParent=id
       this.droppedItemsId.length = 0;

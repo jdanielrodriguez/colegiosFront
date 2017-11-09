@@ -20,7 +20,7 @@
                     <h3>Data Table</h3>
                     <div class="row">
                       <div class="col-md-4 text-center">
-                        <button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#insertModal" style="cursor:pointer;"><i class="fa fa-plus"></i>Agregar Nuevo</button>
+                        <button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#insertModal" (click)="limpiar()" style="cursor:pointer;"><i class="fa fa-plus"></i>Agregar Nuevo</button>
                       </div>
                       <div class="col-md-3 col-xs-offset-5">
                           <input type="text" class="form-control" placeholder="Busqueda" [(ngModel)]="search" [ngModelOptions]="{standalone: true}">

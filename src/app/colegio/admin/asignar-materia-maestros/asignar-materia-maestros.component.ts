@@ -329,13 +329,14 @@ export class AsignarMateriaMaestrosComponent implements OnInit {
       this.selectedParent=null
       this.selectedGrandParent=null
       this.selectedChild=null
+      this.parentCombo=null
+      this.selectedData=null
     }
     insert(formValue:any){
       
       this.mainService.create(formValue)
                         .then(response => {
                           this.cargarAll()
-                          this.limpiar();
                           console.clear 
                           this.create('Grados Asignados')
                           $('#Loading').css('display','none')

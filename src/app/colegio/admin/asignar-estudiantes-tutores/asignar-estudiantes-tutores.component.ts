@@ -74,6 +74,12 @@ export class AsignarEstudiantesTutoresComponent implements OnInit {
 
         
     }
+    limpiar(){
+      this.selectedData.length=0
+      this.droppedItemsId.length=0
+      this.droppedItems.length=0
+      this.selectedParent=null
+    }
     cargarFree(){
       this.ChildsService.getFreeStudents()
                         .then(response => {

@@ -134,6 +134,16 @@ export class InscripcionJornadaComponent implements OnInit {
                           this.createError(error) 
                         })
     }
+    limpiar(){
+      this.selectedData.length=0
+      this.droppedItemsId.length=0
+      this.droppedItems.length=0
+      this.parentCombo=null
+      this.selectedParent=null
+      this.selectedDataId=null
+      this.selectedGrandParent=null
+     
+    }
     cargarAll(){
       this.mainService.getBussy()
                         .then(response => {
