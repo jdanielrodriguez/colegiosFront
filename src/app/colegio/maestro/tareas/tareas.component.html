@@ -249,7 +249,7 @@
                           <td><span *ngFor="let home of data.homework"><input *ngIf="home.name==nameId && home.date_end==dateId" type="number" class="form-control" id="{{'nota'+home.id}}" [(ngModel)]="home.student_note" [ngModelOptions]="{standalone: true}"></span></td>
                           <td>
                             <span *ngFor="let home of data.homework">
-                            <button *ngIf="home.name==nameId && home.date_end==dateId" type="button" class="btn btn-success btn-circle btn-lg" (click)='secondChildUpdate(home.id)' style="cursor:pointer;"><i class="fa fa-check"></i> </button>
+                            <button *ngIf="home.name==nameId && home.date_end==dateId" type="button" class="btn btn-success btn-circle btn-lg" (click)='secondChildUpdate(home,data)' style="cursor:pointer;"><i class="fa fa-save"></i> </button>
                           </span>
                           </td>
                       </tr>

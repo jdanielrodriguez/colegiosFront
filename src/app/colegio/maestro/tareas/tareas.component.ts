@@ -6,6 +6,7 @@ import { CursoAlumnosService } from "./../_services/curso-alumnos.service";
 import { AsistenciasService } from "./../_services/asistencias.service";
 import { TareasService } from "./../_services/tareas.service";
 import { NotificationsService } from 'angular2-notifications';
+import { NotificacionesService } from '../_services/notificaciones.service';
 import { Subject } from 'rxjs/Rx';
 import 'rxjs/add/operator/switchMap';
 
@@ -36,7 +37,9 @@ export class TareasComponent implements OnInit {
     private mainService:TareasService,
     private HChildService:TareasService,
     private childService:AsistenciasService,
-    private parentService:CursoAlumnosService
+    private parentService:CursoAlumnosService,
+    private noticeService:NotificacionesService
+    
   ) { }
 
   ngOnInit() {
@@ -179,20 +182,36 @@ charge(name:string):void{
       
       
     }
-    secondChildUpdate(id:number){
+    secondChildUpdate(id:any,data:any){
       $('#Loading').css('display','block')
       $('#Loading').addClass('in')
-      let nota = $('#nota'+id).val()
+      let nota = $('#nota'+id.id).val()
       let formValue:any = {
         student_note : nota,
-        id: id
+        id: id.id
+      }
+      let form:any = {
+        id: localStorage.getItem('currentId'),
+        homework: id,
+        name: this.title
       }
       this.mainService.update(formValue)
                         .then(response => {
                           console.clear 
                           this.create('Nota Ingresada')
                           $('#Loading').css('display','none')
-                          //enviar correo
+                          this.noticeService.createForHomeworks(data.students.id,form)
+                                              .then(reponse => {
+                                                console.clear 
+                                                this.create('Asistencia Ingresada')
+                                                $('#Loading').css('display','none')
+                                                $("#editModal .close").click();
+                                                $("#insertModal .close").click();
+                                              })
+                                              .catch(error => {
+                                                console.clear     
+                                                this.createError(error) 
+                                              })
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 

@@ -9,6 +9,8 @@ import { NotificationsService } from 'angular2-notifications';
 import { Subject } from 'rxjs/Rx';
 import 'rxjs/add/operator/switchMap';
 
+declare var $: any
+
 @Component({
   selector: 'app-asistencia',
   templateUrl: './asistencia.component.html',
@@ -39,7 +41,7 @@ export class AsistenciaComponent implements OnInit {
 
   ngOnInit() {
     let date = new Date();
-    this.today = date.getFullYear()+'-'+(((date.getMonth()+1)<10)?'0'+(date.getMonth()+1):(date.getMonth()+1))+'-'+(((date.getDate())<10)?'0'+(date.getDate()):(date.getDate()))
+    this.today = date.getFullYear()+'-'+(((date.getMonth()+1)<10)?'0'+(date.getMonth()+1):(date.getMonth()+1))+'-'+(((date.getDate()+1)<10)?'0'+(date.getDate()+1):(date.getDate()+1))
     this.date = this.today
     this.route.params
     .switchMap((params: Params) => (params['name']))
@@ -63,7 +65,7 @@ charge(name:string):void{
       this.route.params
                   .switchMap((params: Params) => this.mainService.getAll(+params['id']))
                   .subscribe(response => { 
-                      this.Table = response.assistance
+                      this.Table = response
                                       $("#editModal .close").click();
                                       $("#insertModal .close").click();
                                       console.clear 
@@ -88,17 +90,16 @@ charge(name:string):void{
     update(formValue:any){
       $('#Loading').css('display','block')
       $('#Loading').addClass('in')
-      console.log(formValue)
-      // this.mainService.update(formValue)
-      //                   .then(response => {
-      //                     this.cargarAll()
-      //                     console.clear 
-      //                     this.create('Estudiante Actualizado exitosamente')
-      //                     $('#Loading').css('display','none')
-      //                   }).catch(error => {
-      //                     console.clear     
-      //                     this.createError(error) 
-      //                   })
+      this.mainService.updateBySubject(formValue)
+                        .then(response => {
+                          this.cargarAll()
+                          console.clear 
+                          this.create('Estudiante Actualizado exitosamente')
+                          $('#Loading').css('display','none')
+                        }).catch(error => {
+                          console.clear     
+                          this.createError(error) 
+                        })
       
     }
     delete(id:string){
@@ -176,20 +177,21 @@ charge(name:string):void{
       
       
     }
-    secondChildUpdate(id:number){
+    secondChildUpdate(date:any,id:number,asistio){
       $('#Loading').css('display','block')
       $('#Loading').addClass('in')
-      let nota = $('#nota'+id).val()
       let formValue:any = {
-        student_note : nota,
-        id: id
+        assistance_date : date,
+        subject_student: id,
+        assistance:asistio
       }
-      this.mainService.update(formValue)
+      
+      this.mainService.updateByDate(formValue)
                         .then(response => {
                           console.clear 
-                          this.create('Nota Ingresada')
+                          this.create('Asistencia Ingresada')
                           $('#Loading').css('display','none')
-                          
+                          this.cargarSingle(this.selectedData.homework,this.idSubject)
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 
@@ -197,48 +199,20 @@ charge(name:string):void{
       
       
     }
-    childsInsert(value:any){
+    childsInsert(formValue:any){
       $('#Loading').css('display','block')
       $('#Loading').addClass('in')
-      let formValue:any = {
-        name : value.name,
-        description : value.description,
-        homework_note : value.homework_note,
-        date_end : value.date_end,
-        students_subjects: []
-      }
-      this.selectedData = {
-        homework: formValue,
-        students: []
-      }
-      this.parentService.getAll(this.idSubject)
+      this.mainService.createBySubject(formValue)
                         .then(response => {
-                          this.selectedData.students = response;
-                          this.selectedData.students.forEach(element => {
-                            formValue.students_subjects.push(
-                              {id:element.id}
-                            )
-                          });
-                          this.mainService.create(formValue)
-                                            .then(response => {
-                                              console.clear 
-                                              this.create('Tarea Ingresada')
-                                              $('#Loading').css('display','none')
-                                              $("#editModal .close").click();
-                                              $("#insertModal .close").click();
-                                              this.cargarAll()
-                                            }).catch(error => {
-                                              console.clear     
-                                              this.createError(error) 
-                                            })
+                          console.clear 
+                          this.create('Dia de Asistencia Ingresado')
+                          $('#Loading').css('display','none')
+                          $('#insert-form')[0].reset()
+                          this.cargarAll()
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 
                         })
-      
-      
-      
-      
       
     }
   public options = {

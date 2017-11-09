@@ -82,27 +82,18 @@
           <div class="modal-body">
               <form id="insert-form"  #InsertForm="ngForm" (ngSubmit)="childsInsert(InsertForm.value)">
                  <div class="form-group col-xs-12 m-b-12">
-                        <label for="date_end">Fecha de Fin</label>
-                        <input type="date" class="form-control" id="date_end" name="date_end" required
-                                ngModel #date_end="ngModel" [(ngModel)]="date">
-                          <div *ngIf="date_end.invalid && (date_end.dirty || date_end.touched)"
+                        <label for="assistance_date">Fecha</label>
+                        <input type="date" class="form-control" id="assistance_date" name="assistance_date" required
+                                ngModel #assistance_date="ngModel" [(ngModel)]="date">
+                          <div *ngIf="assistance_date.invalid && (assistance_date.dirty || assistance_date.touched)"
                                 class="alert alert-danger" role="alert">
-                              <small *ngIf="date_end.errors.required">
-                                  La Fecha de Fin es invalido
+                              <small *ngIf="assistance_date.errors.required">
+                                  La Fecha es invalida
                               </small>
                           </div>
                   </div>
-                 <div class="form-group col-xs-12 m-b-12">
-                        <label for="homework_note">Nota</label>
-                        <input type="text" class="form-control" id="homework_note" name="homework_note" required
-                                ngModel #homework_note="ngModel" >
-                          <div *ngIf="homework_note.invalid && (homework_note.dirty || homework_note.touched)"
-                                class="alert alert-danger" role="alert">
-                              <small *ngIf="homework_note.errors.required">
-                                  La Nota es invalido
-                              </small>
-                          </div>
-                  </div>   
+                  <input type="hidden" class="form-control" id="subject_student" name="subject_student" required
+                  ngModel #id="ngModel" [(ngModel)]="idSubject">
                   <div class="form-group col-xs-12 text-right m-b-15">
                       <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close" ></i> Cancel</button>
                       <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Guardar</button>
@@ -130,30 +121,25 @@
           <div class="modal-body" *ngIf="selectedData">
               <form id="edit-form"  #EditForm="ngForm" (ngSubmit)="update(EditForm.value)">
                   <div class="form-group col-xs-12 m-b-12">
-                        <label for="date_end">Fecha Fin</label>
-                        <input type="date" class="form-control" id="date_end" name="date_end" 
-                                ngModel #date_end="ngModel" [(ngModel)]="selectedData.homework.assistance_date">
-                          <div *ngIf="date_end.invalid && (date_end.dirty || date_end.touched)"
+                        <label for="assistance_date">Fecha</label>
+                        <input type="date" class="form-control" id="assistance_date" name="assistance_date" 
+                                ngModel #assistance_date="ngModel" [(ngModel)]="selectedData.homework.assistance_date" disabled>
+                          <div *ngIf="assistance_date.invalid && (assistance_date.dirty || assistance_date.touched)"
                                 class="alert alert-danger" role="alert">
-                              <small *ngIf="date_end.errors.required">
-                                  El Telefono es invalido
+                              <small *ngIf="assistance_date.errors.required">
+                                  La Fecha es invalida
                               </small>
                           </div>
                   </div>
-                  <div class="form-group col-xs-6 m-b-6">
-                        <label for="homework_note">Valor</label>
-                        <input type="text" class="form-control" id="homework_note" name="homework_note" required 
-                                ngModel #homework_note="ngModel" [(ngModel)]="selectedData.homework.studied">
-                          <div *ngIf="homework_note.invalid && (homework_note.dirty || homework_note.touched)"
-                                class="alert alert-danger" role="alert">
-                              <small *ngIf="homework_note.errors.required">
-                                  La Direccion es invalido
-                              </small>
-                          </div>
+                  <div class="form-group col-xs-3 m-b-3">
+                        <label for="studied">Dia Estudiado</label>
+                        <input type="checkbox" class="form-control" id="studied" name="studied" required 
+                                ngModel #studied="ngModel" [(ngModel)]="selectedData.homework.studied">
+                          
                   </div>
                   
-                  <input type="hidden" class="form-control" id="id" name="id" required
-                  ngModel #id="ngModel" [(ngModel)]="selectedData.homework.subject_teacher">
+                  <input type="hidden" class="form-control" id="subject_student" name="subject_student" required
+                  ngModel #id="ngModel" [(ngModel)]="idSubject">
           
        
                   <div class="form-group col-xs-12 text-right m-b-15">
@@ -172,9 +158,9 @@
                                 <mfDefaultSorter by="students.address">Direccion</mfDefaultSorter></th>
                             <th style="width:20%;">
                                 <mfDefaultSorter by="students.phone">Telefono</mfDefaultSorter></th>
-                            <th style="width:20%;">
-                                <mfDefaultSorter by="">Nota Obtenida</mfDefaultSorter></th>
-                            <th style="width:10%;"></th>
+                            <th style="width:10%;">
+                                <mfDefaultSorter by="students.phone">Asistio</mfDefaultSorter></th>
+                            <th style="width:20%;"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -182,11 +168,15 @@
                           <td>{{((data.students.firstname!=null)?data.students.firstname+' ':'')+((data.students.lastname!=null)?data.students.lastname:'')}}</td>
                           <td>{{((data.students.address!=null)?data.students.address:'')}}</td>
                           <td>{{((data.students.phone!=null)?data.students.phone:'')}}</td>
-                          <td><span *ngFor="let home of data.assistance"><input *ngIf="home.assistance_date==selectedData.homework.assistance_date" type="number" class="form-control" id="{{'nota'+home.id}}" [(ngModel)]="home.assistance" [ngModelOptions]="{standalone: true}"></span></td>
                           <td>
                             <span *ngFor="let home of data.assistance">
-                            <button *ngIf="home.assistance_date==selectedData.homework.assistance_date" type="button" class="btn btn-success btn-circle btn-lg" (click)='secondChildUpdate(home.id)' style="cursor:pointer;"><i class="fa fa-check"></i> </button>
+                              <button *ngIf="home.assistance_date==selectedData.homework.assistance_date && home.assistance==1 && home.assistance!=null" type="button" class="btn btn-success btn-circle btn-lg"  style="cursor:pointer;"><i class="fa fa-check"></i> </button>
+                              <button *ngIf="home.assistance_date==selectedData.homework.assistance_date && home.assistance!=1 && home.assistance!=null" type="button" class="btn btn-danger btn-circle btn-lg" style="cursor:pointer;"><i class="fa fa-times"></i> </button>
                             </span>
+                          </td>
+                          <td>
+                              <button  type="button" class="btn btn-success btn-circle btn-lg" (click)='secondChildUpdate(selectedData.homework.assistance_date,data.id,1)' style="cursor:pointer;"><i class="fa fa-check"></i> </button>
+                              <button  type="button" class="btn btn-danger btn-circle btn-lg" (click)='secondChildUpdate(selectedData.homework.assistance_date,data.id,0)' style="cursor:pointer;"><i class="fa fa-times"></i> </button>
                           </td>
                       </tr>
                     </tbody>

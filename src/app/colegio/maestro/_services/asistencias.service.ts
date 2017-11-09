@@ -47,6 +47,17 @@ return Promise.reject(error.message || error)
                         .catch(this.handleError) 
     }
 
+    createBySubject(form):Promise<any> {
+    let url = `${this.basePath}/api/studentsassistance/insert/subject`
+      return this.http.post(url,form)
+                      .toPromise()
+                        .then(response => {
+                          //console.log(response.json())
+                          return response.json()
+                        })
+                        .catch(this.handleError) 
+    }
+
     delete(id):Promise<any> {
     let url = `${this.basePath}/api/studentsassistance/${id}`
       return this.http.delete(url)
@@ -59,7 +70,7 @@ return Promise.reject(error.message || error)
     }
 
     update(form):Promise<any> {
-    let url = `${this.basePath}/api/studentsassistance/${form.id}`
+    let url = `${this.basePath}/api/studentsassistance/${form.id}studentsassistance/update`
       return this.http.put(url,form)
                       .toPromise()
                         .then(response => {
@@ -69,6 +80,26 @@ return Promise.reject(error.message || error)
                         .catch(this.handleError) 
     }
 
+    updateByDate(form):Promise<any> {
+    let url = `${this.basePath}/api/studentsassistance/update`
+      return this.http.post(url,form)
+                      .toPromise()
+                        .then(response => {
+                          //console.log(response.json())
+                          return response.json()
+                        })
+                        .catch(this.handleError) 
+    }
+    updateBySubject(form):Promise<any> {
+    let url = `${this.basePath}/api/studentsassistance/update/subject`
+      return this.http.post(url,form)
+                      .toPromise()
+                        .then(response => {
+                          //console.log(response.json())
+                          return response.json()
+                        })
+                        .catch(this.handleError) 
+    }
     getSingle(id:number,id2:number):Promise<any> {
     let url = `${this.basePath}/api/studentsassistance/${id2}/students/${id}`
       return this.http.get(url)
