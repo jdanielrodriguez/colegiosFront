@@ -8,6 +8,7 @@ import { TareasService } from "./../_services/tareas.service";
 import { NotificationsService } from 'angular2-notifications';
 import { Subject } from 'rxjs/Rx';
 import 'rxjs/add/operator/switchMap';
+import { NotificacionesService } from '../_services/notificaciones.service';
 
 declare var $: any
 
@@ -36,7 +37,8 @@ export class AsistenciaComponent implements OnInit {
     private mainService:AsistenciasService,
     private HChildService:TareasService,
     private childService:AsistenciasService,
-    private parentService:CursoAlumnosService
+    private parentService:CursoAlumnosService,
+    private noticeService:NotificacionesService
   ) { }
 
   ngOnInit() {
@@ -177,21 +179,38 @@ charge(name:string):void{
       
       
     }
-    secondChildUpdate(date:any,id:number,asistio){
+    secondChildUpdate(date:any,id:any,asistio){
       $('#Loading').css('display','block')
       $('#Loading').addClass('in')
       let formValue:any = {
         assistance_date : date,
-        subject_student: id,
+        subject_student: id.id,
         assistance:asistio
       }
-      
+      let form:any = {
+        id: localStorage.getItem('currentId'),
+        name: this.title
+      }
       this.mainService.updateByDate(formValue)
                         .then(response => {
                           console.clear 
-                          this.create('Asistencia Ingresada')
-                          $('#Loading').css('display','none')
-                          this.cargarSingle(this.selectedData.homework,this.idSubject)
+                          if(asistio=="1"){
+                            this.create('Asistencia Ingresada')
+                            $('#Loading').css('display','none')
+                            this.cargarSingle(this.selectedData.homework,this.idSubject)
+                          }else{
+                          this.noticeService.createForAssistance(id.students.id,form)
+                                              .then(responseq => {
+                                                this.create('Asistencia Ingresada')
+                                                $('#Loading').css('display','none')
+                                                this.cargarSingle(this.selectedData.homework,this.idSubject)
+                                              })
+                                              .catch(error => {
+                                                $('#Loading').css('display','none')
+                                                console.clear     
+                                                this.createError(error)
+                                              })
+                          }
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 
