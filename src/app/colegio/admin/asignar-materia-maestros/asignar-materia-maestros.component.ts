@@ -45,7 +45,6 @@ export class AsignarMateriaMaestrosComponent implements OnInit {
       this.ParentsService.getBussy()
                         .then(response => {
                           this.grandParentCombo = response
-                          
                           console.clear 
                         }).catch(error => {
                           console.clear     
@@ -65,14 +64,7 @@ export class AsignarMateriaMaestrosComponent implements OnInit {
             this.droppedItemsId.push({"id":e.dragData.id});
             this.selectedDataSigned.push(e.dragData);
           }
-            // this.childs.splice(this.childs.findIndex(dat=>{
-            //   return dat.id==e.dragData.id
-            // }),1)
-            // this.childsId.splice(this.childsId.findIndex(dat=>{
-            //   return dat.id==e.dragData.id
-            // }),1)
-            
-          }
+        }
     }
 
     onItemRemove(e: any) {
@@ -80,19 +72,13 @@ export class AsignarMateriaMaestrosComponent implements OnInit {
           
            //this.childsId.push({"id":e.dragData.id});
           // this.childs.push(e.dragData);
-          console.log(e.dragData);
-          
+          // console.log(e.dragData);
           this.selectedDataSigned.splice(this.selectedDataSigned.findIndex(dat=>{
-            console.log(dat.id);
-            
             return dat.id==e.dragData.id
           }),1)
           this.droppedItemsId.splice(this.droppedItemsId.findIndex(dat=>{
             return dat.id==e.dragData.id
           }),1)
-        
-
-        
     }
     cargarFree(){
       this.ChildsService.getAll()
