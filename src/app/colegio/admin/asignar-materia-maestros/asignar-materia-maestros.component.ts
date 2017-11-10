@@ -82,7 +82,7 @@ export class AsignarMateriaMaestrosComponent implements OnInit {
           // this.childs.push(e.dragData);
           console.log(e.dragData);
           
-          this.selectedDataSigned.splice(this.selectedData.findIndex(dat=>{
+          this.selectedDataSigned.splice(this.selectedDataSigned.findIndex(dat=>{
             console.log(dat.id);
             
             return dat.id==e.dragData.id
