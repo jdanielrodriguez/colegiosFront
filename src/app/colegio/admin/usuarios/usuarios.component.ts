@@ -51,6 +51,7 @@ export class UsuariosComponent implements OnInit {
             $('#imgAvatar').attr("src",respuesta.picture)
             $('#Loading').css('display','none')
             $("#"+id).val('')
+            localStorage.setItem('currentPicture', respuesta.picture);
             $("#barra_de_progreso").val(0)
           }, 
           function(progreso, valor) 

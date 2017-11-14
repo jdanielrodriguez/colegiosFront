@@ -21,7 +21,7 @@ export class DetalleAlumnoComponent implements OnInit {
   selectedData:any
   Table:any
   title:string=""
-  idSubject:any
+  idSubject:any=""
   public rowsOnPage = 5;
   public search:any
   today:any
@@ -52,7 +52,7 @@ export class DetalleAlumnoComponent implements OnInit {
     this.route.params
     .switchMap((params: Params) => (params['id']))
     .subscribe(response => { 
-                      this.idSubject=response
+                      this.idSubject+=response
                   });
     this.cargarAll()
   }
