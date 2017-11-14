@@ -135,7 +135,7 @@ export class InscripcionJornadaComponent implements OnInit {
                         })
     }
     limpiar(){
-      this.selectedData.length=0
+      this.selectedData=null
       this.droppedItemsId.length=0
       this.droppedItems.length=0
       this.parentCombo=null
@@ -244,7 +244,8 @@ export class InscripcionJornadaComponent implements OnInit {
         end: values[2],
         inscription:values[3],
         tuiton:values[4],
-        id:values[0]
+        id:values[0],
+        description:''
       }
       this.selectedGrandParent=id
       this.childsId.length = 0;
@@ -353,7 +354,8 @@ export class InscripcionJornadaComponent implements OnInit {
             "charge_limit":this.selectedDate.begin.substring(0,8)+'17',
             "quantity":this.selectedDate.inscription,
             "increase":"15",
-            "idinscription":this.selectedDate.id
+            "idinscription":this.selectedDate.id,
+            "description":''
           }
         ]
       }
@@ -368,7 +370,8 @@ export class InscripcionJornadaComponent implements OnInit {
           "charge_limit":dates[0]+'-'+((month<10)?'0'+month:month)+'-'+'15',
           "quantity":this.selectedDate.tuiton,
           "increase":"15",
-          "idinscription":this.selectedDate.id
+          "idinscription":this.selectedDate.id,
+          "description":''
         }
       )
     }
@@ -396,7 +399,8 @@ export class InscripcionJornadaComponent implements OnInit {
             "charge_limit":this.selectedDate.begin.substring(0,8)+'17',
             "quantity":this.selectedDate.inscription,
             "increase":"15",
-            "idinscription":this.selectedDate.id
+            "idinscription":this.selectedDate.id,
+            "description":''
           }
         ]
       }
@@ -411,7 +415,8 @@ export class InscripcionJornadaComponent implements OnInit {
           "charge_limit":dates[0]+'-'+((month<10)?'0'+month:month)+'-'+'15',
           "quantity":this.selectedDate.tuiton,
           "increase":"15",
-          "idinscription":this.selectedDate.id
+          "idinscription":this.selectedDate.id,
+          "description":''
         }
       )
     }

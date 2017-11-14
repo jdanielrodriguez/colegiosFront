@@ -3270,7 +3270,7 @@ table.focus-on tbody tr.focused td {
 }
 /* Login- register pages */
 .login-register {
-  background: url(../../assets/images/login-register.jpg) no-repeat center center / cover !important;
+  background: url(../../assets/images/login-fs.png) no-repeat center center / cover !important;
   height: 100%;
   position: fixed;
 }
