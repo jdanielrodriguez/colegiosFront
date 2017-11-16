@@ -28,7 +28,8 @@
                         <button type="button" class="btn btn-lg btn-info" data-toggle="modal" data-target="#insertModal" style="cursor:pointer;"><i class="fa fa-plus"></i>Agregar Tarea</button>
                       </div>
                       <div class="col-md-3 col-xs-offset-5">
-                          <!-- <input type="text" class="form-control" placeholder="Busqueda" [(ngModel)]="search" [ngModelOptions]="{standalone: true}"> -->
+                        <button type="button" class="btn btn-lg btn-success" data-toggle="modal" data-target="#insertModalRec" style="cursor:pointer;"><i class="fa fa-plus"></i>Agregar Recomendacion</button>
+                        <!-- <input type="text" class="form-control" placeholder="Busqueda" [(ngModel)]="search" [ngModelOptions]="{standalone: true}"> -->
                         </div>   
                       
                     </div> 
@@ -228,6 +229,7 @@
                                 ngModel #ver="ngModel" [(ngModel)]="view">
                                 <option value="1">Asistencias</option>
                                 <option value="2">Tareas</option>
+                                <option value="3">Recomendaciones</option>
                                 </select>
                           <div *ngIf="ver.invalid && (ver.dirty || ver.touched)"
                                 class="alert alert-danger" role="alert">
@@ -310,12 +312,92 @@
                       </tr>
                       </tfoot>
                 </table>
+
+                <table *ngIf="selectedData.recommendations && view==3" class="table table-hover table-responsive" [mfData]="selectedData.recommendations | filter : search" #mf="mfDataTable"
+                             [mfRowsOnPage]="rowsOnPage">
+                    <thead>
+                        <tr>
+                            <th style="width:30%;">
+                                <mfDefaultSorter by="name">Nombre</mfDefaultSorter></th>
+                            <th style="width:40%;">
+                                <mfDefaultSorter by="description">Descripcion</mfDefaultSorter></th>
+                            <th style="width:30%;">
+                                <mfDefaultSorter by="student_note">Entrega</mfDefaultSorter></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr  *ngFor="let data of mf.data">
+                          <td>{{((data.name!=null)?data.name:'')}}</td>
+                          <td>{{((data.description!=null)?data.description:'')}}</td>
+                          <td><a *ngIf="data.file" href="{{data.file!=null?data.file:'#'}}" id="imgAvatar" alt="Avatar"><img  src="https://image.flaticon.com/icons/svg/149/149335.svg" style="width:20px;height:20px;"/> {{((data.file!=null)?data.name:'No entregado')}}</a></td>
+                      </tr>
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                          <td colspan="5">
+                              <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                          </td>
+                      </tr>
+                      </tfoot>
+                </table>
                  
                   
                     <input type="hidden" class="form-control" id="id" name="id" required
                             ngModel #id="ngModel" >
                     
                   <div class="form-group col-xs-12 text-right m-b-15 hidden">
+                      <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close" ></i> Cancel</button>
+                      <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Guardar</button>
+                  </div>
+              </form>
+              
+          </div>
+          <div class="modal-footer" style="border:none;">
+             
+          </div>
+      </div>
+  </div>
+  
+  
+  
+</div>
+
+
+<div id="insertModalRec"  class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              <h4 class="modal-title">Ingreso de datos</h4>
+          </div>
+          <div class="modal-body">
+              <form id="second-insert-form"  #secondInsertForm="ngForm" (ngSubmit)="secondChildsInsert(secondInsertForm.value)">
+                  <div class="form-group col-xs-12 m-b-15">
+                      <label for="name">Nombre</label>
+                      <input type="text" class="form-control" id="name" name="name" required
+                              ngModel #name="ngModel" >
+                        <div *ngIf="name.invalid && (name.dirty || name.touched)"
+                              class="alert alert-danger" role="alert">
+                            <small *ngIf="name.errors.required">
+                                El Nombre es invalido
+                            </small>
+                        </div>
+                  </div> 
+                  <div class="form-group col-xs-12 m-b-15">
+                      <label for="description">Descripcion</label>
+                      <input type="text" class="form-control" id="description" name="description" required
+                              ngModel #description="ngModel" >
+                        <div *ngIf="description.invalid && (description.dirty || description.touched)"
+                              class="alert alert-danger" role="alert">
+                            <small *ngIf="description.errors.required">
+                                La Descripcion es invalido
+                            </small>
+                        </div>
+                  </div> 
+
+                  
+                    
+                  <div class="form-group col-xs-12 text-right m-b-15">
                       <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close" ></i> Cancel</button>
                       <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Guardar</button>
                   </div>

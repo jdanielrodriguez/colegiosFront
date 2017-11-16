@@ -25,6 +25,7 @@ import { CursosService } from "./_services/cursos.service";
 import { CursoAlumnosService } from "./_services/curso-alumnos.service";
 import { AsistenciasService } from './_services/asistencias.service';
 import { TareasService } from './_services/tareas.service';
+import { RecomendacionesService } from './_services/recomendaciones.service';
 import { NotificacionesService } from './_services/notificaciones.service';
 import { TeachersService } from '../admin/_services/teachers.service';
 import { ProfileComponent } from './profile/profile.component';
@@ -61,7 +62,8 @@ import { UsuariosService } from './../admin/_services/usuarios.service';
     CursoAlumnosService,
     NotificacionesService,
     AsistenciasService,
-    TareasService
+    TareasService,
+    RecomendacionesService
   ]
 })
 export class MaestroModule { }

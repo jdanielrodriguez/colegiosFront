@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 
 import { CursoAlumnosService } from "./../_services/curso-alumnos.service";
 import { AsistenciasService } from "./../_services/asistencias.service";
+import { RecomendacionesService } from "./../_services/recomendaciones.service";
 import { TareasService } from "./../_services/tareas.service";
 import { NotificacionesService } from "./../_services/notificaciones.service";
 import { NotificationsService } from 'angular2-notifications';
@@ -34,6 +35,7 @@ export class CursoAlumnosComponent implements OnInit {
     private mainService:CursoAlumnosService,
     private HChildService:TareasService,
     private childService:AsistenciasService,
+    private secondChildService:RecomendacionesService,
     private noticeService:NotificacionesService
   ) { }
 
@@ -226,6 +228,37 @@ charge(name:string):void{
       
       
     }
+    
+    secondChildsInsert(value:any){
+      $('#Loading').css('display','block')
+      $('#Loading').addClass('in')
+      let formValue:any = {
+        name : value.name,
+        description : value.description,
+        students_subjects: []
+      }
+      this.Table.forEach(element => {
+        formValue.students_subjects.push(
+          {id:element.id}
+        )
+      });
+      
+      this.secondChildService.createAll(formValue)
+                        .then(response => {
+                          console.clear 
+                          this.create('Recomendacion Ingresada')
+                          $('#Loading').css('display','none')
+                          $("#editModal .close").click();
+                          $("#insertModal .close").click();
+                          $("#insertModalRec .close").click();
+                          console.log(response);
+                          this.cargarAll()
+                        }).catch(error => {
+                          console.clear     
+                          this.createError(error) 
+                        })
+    }
+
     childsInsert(value:any){
       $('#Loading').css('display','block')
       $('#Loading').addClass('in')
