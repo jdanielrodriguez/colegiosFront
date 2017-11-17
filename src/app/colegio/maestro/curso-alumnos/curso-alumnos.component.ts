@@ -10,6 +10,8 @@ import { NotificacionesService } from "./../_services/notificaciones.service";
 import { NotificationsService } from 'angular2-notifications';
 import { Subject } from 'rxjs/Rx';
 import 'rxjs/add/operator/switchMap';
+import { path } from "../../../config.module";
+declare var $: any
 @Component({
   selector: 'app-curso-alumnos',
   templateUrl: './curso-alumnos.component.html',
@@ -27,6 +29,8 @@ export class CursoAlumnosComponent implements OnInit {
   today:any
   date:any
   view:number=1;
+  private basePath:string = path.path
+  url:String
   constructor(
     private _service: NotificationsService,
     private route: ActivatedRoute,
@@ -245,20 +249,82 @@ charge(name:string):void{
       
       this.secondChildService.createAll(formValue)
                         .then(response => {
-                          console.clear 
+                          console.clear
+                          let archivo=$('#avatar').val();
+                          if(archivo=!''){
+                            var archivos=archivo.srcElement.files;
+                            let bar:any
+                            var i=0;
+                            var size=archivos[i].size;
+                            var type=archivos[i].type;
+                            response.forEach(element => {
+                              
+                              let url = `${this.basePath}/api/homeworks/upload/${element.id}`
+                              
+                                  if(size<(10*(1024*1024))){
+                                  $("#avatar").upload(url,
+                                      {
+                                        avatar: archivos[i]
+                                    },
+                                    function(respuesta) 
+                                    {
+                                      bar=respuesta
+                                      $("#barra_de_progreso").val(0)
+                                    }, 
+                                    function(progreso, valor) 
+                                    {
+                                      $("#barra_de_progreso").val(valor);
+                                    }
+                                  );
+                                }
+                            });
+                          }
                           this.create('Recomendacion Ingresada')
                           $('#Loading').css('display','none')
                           $("#editModal .close").click();
                           $("#insertModal .close").click();
                           $("#insertModalRec .close").click();
-                          console.log(response);
                           this.cargarAll()
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 
                         })
     }
-
+    subirImagenes(archivo,form,id){
+      $('#Loading').css('display','block')
+      $('#Loading').addClass('in')
+      var archivos=archivo.srcElement.files;
+      let url = `${this.basePath}/api/homeworks/upload/${form.id}`
+      let bar:any
+      var i=0;
+      var size=archivos[i].size;
+      var type=archivos[i].type;
+          if(size<(10*(1024*1024))){
+          $("#"+id).upload(url,
+              {
+                avatar: archivos[i],
+                description: $('#descriptionUser').val()
+            },
+            function(respuesta) 
+            {
+              bar=respuesta
+              $('#imgAvatar').attr("href",'')
+              $('#imgAvatar').attr("href",respuesta.file)
+              $('#Loading').css('display','none')
+              $("#"+id).val('')
+              $("#barra_de_progreso").val(0)
+              
+              
+            }, 
+            function(progreso, valor) 
+            {
+                        
+              $("#barra_de_progreso").val(valor);
+            }
+          );
+        }
+        this.selectedData.file = '';
+    }
     childsInsert(value:any){
       $('#Loading').css('display','block')
       $('#Loading').addClass('in')
