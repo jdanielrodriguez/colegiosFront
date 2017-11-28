@@ -5,7 +5,9 @@ import { EventsService } from "../_services/events.service";
 import { EventsTypeService } from "../_services/events-type.service";
 import { NotificationsService } from 'angular2-notifications';
 
+
 declare var $: any
+import { path } from "../../../config.module";
 
 
 @Component({
@@ -21,6 +23,8 @@ export class EventosComponent implements OnInit {
   endDate:any
   public rowsOnPage = 5;
   public search:any
+  Data:any
+  private basePath:string = path.path
   constructor(
     private _service: NotificationsService,
     private route: ActivatedRoute,
@@ -30,6 +34,11 @@ export class EventosComponent implements OnInit {
   ) { }
   
     ngOnInit() {
+      this.getDate()
+      this.cargarAll()
+      this.cargarTipo()
+    }
+    getDate(){
       let date = new Date();
       let month = date.getMonth()+1;
       let month2;
@@ -47,8 +56,6 @@ export class EventosComponent implements OnInit {
       }
       this.endDate=date.getFullYear()+'-'+month2+'-01'
       
-      this.cargarAll()
-      this.cargarTipo()
     }
     cargarAll(){
       this.mainService.getAll()
@@ -125,13 +132,76 @@ export class EventosComponent implements OnInit {
                           this.create('Evento Ingresado')
                           $('#Loading').css('display','none')
                           $('#insert-form')[0].reset()
-                          
+                          this.getDate()
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 
                         })
       
       
+    }
+    subirImagenes(archivo,form,id){
+      $('#Loading').css('display','block')
+      $('#Loading').addClass('in')
+      var archivos=archivo.srcElement.files;
+      let url = `${this.basePath}/api/events/upload/${form.id}`
+      
+      var i=0;
+      var size=archivos[i].size;
+      var type=archivos[i].type;
+          if(size<(2*(1024*1024))){
+            if(type=="image/png" || type=="image/jpeg" || type=="image/jpg"){    
+          $("#"+id).upload(url,
+              {
+                avatar: archivos[i]
+            },
+            function(respuesta) 
+            {
+              $('#imgAvatar').attr("src",'')
+              $('#imgAvatar').attr("src",respuesta.avatar)
+              $('#Loading').css('display','none')
+              $("#"+id).val('')
+              $("#barra_de_progreso").val(0)
+            }, 
+            function(progreso, valor) 
+            {
+                        
+              $("#barra_de_progreso").val(valor);
+            }
+          );
+            }else{
+              this.createError("El tipo de imagen no es valido")
+              $('#Loading').css('display','none')
+            }
+        }else{
+          this.createError("La imagen es demaciado grande")
+          $('#Loading').css('display','none')
+        }
+    }
+    previsualizarImagenes(archivo,tipoAR,id){
+      var archivos=archivo.files;
+      var i=0;
+      var size=archivos[i].size;
+      var type=archivos[i].type;
+        var target=archivo.value;
+        if(size<(2*(1024*1024))){
+            if(type=="image/png"){    
+                if (archivo.files && archivo.files[0]) {
+                var reader = new FileReader();
+                        reader.onload = function (e) {
+                          console.log(e);
+                        }
+                        reader.readAsDataURL(archivos[i]);
+                }
+            }else{
+                $('#mensajeP2').html('La imagen debe ser de tipo PNG');
+                location.href="#mensajeP2";
+               
+            }
+        }else{
+            $('#mensajeP2').html('La imagen es muy pesada, se recomienda subir imagenes de menos de 2MB.');
+            location.href="#mensajeP2";
+        }
     }
     
   public options = {
