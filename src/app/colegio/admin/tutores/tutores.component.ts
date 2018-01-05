@@ -80,6 +80,8 @@ export class TutoresComponent implements OnInit {
       
     }
     insert(formValue:any){
+      let pass = this.generar(25)
+      formValue.password = pass;
       $('#Loading').css('display','block')
       $('#Loading').addClass('in')
       this.mainService.create(formValue)
@@ -89,15 +91,22 @@ export class TutoresComponent implements OnInit {
                           this.create('Tutor Ingresado')
                           $('#Loading').css('display','none')
                           $('#insert-form')[0].reset()
-                          
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 
+                          $('#Loading').css('display','none')
                         })
       
       
     }
-    
+    generar(longitud)
+    {
+      let i:number
+      var caracteres = "123456789+/-*abcdefghijkmnpqrtuvwxyz123456789+/-*ABCDEFGHIJKLMNPQRTUVWXYZ12346789+/-*";
+      var contraseña = "";
+      for (i=0; i<longitud; i++) contraseña += caracteres.charAt(Math.floor(Math.random()*caracteres.length));
+      return contraseña;
+    } 
   public options = {
                position: ["bottom", "right"],
                timeOut: 2000,

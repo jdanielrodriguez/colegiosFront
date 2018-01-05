@@ -142,6 +142,30 @@
                               </small>
                           </div>
                     </div>
+
+                    <div class="form-group col-xs-6 m-b-15">
+                        <label for="username">Usuario</label>
+                        <input type="text" class="form-control" id="username" name="username" required
+                                ngModel #username="ngModel" placeholder="username">
+                          <div *ngIf="username.invalid && (username.dirty || username.touched)"
+                                class="alert alert-danger" role="alert">
+                              <small *ngIf="username.errors.required">
+                                  El Usuario es invalido
+                              </small>
+                          </div>
+                    </div>
+
+                    <div class="form-group col-xs-6 m-b-15">
+                        <label for="email">Email</label>
+                        <input type="text" class="form-control" id="email" name="email" required
+                                ngModel #email="ngModel" placeholder="email">
+                          <div *ngIf="email.invalid && (email.dirty || email.touched)"
+                                class="alert alert-danger" role="alert">
+                              <small *ngIf="email.errors.required">
+                                  El Email es invalido
+                              </small>
+                          </div>
+                    </div>
                     
                       
                     <div class="form-group col-xs-12 text-right m-b-15">
