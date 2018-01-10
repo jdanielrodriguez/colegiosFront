@@ -106,11 +106,14 @@ export class UsuariosComponent implements OnInit {
                         })
     }
     cargarUsers(){
+      $('#Loading').css('display','block')
+      $('#Loading').addClass('in')
       this.userService.getAll()
                         .then(response => {
                           this.userTable = response
                           $("#editModal .close").click();
                           $("#insertModal .close").click();
+                          $('#Loading').css('display','none')
                           console.clear 
                         }).catch(error => {
                           console.clear     
@@ -118,6 +121,8 @@ export class UsuariosComponent implements OnInit {
                         })
     }
     cargarUser(id:number){
+      $('#Loading').css('display','block')
+      $('#Loading').addClass('in')
       this.userService.getSingle(id)
                         .then(response => {
                           this.selectedUser = response;
@@ -141,6 +146,7 @@ export class UsuariosComponent implements OnInit {
                           if(this.selectedUser.foreign){
                             this.getForeign(this.selectedUser.foreign+'',response.type+'')
                           }
+                          $('#Loading').css('display','none')
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 

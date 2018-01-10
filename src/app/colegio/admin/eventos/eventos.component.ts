@@ -58,12 +58,15 @@ export class EventosComponent implements OnInit {
       
     }
     cargarAll(){
+      $('#Loading').css('display','block')
+      $('#Loading').addClass('in')
       this.mainService.getAll()
                         .then(response => {
                           this.Table = response
                           $("#editModal .close").click();
                           $("#insertModal .close").click();
                           console.clear 
+                          $('#Loading').css('display','none')
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 
@@ -83,9 +86,12 @@ export class EventosComponent implements OnInit {
     }
 
     cargarSingle(id:number){
+      $('#Loading').css('display','block')
+      $('#Loading').addClass('in')
       this.mainService.getSingle(id)
                         .then(response => {
                           this.selectedData = response;
+                          $('#Loading').css('display','none')
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 

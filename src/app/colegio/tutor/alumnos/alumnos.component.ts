@@ -28,6 +28,7 @@ export class AlumnosComponent implements OnInit {
   view:number=1;
   private basePath:string = path.path
   url:String
+  url2:String
   constructor(
     private _service: NotificationsService,
     private route: ActivatedRoute,
@@ -54,11 +55,14 @@ charge(name:string):void{
     this.location.back();
   }
   cargarAll(){
+      $('#Loading').css('display','block')
+      $('#Loading').addClass('in')
       this.mainService.getAll(this.myId)
                         .then(response => {
                           this.Table = response
                           $("#editModal .close").click();
                           $("#insertModal .close").click();
+                          $('#Loading').css('display','none')
                           console.clear
                         }).catch(error => {
                           console.clear     
@@ -68,9 +72,12 @@ charge(name:string):void{
       
     }
     cargarSingle(id:number,id2:number){
+      $('#Loading').css('display','block')
+      $('#Loading').addClass('in')
       this.mainService.getSingle(id,id2)
                         .then(response => {
                           this.selectedData = response;
+                          $('#Loading').css('display','none')
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 
@@ -78,6 +85,10 @@ charge(name:string):void{
     }
     cargarReporte(id:number,id2:number){
       this.url = `${this.basePath}/api/subjects/${id2}/students/${id}/report`
+      
+    }
+    cargarReporteNotas(id:number,id2:number){
+      this.url2 = `${this.basePath}/api/students/${id}/notes`
       
     }
     update(formValue:any){

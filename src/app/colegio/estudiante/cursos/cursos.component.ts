@@ -35,19 +35,25 @@ export class CursosComponent implements OnInit {
       this.cargarAll()
     }
     cargarAll(){
-      this.mainService.getAll(this.Id)
+      $('#Loading').css('display','block')
+    $('#Loading').addClass('in')
+    this.mainService.getAll(this.Id)
                         .then(response => {
                           this.Table = response
                           console.clear 
+                          $('#Loading').css('display','none')
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 
                         })
     }
     cargarSingle(id:number){
-      this.mainService.getSingle(id)
+      $('#Loading').css('display','block')
+    $('#Loading').addClass('in')
+    this.mainService.getSingle(id)
                         .then(response => {
                           this.selectedData = response;
+                          $('#Loading').css('display','none')
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 

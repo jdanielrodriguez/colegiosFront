@@ -38,21 +38,29 @@ export class CursosAlumnoComponent implements OnInit {
       this.location.back();
     }
     cargarAll(){
+      $('#Loading').css('display','block')
+      $('#Loading').addClass('in')
       this.mainService.getAll(this.tipo)
                         .then(response => {
                           this.Table = response
                           console.clear 
+                          $('#Loading').css('display','none')
                         }).catch(error => {
                           console.clear     
+                          $('#Loading').css('display','none')
                           this.createError(error) 
                         })
     }
     cargarSingle(id:number){
+      $('#Loading').css('display','block')
+      $('#Loading').addClass('in')
       this.mainService.getSingle(id)
                         .then(response => {
                           this.selectedData = response;
+                          $('#Loading').css('display','none')
                         }).catch(error => {
                           console.clear     
+                          $('#Loading').css('display','none')
                           this.createError(error) 
                         })
     }

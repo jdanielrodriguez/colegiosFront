@@ -145,18 +145,23 @@ export class InscripcionJornadaComponent implements OnInit {
      
     }
     cargarAll(){
+      $('#Loading').css('display','block')
+      $('#Loading').addClass('in')
       this.mainService.getBussy()
                         .then(response => {
                           this.Table = response
                           $("#editModal .close").click();
                           $("#insertModal .close").click();
                           console.clear 
+                          $('#Loading').css('display','none')
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 
                         })
     }
     cargarSingle(id:number,id2:number){
+      $('#Loading').css('display','block')
+      $('#Loading').addClass('in')
       let values:any = (id2+'').split(',')
       this.selectedDate ={
         begin: values[1],
@@ -174,6 +179,7 @@ export class InscripcionJornadaComponent implements OnInit {
                           
                           console.clear 
                                                     
+                          $('#Loading').css('display','none')
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 

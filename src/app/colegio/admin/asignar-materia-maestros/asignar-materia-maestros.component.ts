@@ -81,11 +81,14 @@ export class AsignarMateriaMaestrosComponent implements OnInit {
           }),1)
     }
     cargarFree(){
+      $('#Loading').css('display','block')
+      $('#Loading').addClass('in')
       this.ChildsService.getAll()
                         .then(response => {
                           this.childs = response
                           this.childs.forEach((item,index)=>{
                             this.childsId.push({"id":item.id});
+                            $('#Loading').css('display','none')
                           })
                           console.clear 
                         }).catch(error => {
@@ -94,12 +97,15 @@ export class AsignarMateriaMaestrosComponent implements OnInit {
                         })
     }
     cargarAll(){
+      $('#Loading').css('display','block')
+      $('#Loading').addClass('in')
       this.mainService.getBussy()
                         .then(response => {
                           this.Table = response
                           
                           $("#editModal .close").click();
                           $("#insertModal .close").click();
+                          $('#Loading').css('display','none')
                           console.clear 
                         }).catch(error => {
                           console.clear     
@@ -108,6 +114,8 @@ export class AsignarMateriaMaestrosComponent implements OnInit {
     }
     cargarSingle(id:number,id2:number,id3:number){
 
+      $('#Loading').css('display','block')
+      $('#Loading').addClass('in')
       this.selectedGrandParent=id2
       this.cargarFree()
       this.GrandParentsService.getMyChilds(id2)
@@ -143,7 +151,8 @@ export class AsignarMateriaMaestrosComponent implements OnInit {
                                                                                               this.selectedDataSigned.forEach((item,index)=>{
                                                                                                 this.droppedItemsId.push({"id":item.id});
                                                                                               })
-                                                                                              console.clear 
+                                                                                                $('#Loading').css('display','none')
+                                                                                                console.clear 
                                                                                                                         
                                                                                             }).catch(error => {
                                                                                               console.clear     

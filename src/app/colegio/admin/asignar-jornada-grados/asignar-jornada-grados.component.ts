@@ -93,11 +93,14 @@ export class AsignarJornadaGradosComponent implements OnInit {
                         })
     }
     cargarAll(){
+      $('#Loading').css('display','block')
+      $('#Loading').addClass('in')
       this.mainService.getBussy()
                         .then(response => {
                           this.Table = response
                           $("#editModal .close").click();
                           $("#insertModal .close").click();
+                          $('#Loading').css('display','none')
                           console.clear 
                         }).catch(error => {
                           console.clear     
@@ -111,6 +114,8 @@ export class AsignarJornadaGradosComponent implements OnInit {
       this.selectedParent=null
     }
     cargarSingle(id:number){
+      $('#Loading').css('display','block')
+      $('#Loading').addClass('in')
       this.selectedParent=id
       this.droppedItemsId.length = 0;
       this.childsId.length = 0;
@@ -121,6 +126,7 @@ export class AsignarJornadaGradosComponent implements OnInit {
                           this.selectedData.forEach((item,index)=>{
                             this.droppedItemsId.push({"id":item.id});
                           })
+                          $('#Loading').css('display','none')
                           console.clear 
                                                     
                         }).catch(error => {

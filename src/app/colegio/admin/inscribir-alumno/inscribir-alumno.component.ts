@@ -38,23 +38,29 @@ export class InscribirAlumnoComponent implements OnInit {
       this.cargarFree()
     }
     cargarAll(){
+      $('#Loading').css('display','block')
+      $('#Loading').addClass('in')
       this.mainService.getAll()
                         .then(response => {
                           this.Table = response
                           $("#editModal .close").click();
                           $("#insertModal .close").click();
                           console.clear 
+                          $('#Loading').css('display','none')
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 
                         })
     }
     cargarFree(){
+      $('#Loading').css('display','block')
+      $('#Loading').addClass('in')
       this.mainService.getFree()
                         .then(response => {
                           this.comboParent = response
                           
                           console.clear 
+                          $('#Loading').css('display','none')
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 

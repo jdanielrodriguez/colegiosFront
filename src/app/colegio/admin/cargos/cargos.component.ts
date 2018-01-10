@@ -51,12 +51,15 @@ export class CargosComponent implements OnInit {
       this.cargarCombo()
     }
     cargarAll(){
+      $('#Loading').css('display','block')
+      $('#Loading').addClass('in')
       this.mainService.getAll()
                         .then(response => {
                           this.Table = response
                           $("#editModal .close").click();
                           $("#insertModal .close").click();
                           console.clear 
+                          $('#Loading').css('display','none')
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 
@@ -74,9 +77,12 @@ export class CargosComponent implements OnInit {
                         })
     }
     cargarSingle(id:number,option:string){
+      $('#Loading').css('display','block')
+      $('#Loading').addClass('in')
       this.mainService.getSingle(id,option)
                         .then(response => {
                           this.selectedData = response;
+                          $('#Loading').css('display','none')
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 

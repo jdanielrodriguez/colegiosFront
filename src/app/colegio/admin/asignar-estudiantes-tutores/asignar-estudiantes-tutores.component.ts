@@ -81,6 +81,8 @@ export class AsignarEstudiantesTutoresComponent implements OnInit {
       this.selectedParent=null
     }
     cargarFree(){
+      $('#Loading').css('display','block')
+      $('#Loading').addClass('in')
       this.ChildsService.getFreeStudents()
                         .then(response => {
                           this.childs = response
@@ -94,11 +96,14 @@ export class AsignarEstudiantesTutoresComponent implements OnInit {
                         })
     }
     cargarAll(){
+      $('#Loading').css('display','block')
+      $('#Loading').addClass('in')
       this.ParentsService.getBussy()
                         .then(response => {
                           this.Table = response
                           $("#editModal .close").click();
                           $("#insertModal .close").click();
+                          $('#Loading').css('display','none')
                           console.clear 
                         }).catch(error => {
                           console.clear     
@@ -106,6 +111,8 @@ export class AsignarEstudiantesTutoresComponent implements OnInit {
                         })
     }
     cargarSingle(id:number){
+      $('#Loading').css('display','block')
+      $('#Loading').addClass('in')
       this.selectedParent=id
       this.droppedItemsId.length = 0;
       this.cargarFree()
@@ -114,6 +121,7 @@ export class AsignarEstudiantesTutoresComponent implements OnInit {
                           this.selectedData = response
                           this.selectedData.forEach((item,index)=>{
                             this.droppedItemsId.push({"id":item.id});
+                            $('#Loading').css('display','none')
                           })
                           console.clear 
                                                     

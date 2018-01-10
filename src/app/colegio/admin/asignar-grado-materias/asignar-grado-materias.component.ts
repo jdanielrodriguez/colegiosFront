@@ -109,11 +109,14 @@ export class AsignarGradoMateriasComponent implements OnInit {
       this.selectedGrandParent=null
     }
     cargarAll(){
+      $('#Loading').css('display','block')
+      $('#Loading').addClass('in')
       this.mainService.getBussy()
                         .then(response => {
                           this.Table = response
                           $("#editModal .close").click();
                           $("#insertModal .close").click();
+                          $('#Loading').css('display','none')
                           console.clear 
                         }).catch(error => {
                           console.clear     
@@ -122,12 +125,15 @@ export class AsignarGradoMateriasComponent implements OnInit {
     }
     cargarSingle(id:number,id2:number){
 
+      $('#Loading').css('display','block')
+      $('#Loading').addClass('in')
       this.selectedGrandParent=id2
       this.cargarFree()
       this.mainService.getMyChilds(id2)
                         .then(response => {
                           this.parentCombo = response
                           
+                          $('#Loading').css('display','none')
                           console.clear 
                                                     
                         }).catch(error => {

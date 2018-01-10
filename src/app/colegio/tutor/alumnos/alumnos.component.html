@@ -34,14 +34,15 @@
                              [mfRowsOnPage]="rowsOnPage">
                         <thead>
                             <tr>
-                                <th style="width:20%;">
+                                <th style="width:15%;">
                                     <mfDefaultSorter by="students.firstname">Nombre</mfDefaultSorter></th>
                                 <th style="width:20%;">
                                     <mfDefaultSorter by="students.address">Direccion</mfDefaultSorter></th>
-                                <th style="width:20%;">
+                                <th style="width:15%;">
                                     <mfDefaultSorter by="students.phone">Telefono</mfDefaultSorter></th>
-                                <th style="width:20%;">
+                                <th style="width:15%;">
                                     <mfDefaultSorter by="students.cellphone">Celular</mfDefaultSorter></th>
+                                <th style="width:20%;"></th>
                                 <th style="width:20%;"></th>
                                 <th style="width:20%;"></th>
                             </tr>
@@ -60,6 +61,10 @@
                                 </td>
                                 <td>
                                   <a href="{{url}}" target="_blank" class="btn btn-warning circle"  (click)="cargarReporte(data.id,idSubject)" style="cursor:pointer;"><i class="fa fa-print"></i> Imprimir Detalle</a>
+                                                                      
+                                </td>
+                                <td>
+                                  <a href="{{url2}}" target="_blank" class="btn btn-info circle"  (click)="cargarReporteNotas(data.id,idSubject)" style="cursor:pointer;"><i class="fa fa-print"></i> Imprimir Notas</a>
                                                                       
                                 </td>
                             </tr>

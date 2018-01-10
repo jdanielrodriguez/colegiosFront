@@ -29,21 +29,27 @@ export class CiclosComponent implements OnInit {
       this.cargarAll()
     }
     cargarAll(){
+      $('#Loading').css('display','block')
+      $('#Loading').addClass('in')
       this.mainService.getAll()
                         .then(response => {
                           this.Table = response
                           $("#editModal .close").click();
                           $("#insertModal .close").click();
                           console.clear 
+                          $('#Loading').css('display','none')
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 
                         })
     }
     cargarSingle(id:number){
+      $('#Loading').css('display','block')
+      $('#Loading').addClass('in')
       this.mainService.getSingle(id)
                         .then(response => {
                           this.selectedData = response;
+                          $('#Loading').css('display','none')
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 

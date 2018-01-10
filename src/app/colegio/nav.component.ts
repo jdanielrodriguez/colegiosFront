@@ -7,7 +7,7 @@ import { NotificacionesService } from "./maestro/_services/notificaciones.servic
 import { NotificationsService } from 'angular2-notifications';
 
 declare var $: any
-
+import { path } from "../config.module";
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
@@ -24,6 +24,8 @@ export class NavComponent implements OnInit {
   click:boolean
   notifications:any = []
   nNotifications:number = 0;
+  private basePath:string = path.path
+  url:String
   constructor(
     private _service: NotificationsService,
     private route: ActivatedRoute,
@@ -39,6 +41,9 @@ export class NavComponent implements OnInit {
     if(this.type=="tutor"){
       this.cargarNotifications();
     }
+  }
+  impReporte() {
+    window.open(`${this.basePath}/api/students/${this.id}/notes`,'_blank');
   }
   cargarNotifications()
   {

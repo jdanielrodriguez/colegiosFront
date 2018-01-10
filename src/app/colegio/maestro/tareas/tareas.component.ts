@@ -65,17 +65,22 @@ charge(name:string):void{
     this.location.back();
   }
   cargarAll(){
-      this.route.params
+    $('#Loading').css('display','block')
+    $('#Loading').addClass('in')
+    this.route.params
                   .switchMap((params: Params) => this.mainService.getAll(+params['id']))
                   .subscribe(response => { 
                       this.Table = response.homework
                                       $("#editModal .close").click();
                                       $("#insertModal .close").click();
+                                      $('#Loading').css('display','none')
                                       console.clear 
                   });
       
     }
     cargarSingle(data:any,id:number){
+      $('#Loading').css('display','block')
+      $('#Loading').addClass('in')
       this.selectedData = {
         homework: data,
         students: []
@@ -86,6 +91,7 @@ charge(name:string):void{
       this.parentService.getAll(id)
                         .then(response => {
                           this.selectedData.students = response;
+                          $('#Loading').css('display','none')
                         }).catch(error => {
                           console.clear     
                           this.createError(error) 

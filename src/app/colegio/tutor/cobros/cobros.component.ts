@@ -73,22 +73,29 @@ charge(name:string):void{
     this.location.back();
   }
   cargarAll(){
-      this.route.params
+    $('#Loading').css('display','block')
+    $('#Loading').addClass('in')
+    this.route.params
                   .switchMap((params: Params) => this.mainService.getAll(+params['id']))
                   .subscribe(response => { 
                       this.Table = response.charges
                                       $("#editModal .close").click();
                                       $("#insertModal .close").click();
+                                      $('#Loading').css('display','none')
                                       console.clear 
                   });
       
     }
     cargarSingle(id:number,id2:number){
+      $('#Loading').css('display','block')
+      $('#Loading').addClass('in')
       this.mainService.getSingle(id)
                         .then(response => {
                           this.selectedData = response;
+                          $('#Loading').css('display','none')
                         }).catch(error => {
                           console.clear     
+                          $('#Loading').css('display','none')
                           this.createError(error) 
                         })
     }

@@ -73,9 +73,6 @@
         <li> <a routerLinkActive="active"
           [routerLink]="[ './tutor/alumnos' , 1 ]" class="waves-effect"><i class="fa fa-user fa-fw"></i> Alumnos</a>
         </li>
-        <li> <a routerLinkActive="active"
-          [routerLink]="[ './tutor/notas']" class="waves-effect"><i class="fa fa-file-pdf-o fa-fw"></i> Reporte Notas</a>
-        </li>
     </ul>
 <!-- fin menu tutores -->
 <!-- inicia menu maestros -->
@@ -123,8 +120,7 @@
     <li> <a routerLinkActive="active"
       [routerLink]="[ './estudiante/cursos' , 1 ]" class="waves-effect"><i class="fa fa-edit fa-fw"></i> Cursos</a>
     </li>
-    <li> <a routerLinkActive="active"
-      [routerLink]="[ './estudiante/notas']" class="waves-effect"><i class="fa fa-file-pdf-o fa-fw"></i> Reporte Notas</a>
+    <li> <a (click)="impReporte()" class="waves-effect"><i class="fa fa-file-pdf-o fa-fw"></i> Reporte Notas</a>
     </li>
     </ul>
    <!-- fin menu estudiantes -->
