@@ -31,6 +31,7 @@ export class CursoAlumnosComponent implements OnInit {
   view:number=1;
   private basePath:string = path.path
   url:String
+  event:any
   constructor(
     private _service: NotificationsService,
     private route: ActivatedRoute,
@@ -258,14 +259,16 @@ charge(name:string):void{
                           console.clear
                           let archivo=$('#avatar').val();
                           if(archivo=!''){
-                            var archivos=archivo.srcElement.files;
+                            var archivoss=this.event;
+                            var archivos=archivoss.srcElement.files;
+                            console.log(archivos);
                             let bar:any
                             var i=0;
                             var size=archivos[i].size;
                             var type=archivos[i].type;
                             response.forEach(element => {
                               
-                              let url = `${this.basePath}/api/homeworks/upload/${element.id}`
+                              let url = `${this.basePath}/api/recommendations/upload/${element.id}`
                               
                                   if(size<(10*(1024*1024))){
                                   $("#avatar").upload(url,
@@ -293,43 +296,46 @@ charge(name:string):void{
                           this.cargarAll()
                         }).catch(error => {
                           console.clear     
+                          $('#Loading').css('display','none')
                           this.createError(error) 
                         })
     }
     subirImagenes(archivo,form,id){
-      $('#Loading').css('display','block')
-      $('#Loading').addClass('in')
+      // $('#Loading').css('display','block')
+      // $('#Loading').addClass('in')
       var archivos=archivo.srcElement.files;
-      let url = `${this.basePath}/api/homeworks/upload/${form.id}`
-      let bar:any
-      var i=0;
-      var size=archivos[i].size;
-      var type=archivos[i].type;
-          if(size<(10*(1024*1024))){
-          $("#"+id).upload(url,
-              {
-                avatar: archivos[i],
-                description: $('#descriptionUser').val()
-            },
-            function(respuesta) 
-            {
-              bar=respuesta
-              $('#imgAvatar').attr("href",'')
-              $('#imgAvatar').attr("href",respuesta.file)
-              $('#Loading').css('display','none')
-              $("#"+id).val('')
-              $("#barra_de_progreso").val(0)
+      this.event = archivo;
+      console.log(this.event);
+      // let url = `${this.basePath}/api/homeworks/upload/${form.id}`
+      // let bar:any
+      // var i=0;
+      // var size=archivos[i].size;
+      // var type=archivos[i].type;
+      //     if(size<(10*(1024*1024))){
+      //     $("#"+id).upload(url,
+      //         {
+      //           avatar: archivos[i],
+      //           description: $('#descriptionUser').val()
+      //       },
+      //       function(respuesta) 
+      //       {
+      //         bar=respuesta
+      //         $('#imgAvatar').attr("href",'')
+      //         $('#imgAvatar').attr("href",respuesta.file)
+      //         $('#Loading').css('display','none')
+      //         $("#"+id).val('')
+      //         $("#barra_de_progreso").val(0)
               
               
-            }, 
-            function(progreso, valor) 
-            {
+      //       }, 
+      //       function(progreso, valor) 
+      //       {
                         
-              $("#barra_de_progreso").val(valor);
-            }
-          );
-        }
-        this.selectedData.file = '';
+      //         $("#barra_de_progreso").val(valor);
+      //       }
+      //     );
+      //   }
+        // this.selectedData.file = '';
     }
     childsInsert(value:any){
       $('#Loading').css('display','block')
