@@ -75,10 +75,12 @@ export class AsignarEstudiantesTutoresComponent implements OnInit {
         
     }
     limpiar(){
-      this.selectedData.length=0
-      this.droppedItemsId.length=0
-      this.droppedItems.length=0
-      this.selectedParent=null
+      if(this.selectedData){
+        this.selectedData.length=0
+        this.droppedItemsId.length=0
+        this.droppedItems.length=0
+        this.selectedParent=null
+      }
     }
     cargarFree(){
       $('#Loading').css('display','block')
@@ -114,15 +116,17 @@ export class AsignarEstudiantesTutoresComponent implements OnInit {
       $('#Loading').css('display','block')
       $('#Loading').addClass('in')
       this.selectedParent=id
-      this.droppedItemsId.length = 0;
+      if(this.droppedItemsId.length){
+        this.droppedItemsId.length = 0;
+      }
       this.cargarFree()
       this.mainService.getMyChilds(id)
                         .then(response => {
                           this.selectedData = response
                           this.selectedData.forEach((item,index)=>{
                             this.droppedItemsId.push({"id":item.id});
-                            $('#Loading').css('display','none')
                           })
+                          $('#Loading').css('display','none')
                           console.clear 
                                                     
                         }).catch(error => {
