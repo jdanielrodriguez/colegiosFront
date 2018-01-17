@@ -17,7 +17,7 @@ export class CursosAlumnoComponent implements OnInit {
   Table:any
   selectedData:any
   Id:any = localStorage.getItem('currentIdStudent');
-  tipo:any
+  tipo:any=""
   constructor(
     private _service: NotificationsService,
     private route: ActivatedRoute,
@@ -30,7 +30,7 @@ export class CursosAlumnoComponent implements OnInit {
       this.route.params
       .switchMap((params: Params) => (params['op']))
       .subscribe(response => { 
-                        this.tipo=response
+                        this.tipo+=response
                     });
       this.cargarAll()
     }

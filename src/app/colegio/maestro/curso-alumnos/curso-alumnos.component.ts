@@ -31,7 +31,7 @@ export class CursoAlumnosComponent implements OnInit {
   view:number=1;
   private basePath:string = path.path
   url:String
-  event:any
+  event:any = null
   constructor(
     private _service: NotificationsService,
     private route: ActivatedRoute,
@@ -89,6 +89,7 @@ charge(name:string):void{
                           $('#Loading').css('display','none')
                         }).catch(error => {
                           console.clear     
+                          $('#Loading').css('display','none')
                           this.createError(error) 
                         })
     }
@@ -104,6 +105,7 @@ charge(name:string):void{
                           $('#Loading').css('display','none')
                         }).catch(error => {
                           console.clear     
+                          $('#Loading').css('display','none')
                           this.createError(error) 
                         })
       
@@ -119,6 +121,7 @@ charge(name:string):void{
                           $('#Loading').css('display','none')
                         }).catch(error => {
                           console.clear     
+                          $('#Loading').css('display','none')
                           this.createError(error) 
                         })
       
@@ -135,6 +138,7 @@ charge(name:string):void{
                           
                         }).catch(error => {
                           console.clear     
+                          $('#Loading').css('display','none')
                           this.createError(error) 
                         })
       
@@ -177,6 +181,7 @@ charge(name:string):void{
                           this.cargarAll()
                         }).catch(error => {
                           console.clear     
+                          $('#Loading').css('display','none')
                           this.createError(error) 
                         })
       
@@ -198,6 +203,7 @@ charge(name:string):void{
                           $("#insertModal .close").click();
                         }).catch(error => {
                           console.clear     
+                          $('#Loading').css('display','none')
                           this.createError(error) 
                         })
       
@@ -230,10 +236,12 @@ charge(name:string):void{
                                               })
                                               .catch(error => {
                                                 console.clear     
+                                                $('#Loading').css('display','none')
                                                 this.createError(error) 
                                               })
                         }).catch(error => {
                           console.clear     
+                          $('#Loading').css('display','none')
                           this.createError(error) 
                         })
       
@@ -258,7 +266,7 @@ charge(name:string):void{
                         .then(response => {
                           console.clear
                           let archivo=$('#avatar').val();
-                          if(archivo=!''){
+                          if(this.event){
                             var archivoss=this.event;
                             var archivos=archivoss.srcElement.files;
                             console.log(archivos);
@@ -305,7 +313,7 @@ charge(name:string):void{
       // $('#Loading').addClass('in')
       var archivos=archivo.srcElement.files;
       this.event = archivo;
-      console.log(this.event);
+      // console.log(this.event);
       // let url = `${this.basePath}/api/homeworks/upload/${form.id}`
       // let bar:any
       // var i=0;
@@ -362,6 +370,7 @@ charge(name:string):void{
                           this.cargarAll()
                         }).catch(error => {
                           console.clear     
+                          $('#Loading').css('display','none')
                           this.createError(error) 
                         })
       

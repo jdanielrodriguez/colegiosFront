@@ -142,6 +142,19 @@
                               </small>
                           </div>
                     </div>
+
+
+                    <div class="form-group col-xs-12 m-b-15">
+                      <label for="personal_code">Codigo Personal</label>
+                      <input type="text" class="form-control" id="personal_code" name="personal_code" required
+                              ngModel #personal_code="ngModel" placeholder="personal_code" title="Codigo personal dado por el ministerio de educacion">
+                        <div *ngIf="personal_code.invalid && (personal_code.dirty || personal_code.touched)"
+                              class="alert alert-danger" role="alert">
+                            <small *ngIf="personal_code.errors.required">
+                                El Celular es invalido
+                            </small>
+                        </div>
+                  </div>
                     
                       
                     <div class="form-group col-xs-12 text-right m-b-15">

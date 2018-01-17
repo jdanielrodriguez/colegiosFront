@@ -85,6 +85,7 @@ charge(name:string):void{
                           $('#Loading').css('display','none')
                         }).catch(error => {
                           console.clear     
+                          $('#Loading').css('display','none')
                           this.createError(error) 
                         })
     }
@@ -104,6 +105,7 @@ charge(name:string):void{
                           $('#Loading').css('display','none')
                         }).catch(error => {
                           console.clear     
+                          $('#Loading').css('display','none')
                           this.createError(error) 
                         })
       
@@ -119,6 +121,7 @@ charge(name:string):void{
                           $('#Loading').css('display','none')
                         }).catch(error => {
                           console.clear     
+                          $('#Loading').css('display','none')
                           this.createError(error) 
                         })
       
@@ -135,6 +138,7 @@ charge(name:string):void{
                           
                         }).catch(error => {
                           console.clear     
+                          $('#Loading').css('display','none')
                           this.createError(error) 
                         })
       
@@ -157,6 +161,7 @@ charge(name:string):void{
                           this.cargarAll()
                         }).catch(error => {
                           console.clear     
+                          $('#Loading').css('display','none')
                           this.createError(error) 
                         })
       
@@ -178,6 +183,7 @@ charge(name:string):void{
                           $("#insertModal .close").click();
                         }).catch(error => {
                           console.clear     
+                          $('#Loading').css('display','none')
                           this.createError(error) 
                         })
       
@@ -200,6 +206,7 @@ charge(name:string):void{
                           $("#insertModal .close").click();
                         }).catch(error => {
                           console.clear     
+                          $('#Loading').css('display','none')
                           this.createError(error) 
                         })
       
@@ -231,6 +238,7 @@ charge(name:string):void{
                           this.cargarAll()
                         }).catch(error => {
                           console.clear     
+                          $('#Loading').css('display','none')
                           this.createError(error) 
                         })
       

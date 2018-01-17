@@ -114,6 +114,7 @@ export class ProfileComponent implements OnInit {
                           console.clear 
                         }).catch(error => {
                           console.clear     
+                          $('#Loading').css('display','none')
                           this.createError(error) 
                         })
     }
@@ -204,6 +205,7 @@ export class ProfileComponent implements OnInit {
       
                         }).catch(error => {
                           console.clear     
+                          $('#Loading').css('display','none')
                           this.createError(error) 
                         })
       

@@ -44,6 +44,7 @@ export class CursosComponent implements OnInit {
                           console.clear 
                         }).catch(error => {
                           console.clear     
+                          $('#Loading').css('display','none')
                           this.createError(error) 
                         })
     }
@@ -56,6 +57,7 @@ export class CursosComponent implements OnInit {
                           $('#Loading').css('display','none')
                         }).catch(error => {
                           console.clear     
+                          $('#Loading').css('display','none')
                           this.createError(error) 
                         })
     }
