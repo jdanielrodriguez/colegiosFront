@@ -70,7 +70,7 @@ return Promise.reject(error.message || error)
     }
 
     update(form):Promise<any> {
-    let url = `${this.basePath}/api/studentsassistance/${form.id}studentsassistance/update`
+    let url = `${this.basePath}/api/studentsassistance/${form.id}`
       return this.http.put(url,form)
                       .toPromise()
                         .then(response => {
