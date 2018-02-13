@@ -22,22 +22,22 @@
                             <div class="card-body">
                               <div class=" alert alert-info" style="padding-bottom:0px;margin-bottom:0px;">
                                 <h4 class="card-title"  style="margin-bottom:0px">
-                                  {{((Data.subjects.subjects.name!=null)?Data.subjects.subjects.name:'')}}
+                                  {{((Data.subjects!=null)?Data.subjects.subjects.name:'')}}
                                 </h4>
                                 <h6 class="card-subtitle mb-2 text-muted" style="margin-top:0px">
-                                    {{((Data.subjects.grades.cycles_studying_days.cycles.description!=null)?Data.subjects.grades.cycles_studying_days.cycles.description:'')+'-'}}                                
-                                    {{((Data.subjects.grades.cycles_studying_days.studying_days.description!=null)?Data.subjects.grades.cycles_studying_days.studying_days.description:'')}}   
+                                    {{((Data.subjects.grades.cycles_studying_days!=null)?Data.subjects.grades.cycles_studying_days.cycles.description:'')+'-'}}                                
+                                    {{((Data.subjects.grades.cycles_studying_days!=null)?Data.subjects.grades.cycles_studying_days.studying_days.description:'')}}   
                                 </h6>
                             </div>
                               <p class="card-text">
-                                  {{((Data.subjects.grades.grades.name!=null)?Data.subjects.grades.grades.name:'')}}
+                                  {{((Data.subjects.grades!=null)?Data.subjects.grades.grades.name:'')}}
                                 </p>
                                 <p class="card-text">
-                                {{((Data.subjects.subjects.comment!=null)?Data.subjects.subjects.comment:'')}}                                
+                                {{((Data.subjects.subjects!=null)?Data.subjects.subjects.comment:'')}}                                
                                   </p>
                             </div>
                             <div class="card-footer text-muted">
-                                {{((Data.subjects.subjects.description!=null)?Data.subjects.subjects.description:'')}} 
+                                {{((Data.subjects!=null)?Data.subjects.subjects.description:'')}} 
                               </div>
                           </div>
                       </div>
