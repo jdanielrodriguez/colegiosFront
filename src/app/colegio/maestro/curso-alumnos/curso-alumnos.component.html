@@ -296,7 +296,11 @@
                           <td>{{((data.homework_note!=null)?data.homework_note:'')}}</td>
                           <td>{{((data.date_end!=null)?data.date_end:'')}}</td>
                           <td><a *ngIf="data.file" href="{{data.file!=null?data.file:'#'}}" id="imgAvatar" alt="Avatar"><img  src="https://image.flaticon.com/icons/svg/149/149335.svg" style="width:20px;height:20px;"/> {{((data.file!=null)?data.name:'No entregado')}}</a></td>
-                          <td><input type="number" class="form-control" id="{{'nota'+data.id}}" [(ngModel)]="data.student_note" [ngModelOptions]="{standalone: true}"></td>
+                          <td>
+                              <div class="input-group m-t-10">
+                                  <input type="number" class="form-control" id="{{'nota'+data.id}}" [(ngModel)]="data.student_note" [ngModelOptions]="{standalone: true}">
+                                  <span class="input-group-addon"><i class="fa fa-percent"></i></span> 
+                              </div>
                           <td>
                             
                             <button type="button" class="btn btn-success btn-circle" (click)='secondChildUpdate(data)' style="cursor:pointer;"><i class="fa fa-check"></i> </button>
